@@ -49,4 +49,7 @@ public class Application extends Controller {
         return redirect("/formHello");
     }
 
+    public Result viewGraph() {
+        
+    }
 }
