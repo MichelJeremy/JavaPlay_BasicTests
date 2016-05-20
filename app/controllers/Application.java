@@ -31,19 +31,21 @@ public class Application extends Controller {
         Form<User> userForm = formFactory.form(User.class);
         Logger.debug("Form initiated.");
     
-        Map<String,String> anyData = new HashMap();
-        anyData.put("email", "john.doe@gmail.com");
-        anyData.put("password", "secret.jpg");
-        Logger.debug("Data inserted into Hashmap.");
-        User user = userForm.bind(anyData).get();
-        Logger.debug("Data bound to userForm");
+        //Map<String,String> anyData = new HashMap();
+        //anyData.put("email", "john.doe@gmail.com");
+        //anyData.put("password", "secret.jpg");
+        //Logger.debug("Data inserted into Hashmap.");
+        //User user = userForm.bind(anyData).get();
+        //Logger.debug("Data bound to userForm");
         return ok(main.render(userForm));
     }
     
     public Result loginSubmit() {
         Form<User> userForm2 = formFactory.form(User.class).bindFromRequest();
-        //Unfinished there
-        Logger.info("username : "+userForm2.get());
+        
+        User user = userForm2.get();
+        Logger.info(user.getEmail());
+        Logger.info(user.getPassword());
         return redirect("/formHello");
     }
 
