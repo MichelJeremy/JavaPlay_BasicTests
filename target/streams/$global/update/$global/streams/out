@@ -1,4 +1,4 @@
-[0m[[0minfo[0m] [0mUpdating {file:/home/jeremy/allyourbasearebelongtous/}root...[0m
+[0m[[0minfo[0m] [0mUpdating {file:/home/jeremy/JavaPlay_BasicTests/}root...[0m
 [0m[[0mdebug[0m] [0m:: resolving dependencies :: allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT[0m
 [0m[[0mdebug[0m] [0m	confs: [compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool][0m
 [0m[[0mdebug[0m] [0m	validate = true[0m
@@ -7,7 +7,7 @@
 [0m[[0mdebug[0m] [0m== resolving dependencies for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT [compile][0m
 [0m[[0mdebug[0m] [0m== resolving dependencies allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT->org.scala-lang#scala-library;2.11.7 [compile->default(compile)][0m
 [0m[[0minfo[0m] [0mResolving org.scala-lang#scala-library;2.11.7 ...[0m
-[0m[[0mdebug[0m] [0msbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@1c8a698[0m
+[0m[[0mdebug[0m] [0msbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@45880b[0m
 [0m[[0mdebug[0m] [0msbt-chain: module revision found in cache: org.scala-lang#scala-library;2.11.7[0m
 [0m[[0mdebug[0m] [0m	found org.scala-lang#scala-library;2.11.7 in sbt-chain[0m
 [0m[[0mdebug[0m] [0m	[2.11.7] org.scala-lang#scala-library;2.11.7[0m
@@ -7693,19 +7693,19 @@
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.scala-lang#scala-compiler;2.11.7!scala-compiler.jar[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.scala-lang.modules#scala-xml_2.11;1.0.4!scala-xml_2.11.jar(bundle)[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] jline#jline;2.12.1!jline.jar[0m
-[0m[[0mdebug[0m] [0m:: resolution report :: resolve 4338ms :: artifacts dl 121ms[0m
-[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT compile produced in /home/jeremy/allyourbasearebelongtous/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-compile.xml[0m
-[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT runtime produced in /home/jeremy/allyourbasearebelongtous/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-runtime.xml[0m
-[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT test produced in /home/jeremy/allyourbasearebelongtous/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-test.xml[0m
-[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT provided produced in /home/jeremy/allyourbasearebelongtous/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-provided.xml[0m
-[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT optional produced in /home/jeremy/allyourbasearebelongtous/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-optional.xml[0m
-[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT compile-internal produced in /home/jeremy/allyourbasearebelongtous/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-compile-internal.xml[0m
-[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT runtime-internal produced in /home/jeremy/allyourbasearebelongtous/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-runtime-internal.xml[0m
-[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT test-internal produced in /home/jeremy/allyourbasearebelongtous/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-test-internal.xml[0m
-[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT plugin produced in /home/jeremy/allyourbasearebelongtous/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-plugin.xml[0m
-[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT sources produced in /home/jeremy/allyourbasearebelongtous/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-sources.xml[0m
-[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT docs produced in /home/jeremy/allyourbasearebelongtous/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-docs.xml[0m
-[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT pom produced in /home/jeremy/allyourbasearebelongtous/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-pom.xml[0m
-[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT scala-tool produced in /home/jeremy/allyourbasearebelongtous/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-scala-tool.xml[0m
-[0m[[0mdebug[0m] [0m	resolve done (4338ms resolve - 121ms download)[0m
+[0m[[0mdebug[0m] [0m:: resolution report :: resolve 12214ms :: artifacts dl 597ms[0m
+[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT compile produced in /home/jeremy/JavaPlay_BasicTests/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-compile.xml[0m
+[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT runtime produced in /home/jeremy/JavaPlay_BasicTests/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-runtime.xml[0m
+[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT test produced in /home/jeremy/JavaPlay_BasicTests/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-test.xml[0m
+[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT provided produced in /home/jeremy/JavaPlay_BasicTests/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-provided.xml[0m
+[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT optional produced in /home/jeremy/JavaPlay_BasicTests/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-optional.xml[0m
+[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT compile-internal produced in /home/jeremy/JavaPlay_BasicTests/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-compile-internal.xml[0m
+[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT runtime-internal produced in /home/jeremy/JavaPlay_BasicTests/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-runtime-internal.xml[0m
+[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT test-internal produced in /home/jeremy/JavaPlay_BasicTests/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-test-internal.xml[0m
+[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT plugin produced in /home/jeremy/JavaPlay_BasicTests/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-plugin.xml[0m
+[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT sources produced in /home/jeremy/JavaPlay_BasicTests/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-sources.xml[0m
+[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT docs produced in /home/jeremy/JavaPlay_BasicTests/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-docs.xml[0m
+[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT pom produced in /home/jeremy/JavaPlay_BasicTests/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-pom.xml[0m
+[0m[[0mdebug[0m] [0m	report for allyourbasearebelongtous#allyourbasearebelongtous_2.11;1.0-SNAPSHOT scala-tool produced in /home/jeremy/JavaPlay_BasicTests/target/resolution-cache/reports/allyourbasearebelongtous-allyourbasearebelongtous_2.11-scala-tool.xml[0m
+[0m[[0mdebug[0m] [0m	resolve done (12214ms resolve - 597ms download)[0m
 [0m[[0minfo[0m] [0mDone updating.[0m

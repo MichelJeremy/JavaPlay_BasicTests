@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
-// @SOURCE:/home/jeremy/allyourbasearebelongtous/conf/routes
-// @DATE:Thu May 19 17:46:45 IST 2016
+// @SOURCE:/home/jeremy/JavaPlay_BasicTests/conf/routes
+// @DATE:Tue May 24 15:17:36 IST 2016
 
 import play.api.routing.JavaScriptReverseRoute
 import play.api.mvc.{ QueryStringBindable, PathBindable, Call, JavascriptLiteral }
@@ -43,7 +43,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:9
+    // @LINE:10
     def loginSubmit: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Application.loginSubmit",
       """
@@ -53,12 +53,22 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:8
+    // @LINE:9
     def hello: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Application.hello",
       """
         function() {
           return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "formHello"})
+        }
+      """
+    )
+  
+    // @LINE:11
+    def viewGraph: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.Application.viewGraph",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "graph"})
         }
       """
     )

@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
-// @SOURCE:/home/jeremy/allyourbasearebelongtous/conf/routes
-// @DATE:Thu May 19 17:46:45 IST 2016
+// @SOURCE:/home/jeremy/JavaPlay_BasicTests/conf/routes
+// @DATE:Tue May 24 15:17:36 IST 2016
 
 package controllers;
 
