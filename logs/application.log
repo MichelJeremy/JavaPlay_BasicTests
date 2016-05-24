@@ -1,897 +1,317 @@
-2016-05-24 14:34:35,243 [INFO] from play.core.server.NettyServer in pool-4-thread-5 - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
-2016-05-24 15:17:50,717 [ERROR] from application in netty-event-loop-3 - 
-
-! @707cb0722 - Internal server error, for (GET) [/] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error[':' expected but identifier found.]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at scala.util.Either$LeftProjection.map(Either.scala:377)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
-	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
-	at play.runsupport.Reloader.reload(Reloader.scala:336)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
-	at java.util.concurrent.ForkJoinTask$RunnableExecuteAction.exec(ForkJoinTask.java:1402)
-	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
-	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
-	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
-	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
-2016-05-24 15:18:51,765 [INFO] from application in ForkJoinPool-1-worker-0 - ApplicationTimer demo: Starting application at 2016-05-24T14:18:51.763Z
-2016-05-24 15:18:53,100 [INFO] from play.api.Play in ForkJoinPool-1-worker-0 - Application started (Dev)
-2016-05-24 15:18:53,364 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - Redirection from home to /formHello...
-2016-05-24 15:18:53,439 [DEBUG] from application in application-akka.actor.default-dispatcher-5 - Done!
-2016-05-24 15:18:53,474 [DEBUG] from application in application-akka.actor.default-dispatcher-5 - Form initiated.
-2016-05-24 15:19:06,222 [INFO] from application in application-akka.actor.default-dispatcher-9 - blbl
-2016-05-24 15:19:06,222 [INFO] from application in application-akka.actor.default-dispatcher-9 - blbl2
-2016-05-24 15:23:11,958 [INFO] from application in application-akka.actor.default-dispatcher-5 - ApplicationTimer demo: Stopping application at 2016-05-24T14:23:11.958Z after 260s.
-2016-05-24 15:23:12,373 [INFO] from application in application-akka.actor.default-dispatcher-5 - ApplicationTimer demo: Starting application at 2016-05-24T14:23:12.372Z
-2016-05-24 15:23:12,599 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-5 - Application started (Dev)
-2016-05-24 15:23:12,700 [INFO] from application in application-akka.actor.default-dispatcher-3 - blbl
-2016-05-24 15:23:12,700 [INFO] from application in application-akka.actor.default-dispatcher-3 - blbl2
-2016-05-24 15:24:12,709 [INFO] from application in application-akka.actor.default-dispatcher-4 - ApplicationTimer demo: Stopping application at 2016-05-24T14:24:12.709Z after 60s.
-2016-05-24 15:24:13,050 [INFO] from application in application-akka.actor.default-dispatcher-4 - ApplicationTimer demo: Starting application at 2016-05-24T14:24:13.046Z
-2016-05-24 15:24:13,241 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-4 - Application started (Dev)
-2016-05-24 15:24:13,319 [INFO] from application in application-akka.actor.default-dispatcher-3 - blbl
-2016-05-24 15:24:13,321 [INFO] from application in application-akka.actor.default-dispatcher-3 - blbl2
-2016-05-24 15:24:32,961 [DEBUG] from application in application-akka.actor.default-dispatcher-5 - Done!
-2016-05-24 15:24:32,961 [DEBUG] from application in application-akka.actor.default-dispatcher-5 - Form initiated.
-2016-05-24 15:24:37,954 [INFO] from application in application-akka.actor.default-dispatcher-13 - BLBL
-2016-05-24 15:24:37,954 [INFO] from application in application-akka.actor.default-dispatcher-13 - blbl
-2016-05-24 15:24:46,346 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - Done!
-2016-05-24 15:24:46,346 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - Form initiated.
-2016-05-24 15:24:47,391 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - Done!
-2016-05-24 15:24:47,391 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - Form initiated.
-2016-05-24 15:24:49,252 [DEBUG] from application in application-akka.actor.default-dispatcher-15 - Done!
-2016-05-24 15:24:49,252 [DEBUG] from application in application-akka.actor.default-dispatcher-15 - Form initiated.
-2016-05-24 15:24:50,284 [DEBUG] from application in application-akka.actor.default-dispatcher-13 - Done!
-2016-05-24 15:24:50,284 [DEBUG] from application in application-akka.actor.default-dispatcher-13 - Form initiated.
-2016-05-24 15:24:51,853 [DEBUG] from application in application-akka.actor.default-dispatcher-24 - Done!
-2016-05-24 15:24:51,853 [DEBUG] from application in application-akka.actor.default-dispatcher-24 - Form initiated.
-2016-05-24 15:24:56,716 [INFO] from application in application-akka.actor.default-dispatcher-4 - 1234
-2016-05-24 15:24:56,716 [INFO] from application in application-akka.actor.default-dispatcher-4 - 4567
-2016-05-24 15:25:01,305 [DEBUG] from application in application-akka.actor.default-dispatcher-15 - Done!
-2016-05-24 15:25:01,305 [DEBUG] from application in application-akka.actor.default-dispatcher-15 - Form initiated.
-2016-05-24 15:25:05,011 [DEBUG] from application in application-akka.actor.default-dispatcher-15 - Done!
-2016-05-24 15:25:05,011 [DEBUG] from application in application-akka.actor.default-dispatcher-15 - Form initiated.
-2016-05-24 15:32:17,557 [INFO] from application in application-akka.actor.default-dispatcher-17 - ApplicationTimer demo: Stopping application at 2016-05-24T14:32:17.557Z after 484s.
-2016-05-24 15:32:17,887 [INFO] from application in application-akka.actor.default-dispatcher-17 - ApplicationTimer demo: Starting application at 2016-05-24T14:32:17.886Z
-2016-05-24 15:32:18,064 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-17 - Application started (Dev)
-2016-05-24 15:32:18,099 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - Done!
-2016-05-24 15:32:18,100 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - Form initiated.
-2016-05-24 15:32:23,262 [INFO] from application in application-akka.actor.default-dispatcher-6 - 1234
-2016-05-24 15:32:23,262 [INFO] from application in application-akka.actor.default-dispatcher-6 - 123456
-2016-05-24 15:33:52,038 [INFO] from application in application-akka.actor.default-dispatcher-3 - ApplicationTimer demo: Stopping application at 2016-05-24T14:33:52.038Z after 95s.
-2016-05-24 15:33:52,393 [INFO] from application in application-akka.actor.default-dispatcher-3 - ApplicationTimer demo: Starting application at 2016-05-24T14:33:52.392Z
-2016-05-24 15:33:52,528 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-3 - Application started (Dev)
-2016-05-24 15:33:52,549 [DEBUG] from application in application-akka.actor.default-dispatcher-8 - Done!
-2016-05-24 15:33:52,552 [DEBUG] from application in application-akka.actor.default-dispatcher-8 - Form initiated.
-2016-05-24 15:33:58,124 [INFO] from application in application-akka.actor.default-dispatcher-6 - 1234
-2016-05-24 15:33:58,124 [INFO] from application in application-akka.actor.default-dispatcher-6 - 5678
-2016-05-24 15:35:21,835 [INFO] from application in application-akka.actor.default-dispatcher-9 - ApplicationTimer demo: Stopping application at 2016-05-24T14:35:21.835Z after 89s.
-2016-05-24 15:35:22,157 [INFO] from application in application-akka.actor.default-dispatcher-9 - ApplicationTimer demo: Starting application at 2016-05-24T14:35:22.157Z
-2016-05-24 15:35:22,354 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-9 - Application started (Dev)
-2016-05-24 15:35:22,444 [INFO] from application in application-akka.actor.default-dispatcher-4 - 1234
-2016-05-24 15:35:22,451 [INFO] from application in application-akka.actor.default-dispatcher-4 - 5678
-2016-05-24 15:55:13,541 [ERROR] from application in netty-event-loop-4 - 
-
-! @707cfnn4p - Internal server error, for (POST) [/formHello] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error[ error: invalid method declaration; return type required]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at scala.util.Either$LeftProjection.map(Either.scala:377)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
-	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
-	at play.runsupport.Reloader.reload(Reloader.scala:336)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
-	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
-	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
-	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
-	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-2016-05-24 15:56:11,863 [ERROR] from application in netty-event-loop-4 - 
-
-! @707cg15c2 - Internal server error, for (POST) [/formHello] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error[ error: cannot find symbol]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at scala.util.Either$LeftProjection.map(Either.scala:377)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
-	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
-	at play.runsupport.Reloader.reload(Reloader.scala:336)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
-	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
-	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
-	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
-	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-2016-05-24 15:56:15,206 [ERROR] from application in netty-event-loop-1 - 
-
-! @707cg1aai - Internal server error, for (GET) [/formHello] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error[ error: cannot find symbol]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at scala.util.Either$LeftProjection.map(Either.scala:377)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
-	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
-	at play.runsupport.Reloader.reload(Reloader.scala:336)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
-	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
-	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
-	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
-	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-2016-05-24 15:56:51,620 [ERROR] from application in netty-event-loop-1 - 
-
-! @707cg3c77 - Internal server error, for (GET) [/formHello] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error[ error: cannot find symbol]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at scala.util.Either$LeftProjection.map(Either.scala:377)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
-	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
-	at play.runsupport.Reloader.reload(Reloader.scala:336)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
-	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
-	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
-	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
-	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-2016-05-24 15:57:42,601 [INFO] from application in application-akka.actor.default-dispatcher-6 - ApplicationTimer demo: Stopping application at 2016-05-24T14:57:42.601Z after 1340s.
-2016-05-24 15:57:42,924 [INFO] from application in application-akka.actor.default-dispatcher-6 - ApplicationTimer demo: Starting application at 2016-05-24T14:57:42.924Z
-2016-05-24 15:57:43,068 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-6 - Application started (Dev)
-2016-05-24 15:57:43,084 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - Done!
-2016-05-24 15:57:43,086 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - Form initiated.
-2016-05-24 15:59:22,574 [INFO] from application in application-akka.actor.default-dispatcher-8 - ApplicationTimer demo: Stopping application at 2016-05-24T14:59:22.574Z after 100s.
-2016-05-24 15:59:22,945 [INFO] from application in application-akka.actor.default-dispatcher-8 - ApplicationTimer demo: Starting application at 2016-05-24T14:59:22.944Z
-2016-05-24 15:59:23,070 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-8 - Application started (Dev)
-2016-05-24 15:59:23,091 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - Done!
-2016-05-24 15:59:23,092 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - Form initiated.
-2016-05-24 16:08:03,626 [INFO] from application in application-akka.actor.default-dispatcher-4 - ApplicationTimer demo: Stopping application at 2016-05-24T15:08:03.626Z after 521s.
-2016-05-24 16:08:03,948 [INFO] from application in application-akka.actor.default-dispatcher-4 - ApplicationTimer demo: Starting application at 2016-05-24T15:08:03.947Z
-2016-05-24 16:08:04,049 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-4 - Application started (Dev)
-2016-05-24 16:08:04,083 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - Done!
-2016-05-24 16:08:04,089 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - Form initiated.
-2016-05-24 16:08:16,808 [INFO] from application in application-akka.actor.default-dispatcher-6 - 1234
-2016-05-24 16:08:16,808 [INFO] from application in application-akka.actor.default-dispatcher-6 - 123456
-2016-05-24 16:14:59,090 [ERROR] from application in netty-event-loop-2 - 
-
-! @707cid8on - Internal server error, for (GET) [/formHello] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error[ error: cannot find symbol]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at scala.util.Either$LeftProjection.map(Either.scala:377)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
-	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
-	at play.runsupport.Reloader.reload(Reloader.scala:336)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
-	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
-	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
-	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
-	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-2016-05-24 16:15:26,565 [ERROR] from application in netty-event-loop-2 - 
-
-! @707cienfi - Internal server error, for (GET) [/formHello] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error[ error: cannot find symbol]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at scala.util.Either$LeftProjection.map(Either.scala:377)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
-	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
-	at play.runsupport.Reloader.reload(Reloader.scala:336)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
-	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
-	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
-	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
-	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-2016-05-24 16:16:42,297 [ERROR] from application in netty-event-loop-2 - 
-
-! @707cij5gd - Internal server error, for (GET) [/formHello] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error[ error: variable list might not have been initialized]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at scala.util.Either$LeftProjection.map(Either.scala:377)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
-	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
-	at play.runsupport.Reloader.reload(Reloader.scala:336)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
-	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
-	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
-	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
-	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-2016-05-24 16:17:31,601 [ERROR] from application in netty-event-loop-2 - 
-
-! @707cim0em - Internal server error, for (GET) [/formHello] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error[ error: unreported exception FileNotFoundException; must be caught or declared to be thrown]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at scala.util.Either$LeftProjection.map(Either.scala:377)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
-	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
-	at play.runsupport.Reloader.reload(Reloader.scala:336)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
-	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
-	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
-	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
-	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-2016-05-24 16:20:05,619 [ERROR] from application in netty-event-loop-3 - 
-
-! @707cj4kaf - Internal server error, for (GET) [/formHello] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error[ error: unreported exception FileNotFoundException; must be caught or declared to be thrown]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at scala.util.Either$LeftProjection.map(Either.scala:377)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
-	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
-	at play.runsupport.Reloader.reload(Reloader.scala:336)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
-	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
-	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
-	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
-	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-2016-05-24 16:21:07,186 [ERROR] from application in netty-event-loop-3 - 
-
-! @707cj87c9 - Internal server error, for (GET) [/formHello] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error[ error: cannot find symbol]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at scala.util.Either$LeftProjection.map(Either.scala:377)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
-	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
-	at play.runsupport.Reloader.reload(Reloader.scala:336)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
-	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
-	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
-	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
-	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-2016-05-24 16:22:10,189 [ERROR] from application in netty-event-loop-3 - 
-
-! @707cjbmhj - Internal server error, for (GET) [/formHello] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error[ error: cannot find symbol]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at scala.util.Either$LeftProjection.map(Either.scala:377)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
-	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
-	at play.runsupport.Reloader.reload(Reloader.scala:336)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
-	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
-	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
-	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
-	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-2016-05-24 16:26:00,479 [ERROR] from application in netty-event-loop-4 - 
-
-! @707cjop92 - Internal server error, for (GET) [/formHello] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error[ error: cannot find symbol]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at scala.util.Either$LeftProjection.map(Either.scala:377)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
-	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
-	at play.runsupport.Reloader.reload(Reloader.scala:336)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
-	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
-	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
-	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
-	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-2016-05-24 16:26:32,235 [ERROR] from application in netty-event-loop-4 - 
-
-! @707ck0k8a - Internal server error, for (GET) [/formHello] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error[ error: cannot find symbol]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at scala.util.Either$LeftProjection.map(Either.scala:377)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
-	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
-	at play.runsupport.Reloader.reload(Reloader.scala:336)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
-	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
-	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
-	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
-	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-2016-05-24 16:28:14,372 [ERROR] from application in netty-event-loop-4 - 
-
-! @707ck6fag - Internal server error, for (GET) [/formHello] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error[ error: unreported exception FileNotFoundException; must be caught or declared to be thrown]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at scala.util.Either$LeftProjection.map(Either.scala:377)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
-	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
-	at play.runsupport.Reloader.reload(Reloader.scala:336)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
-	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
-	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
-	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
-	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-2016-05-24 16:31:01,635 [ERROR] from application in netty-event-loop-1 - 
-
-! @707ckg2lo - Internal server error, for (GET) [/formHello] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error[ error: unreported exception FileNotFoundException; must be caught or declared to be thrown]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at scala.util.Either$LeftProjection.map(Either.scala:377)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
-	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
-	at play.runsupport.Reloader.reload(Reloader.scala:336)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
-	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
-	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
-	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
-	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-2016-05-24 16:31:58,092 [ERROR] from application in netty-event-loop-1 - 
-
-! @707ckj89a - Internal server error, for (GET) [/formHello] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error[ error: unreported exception FileNotFoundException; must be caught or declared to be thrown]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at scala.util.Either$LeftProjection.map(Either.scala:377)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
-	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
-	at play.runsupport.Reloader.reload(Reloader.scala:336)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
-	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
-	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
-	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
-	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-2016-05-24 16:32:02,634 [ERROR] from application in netty-event-loop-1 - 
-
-! @707ckjf1p - Internal server error, for (GET) [/formHello] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error[ error: unreported exception FileNotFoundException; must be caught or declared to be thrown]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at scala.util.Either$LeftProjection.map(Either.scala:377)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
-	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
-	at play.runsupport.Reloader.reload(Reloader.scala:336)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
-	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
-	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
-	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
-	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-2016-05-24 16:35:42,082 [ERROR] from application in netty-event-loop-2 - 
-
-! @707cl61i8 - Internal server error, for (GET) [/formHello] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error[ error: cannot find symbol]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at scala.util.Either$LeftProjection.map(Either.scala:377)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
-	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
-	at play.runsupport.Reloader.reload(Reloader.scala:336)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
-	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
-	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
-	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
-	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-2016-05-24 16:36:32,020 [ERROR] from application in netty-event-loop-2 - 
-
-! @707cl8nf2 - Internal server error, for (GET) [/formHello] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error[ error: cannot find symbol]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at scala.util.Either$LeftProjection.map(Either.scala:377)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
-	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
-	at play.runsupport.Reloader.reload(Reloader.scala:336)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
-	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
-	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
-	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
-	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-2016-05-24 16:37:59,049 [ERROR] from application in netty-event-loop-2 - 
-
-! @707cldm89 - Internal server error, for (GET) [/formHello] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error[ error: cannot find symbol]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at scala.util.Either$LeftProjection.map(Either.scala:377)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
-	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
-	at play.runsupport.Reloader.reload(Reloader.scala:336)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
-	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
-	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
-	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
-	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-2016-05-24 16:40:48,403 [ERROR] from application in netty-event-loop-3 - 
-
-! @707clnclm - Internal server error, for (GET) [/formHello] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error[ error: cannot find symbol]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at scala.util.Either$LeftProjection.map(Either.scala:377)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
-	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
-	at play.runsupport.Reloader.reload(Reloader.scala:336)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
-	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
-	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
-	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
-	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-2016-05-24 16:45:17,654 [INFO] from application in application-akka.actor.default-dispatcher-7 - ApplicationTimer demo: Stopping application at 2016-05-24T15:45:17.654Z after 2234s.
-2016-05-24 16:45:18,027 [INFO] from application in application-akka.actor.default-dispatcher-7 - ApplicationTimer demo: Starting application at 2016-05-24T15:45:18.027Z
-2016-05-24 16:45:18,129 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-7 - Application started (Dev)
-2016-05-24 16:45:18,156 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - Done!
-2016-05-24 16:45:18,157 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - Form initiated.
-2016-05-24 16:45:32,147 [INFO] from application in application-akka.actor.default-dispatcher-6 - 1234
-2016-05-24 16:45:32,147 [INFO] from application in application-akka.actor.default-dispatcher-6 - 5678
-2016-05-24 16:45:32,188 [DEBUG] from application in application-akka.actor.default-dispatcher-6 - scanner ?
-2016-05-24 16:46:11,225 [INFO] from application in application-akka.actor.default-dispatcher-5 - ApplicationTimer demo: Stopping application at 2016-05-24T15:46:11.224Z after 53s.
-2016-05-24 16:46:11,664 [INFO] from application in application-akka.actor.default-dispatcher-5 - ApplicationTimer demo: Starting application at 2016-05-24T15:46:11.663Z
-2016-05-24 16:46:11,774 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-5 - Application started (Dev)
-2016-05-24 16:46:11,793 [DEBUG] from application in application-akka.actor.default-dispatcher-6 - Done!
-2016-05-24 16:46:11,794 [DEBUG] from application in application-akka.actor.default-dispatcher-6 - Form initiated.
-2016-05-24 16:48:15,046 [ERROR] from application in netty-event-loop-2 - 
-
-! @707cmmnee - Internal server error, for (GET) [/formHello] ->
- 
-play.sbt.PlayExceptions$CompilationException: Compilation error[ error: cannot find symbol]
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
-	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
-	at scala.Option.map(Option.scala:145)
-	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
-	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
-	at scala.util.Either$LeftProjection.map(Either.scala:377)
-	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
-	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
-	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
-	at play.runsupport.Reloader.reload(Reloader.scala:336)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
-	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
-	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
-	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
-	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
-	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
-	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
-2016-05-24 16:48:37,131 [INFO] from application in application-akka.actor.default-dispatcher-4 - ApplicationTimer demo: Stopping application at 2016-05-24T15:48:37.131Z after 146s.
-2016-05-24 16:48:37,431 [INFO] from application in application-akka.actor.default-dispatcher-4 - ApplicationTimer demo: Starting application at 2016-05-24T15:48:37.431Z
-2016-05-24 16:48:37,571 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-4 - Application started (Dev)
-2016-05-24 16:48:37,586 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - Done!
-2016-05-24 16:48:37,587 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - Form initiated.
-2016-05-24 16:48:57,213 [INFO] from application in application-akka.actor.default-dispatcher-3 - 1234
-2016-05-24 16:48:57,213 [INFO] from application in application-akka.actor.default-dispatcher-3 - 5678
-2016-05-24 16:48:57,219 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - value
+2016-05-24 17:01:33,496 [INFO] from play.core.server.NettyServer in pool-4-thread-4 - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+2016-05-24 17:02:04,379 [INFO] from application in ForkJoinPool-1-worker-1 - ApplicationTimer demo: Starting application at 2016-05-24T16:02:04.377Z
+2016-05-24 17:02:05,418 [INFO] from play.api.Play in ForkJoinPool-1-worker-1 - Application started (Dev)
+2016-05-24 17:02:05,668 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - Redirection from home to /formHello...
+2016-05-24 17:02:05,861 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - Done!
+2016-05-24 17:02:05,886 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - Form initiated.
+2016-05-24 17:02:10,278 [INFO] from application in application-akka.actor.default-dispatcher-4 - 1234
+2016-05-24 17:02:10,284 [INFO] from application in application-akka.actor.default-dispatcher-4 - 5678
+2016-05-24 17:02:10,293 [DEBUG] from application in application-akka.actor.default-dispatcher-4 - value
 1
-2016-05-24 16:48:57,219 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 50
+2016-05-24 17:02:10,297 [DEBUG] from application in application-akka.actor.default-dispatcher-4 - 50
 3
-2016-05-24 16:48:57,219 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 20
+2016-05-24 17:02:10,299 [DEBUG] from application in application-akka.actor.default-dispatcher-4 - 20
 5
-2016-05-24 16:48:57,219 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 0
+2016-05-24 17:02:10,301 [DEBUG] from application in application-akka.actor.default-dispatcher-4 - 0
 7
-2016-05-24 16:48:57,219 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 48
+2016-05-24 17:02:10,304 [DEBUG] from application in application-akka.actor.default-dispatcher-4 - 48
 9
-2016-05-24 16:48:57,219 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 62
+2016-05-24 17:02:10,308 [DEBUG] from application in application-akka.actor.default-dispatcher-4 - 62
 11
-2016-05-24 16:48:57,219 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 50
+2016-05-24 17:02:10,311 [DEBUG] from application in application-akka.actor.default-dispatcher-4 - 50
 13
-2016-05-24 16:48:57,219 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 40
+2016-05-24 17:02:10,312 [DEBUG] from application in application-akka.actor.default-dispatcher-4 - 40
 15
-2016-05-24 16:48:57,219 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 30
+2016-05-24 17:02:10,315 [DEBUG] from application in application-akka.actor.default-dispatcher-4 - 30
 17
-2016-05-24 16:48:57,219 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 20
+2016-05-24 17:02:10,315 [DEBUG] from application in application-akka.actor.default-dispatcher-4 - 20
 19
-2016-05-24 16:48:57,219 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 10
+2016-05-24 17:02:10,315 [DEBUG] from application in application-akka.actor.default-dispatcher-4 - 10
 
+2016-05-24 17:03:41,136 [INFO] from application in application-akka.actor.default-dispatcher-9 - ApplicationTimer demo: Stopping application at 2016-05-24T16:03:41.136Z after 97s.
+2016-05-24 17:03:41,460 [INFO] from application in application-akka.actor.default-dispatcher-9 - ApplicationTimer demo: Starting application at 2016-05-24T16:03:41.460Z
+2016-05-24 17:03:41,618 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-9 - Application started (Dev)
+2016-05-24 17:03:41,649 [DEBUG] from application in application-akka.actor.default-dispatcher-7 - Done!
+2016-05-24 17:03:41,655 [DEBUG] from application in application-akka.actor.default-dispatcher-7 - Form initiated.
+2016-05-24 17:16:31,530 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - Done!
+2016-05-24 17:16:31,530 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - Form initiated.
+2016-05-24 17:16:36,493 [INFO] from application in application-akka.actor.default-dispatcher-18 - 1234
+2016-05-24 17:16:36,496 [INFO] from application in application-akka.actor.default-dispatcher-18 - 5678
+2016-05-24 17:16:36,508 [DEBUG] from application in application-akka.actor.default-dispatcher-18 - value
+1
+2016-05-24 17:16:36,511 [DEBUG] from application in application-akka.actor.default-dispatcher-18 - 
+2
+2016-05-24 17:16:36,513 [DEBUG] from application in application-akka.actor.default-dispatcher-18 - 
+3
+2016-05-24 17:16:36,523 [DEBUG] from application in application-akka.actor.default-dispatcher-18 - 
+4
+2016-05-24 17:16:36,525 [DEBUG] from application in application-akka.actor.default-dispatcher-18 - 
+5
+2016-05-24 17:16:36,528 [DEBUG] from application in application-akka.actor.default-dispatcher-18 - 
+6
+2016-05-24 17:16:36,531 [DEBUG] from application in application-akka.actor.default-dispatcher-18 - 
+7
+2016-05-24 17:16:36,532 [DEBUG] from application in application-akka.actor.default-dispatcher-18 - 
+8
+2016-05-24 17:16:36,533 [DEBUG] from application in application-akka.actor.default-dispatcher-18 - 
+9
+2016-05-24 17:16:36,533 [DEBUG] from application in application-akka.actor.default-dispatcher-18 - 
+10
+2016-05-24 17:16:36,534 [DEBUG] from application in application-akka.actor.default-dispatcher-18 - 
+11
+2016-05-24 17:16:36,534 [DEBUG] from application in application-akka.actor.default-dispatcher-18 - 
+12
+2016-05-24 17:16:36,534 [DEBUG] from application in application-akka.actor.default-dispatcher-18 - 
+13
+2016-05-24 17:16:36,534 [DEBUG] from application in application-akka.actor.default-dispatcher-18 - 
+14
+2016-05-24 17:16:36,535 [DEBUG] from application in application-akka.actor.default-dispatcher-18 - 
+15
+2016-05-24 17:16:36,535 [DEBUG] from application in application-akka.actor.default-dispatcher-18 - 
+16
+2016-05-24 17:16:36,535 [DEBUG] from application in application-akka.actor.default-dispatcher-18 - 
+17
+2016-05-24 17:16:36,535 [DEBUG] from application in application-akka.actor.default-dispatcher-18 - 
+18
+2016-05-24 17:16:36,536 [DEBUG] from application in application-akka.actor.default-dispatcher-18 - 
+19
+2016-05-24 17:16:36,536 [DEBUG] from application in application-akka.actor.default-dispatcher-18 - 
+20
+2016-05-24 17:16:36,536 [DEBUG] from application in application-akka.actor.default-dispatcher-18 - 
+
+2016-05-24 17:16:36,567 [ERROR] from akka.actor.ActorSystemImpl in application-akka.actor.default-dispatcher-11 - Uncaught fatal error from thread [application-akka.actor.default-dispatcher-18] shutting down ActorSystem [application]
+java.lang.NoSuchMethodError: views.html.graph.render(Ljava/util/Map;)Lplay/twirl/api/Html;
+	at controllers.Application.loginSubmit(Application.java:75)
+	at router.Routes$$anonfun$routes$1$$anonfun$applyOrElse$3$$anonfun$apply$3.apply(Routes.scala:161)
+	at router.Routes$$anonfun$routes$1$$anonfun$applyOrElse$3$$anonfun$apply$3.apply(Routes.scala:161)
+	at play.core.routing.HandlerInvokerFactory$$anon$4.resultCall(HandlerInvoker.scala:157)
+	at play.core.routing.HandlerInvokerFactory$$anon$4.resultCall(HandlerInvoker.scala:156)
+	at play.core.routing.HandlerInvokerFactory$JavaActionInvokerFactory$$anon$14$$anon$3$$anon$1.invocation(HandlerInvoker.scala:136)
+	at play.core.j.JavaAction$$anon$1.call(JavaAction.scala:73)
+	at play.http.HttpRequestHandler$1.call(HttpRequestHandler.java:54)
+	at play.core.j.JavaAction$$anonfun$7.apply(JavaAction.scala:108)
+	at play.core.j.JavaAction$$anonfun$7.apply(JavaAction.scala:108)
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
+	at play.core.j.HttpExecutionContext$$anon$2.run(HttpExecutionContext.scala:56)
+	at play.api.libs.iteratee.Execution$trampoline$.execute(Execution.scala:70)
+	at play.core.j.HttpExecutionContext.execute(HttpExecutionContext.scala:48)
+	at scala.concurrent.impl.Future$.apply(Future.scala:31)
+	at scala.concurrent.Future$.apply(Future.scala:492)
+	at play.core.j.JavaAction.apply(JavaAction.scala:108)
+	at play.api.mvc.Action$$anonfun$apply$2$$anonfun$apply$5$$anonfun$apply$6.apply(Action.scala:112)
+	at play.api.mvc.Action$$anonfun$apply$2$$anonfun$apply$5$$anonfun$apply$6.apply(Action.scala:112)
+	at play.utils.Threads$.withContextClassLoader(Threads.scala:21)
+	at play.api.mvc.Action$$anonfun$apply$2$$anonfun$apply$5.apply(Action.scala:111)
+	at play.api.mvc.Action$$anonfun$apply$2$$anonfun$apply$5.apply(Action.scala:110)
+	at scala.Option.map(Option.scala:146)
+	at play.api.mvc.Action$$anonfun$apply$2.apply(Action.scala:110)
+	at play.api.mvc.Action$$anonfun$apply$2.apply(Action.scala:103)
+	at scala.concurrent.Future$$anonfun$flatMap$1.apply(Future.scala:251)
+	at scala.concurrent.Future$$anonfun$flatMap$1.apply(Future.scala:249)
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:32)
+	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:55)
+	at akka.dispatch.BatchingExecutor$BlockableBatch$$anonfun$run$1.apply$mcV$sp(BatchingExecutor.scala:91)
+	at akka.dispatch.BatchingExecutor$BlockableBatch$$anonfun$run$1.apply(BatchingExecutor.scala:91)
+	at akka.dispatch.BatchingExecutor$BlockableBatch$$anonfun$run$1.apply(BatchingExecutor.scala:91)
+	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:72)
+	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:90)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
+	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+2016-05-24 17:18:11,257 [INFO] from application in application-akka.actor.default-dispatcher-21 - ApplicationTimer demo: Stopping application at 2016-05-24T16:18:11.257Z after 870s.
+2016-05-24 17:18:11,662 [INFO] from application in application-akka.actor.default-dispatcher-21 - ApplicationTimer demo: Starting application at 2016-05-24T16:18:11.661Z
+2016-05-24 17:18:11,893 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-21 - Application started (Dev)
+2016-05-24 17:18:11,917 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - Done!
+2016-05-24 17:18:11,918 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - Form initiated.
+2016-05-24 17:18:30,057 [INFO] from application in application-akka.actor.default-dispatcher-5 - ApplicationTimer demo: Stopping application at 2016-05-24T16:18:30.057Z after 19s.
+2016-05-24 17:18:30,404 [INFO] from application in application-akka.actor.default-dispatcher-5 - ApplicationTimer demo: Starting application at 2016-05-24T16:18:30.404Z
+2016-05-24 17:18:30,573 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-5 - Application started (Dev)
+2016-05-24 17:18:30,590 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - Done!
+2016-05-24 17:18:30,591 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - Form initiated.
+2016-05-24 17:18:33,737 [INFO] from application in application-akka.actor.default-dispatcher-2 - 1234
+2016-05-24 17:18:33,738 [INFO] from application in application-akka.actor.default-dispatcher-2 - 5678
+2016-05-24 17:18:33,741 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - day
+2016-05-24 17:18:33,744 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 20
+2016-05-24 17:18:33,746 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 50
+2016-05-24 17:18:33,747 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 25
+2016-05-24 17:18:33,748 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 20
+2016-05-24 17:18:33,749 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 20
+2016-05-24 17:18:33,753 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 0
+2016-05-24 17:18:33,753 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 100
+2016-05-24 17:18:33,754 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 48
+2016-05-24 17:18:33,755 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 55
+2016-05-24 17:18:33,755 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 62
+2016-05-24 17:18:33,755 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 59
+2016-05-24 17:18:33,755 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 50
+2016-05-24 17:18:33,755 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 45
+2016-05-24 17:18:33,755 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 40
+2016-05-24 17:18:33,756 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 35
+2016-05-24 17:18:33,756 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 30
+2016-05-24 17:18:33,756 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 25
+2016-05-24 17:18:33,756 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 20
+2016-05-24 17:18:33,756 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 15
+2016-05-24 17:18:33,756 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 10
+2016-05-24 17:19:43,037 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - Done!
+2016-05-24 17:19:43,037 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - Form initiated.
+2016-05-24 17:19:50,882 [INFO] from application in application-akka.actor.default-dispatcher-14 - 1234
+2016-05-24 17:19:50,886 [INFO] from application in application-akka.actor.default-dispatcher-14 - 5678
+2016-05-24 17:19:50,895 [DEBUG] from application in application-akka.actor.default-dispatcher-14 - 1
+2016-05-24 17:19:50,896 [DEBUG] from application in application-akka.actor.default-dispatcher-14 - 
+2
+2016-05-24 17:19:50,897 [DEBUG] from application in application-akka.actor.default-dispatcher-14 - 
+3
+2016-05-24 17:19:50,898 [DEBUG] from application in application-akka.actor.default-dispatcher-14 - 
+4
+2016-05-24 17:19:50,900 [DEBUG] from application in application-akka.actor.default-dispatcher-14 - 
+5
+2016-05-24 17:19:50,900 [DEBUG] from application in application-akka.actor.default-dispatcher-14 - 
+6
+2016-05-24 17:19:50,900 [DEBUG] from application in application-akka.actor.default-dispatcher-14 - 
+7
+2016-05-24 17:19:50,900 [DEBUG] from application in application-akka.actor.default-dispatcher-14 - 
+8
+2016-05-24 17:19:50,900 [DEBUG] from application in application-akka.actor.default-dispatcher-14 - 
+9
+2016-05-24 17:19:50,901 [DEBUG] from application in application-akka.actor.default-dispatcher-14 - 
+10
+2016-05-24 17:19:50,901 [DEBUG] from application in application-akka.actor.default-dispatcher-14 - 
+11
+2016-05-24 17:19:50,901 [DEBUG] from application in application-akka.actor.default-dispatcher-14 - 
+12
+2016-05-24 17:19:50,901 [DEBUG] from application in application-akka.actor.default-dispatcher-14 - 
+13
+2016-05-24 17:19:50,902 [DEBUG] from application in application-akka.actor.default-dispatcher-14 - 
+14
+2016-05-24 17:19:50,902 [DEBUG] from application in application-akka.actor.default-dispatcher-14 - 
+15
+2016-05-24 17:19:50,902 [DEBUG] from application in application-akka.actor.default-dispatcher-14 - 
+16
+2016-05-24 17:19:50,902 [DEBUG] from application in application-akka.actor.default-dispatcher-14 - 
+17
+2016-05-24 17:19:50,903 [DEBUG] from application in application-akka.actor.default-dispatcher-14 - 
+18
+2016-05-24 17:19:50,903 [DEBUG] from application in application-akka.actor.default-dispatcher-14 - 
+19
+2016-05-24 17:19:50,903 [DEBUG] from application in application-akka.actor.default-dispatcher-14 - 
+20
+2016-05-24 17:19:50,904 [DEBUG] from application in application-akka.actor.default-dispatcher-14 - 
+
+2016-05-24 17:20:30,002 [INFO] from application in application-akka.actor.default-dispatcher-14 - ApplicationTimer demo: Stopping application at 2016-05-24T16:20:30.002Z after 120s.
+2016-05-24 17:20:30,282 [INFO] from application in application-akka.actor.default-dispatcher-14 - ApplicationTimer demo: Starting application at 2016-05-24T16:20:30.281Z
+2016-05-24 17:20:30,429 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-14 - Application started (Dev)
+2016-05-24 17:20:30,454 [DEBUG] from application in application-akka.actor.default-dispatcher-6 - Done!
+2016-05-24 17:20:30,457 [DEBUG] from application in application-akka.actor.default-dispatcher-6 - Form initiated.
+2016-05-24 17:20:36,140 [INFO] from application in application-akka.actor.default-dispatcher-3 - 5678
+2016-05-24 17:20:36,142 [INFO] from application in application-akka.actor.default-dispatcher-3 - 1234
+2016-05-24 17:20:36,145 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 20
+2016-05-24 17:20:36,147 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 50
+2016-05-24 17:20:36,148 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 25
+2016-05-24 17:20:36,150 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 20
+2016-05-24 17:20:36,151 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 20
+2016-05-24 17:20:36,153 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 0
+2016-05-24 17:20:36,155 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 100
+2016-05-24 17:20:36,156 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 48
+2016-05-24 17:20:36,156 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 55
+2016-05-24 17:20:36,157 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 62
+2016-05-24 17:20:36,157 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 59
+2016-05-24 17:20:36,157 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 50
+2016-05-24 17:20:36,158 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 45
+2016-05-24 17:20:36,158 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 40
+2016-05-24 17:20:36,158 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 35
+2016-05-24 17:20:36,159 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 30
+2016-05-24 17:20:36,159 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 25
+2016-05-24 17:20:36,159 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 20
+2016-05-24 17:20:36,160 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 15
+2016-05-24 17:20:36,160 [DEBUG] from application in application-akka.actor.default-dispatcher-3 - 10
+2016-05-24 17:24:14,747 [ERROR] from application in netty-event-loop-3 - 
+
+! @707d1fk6h - Internal server error, for (GET) [/formHello] ->
+ 
+play.sbt.PlayExceptions$CompilationException: Compilation error[type mismatch;
+ found   : String
+ required: Int]
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
+	at play.sbt.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27)
+	at scala.Option.map(Option.scala:145)
+	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:49)
+	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44)
+	at scala.Option.map(Option.scala:145)
+	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44)
+	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40)
+	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
+	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17)
+	at scala.util.Either$LeftProjection.map(Either.scala:377)
+	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17)
+	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
+	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61)
+	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:338)
+	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39)
+	at play.runsupport.Reloader.reload(Reloader.scala:336)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:118)
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:116)
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24)
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24)
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:39)
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:405)
+	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+2016-05-24 17:26:33,074 [INFO] from application in application-akka.actor.default-dispatcher-6 - ApplicationTimer demo: Stopping application at 2016-05-24T16:26:33.074Z after 363s.
+2016-05-24 17:26:33,360 [INFO] from application in application-akka.actor.default-dispatcher-6 - ApplicationTimer demo: Starting application at 2016-05-24T16:26:33.359Z
+2016-05-24 17:26:33,511 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-6 - Application started (Dev)
+2016-05-24 17:26:33,556 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - Done!
+2016-05-24 17:26:33,560 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - Form initiated.
+2016-05-24 17:26:38,963 [INFO] from application in application-akka.actor.default-dispatcher-2 - 1234
+2016-05-24 17:26:38,965 [INFO] from application in application-akka.actor.default-dispatcher-2 - 5678
+2016-05-24 17:26:38,980 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 20
+2016-05-24 17:26:38,980 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 50
+2016-05-24 17:26:38,980 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 25
+2016-05-24 17:26:38,980 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 20
+2016-05-24 17:26:38,980 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 20
+2016-05-24 17:26:38,980 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 0
+2016-05-24 17:26:38,980 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 100
+2016-05-24 17:26:38,980 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 48
+2016-05-24 17:26:38,980 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 55
+2016-05-24 17:26:38,981 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 62
+2016-05-24 17:26:38,982 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 59
+2016-05-24 17:26:38,982 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 50
+2016-05-24 17:26:38,982 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 45
+2016-05-24 17:26:38,982 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 40
+2016-05-24 17:26:38,982 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 35
+2016-05-24 17:26:38,982 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 30
+2016-05-24 17:26:38,985 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 25
+2016-05-24 17:26:38,988 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 20
+2016-05-24 17:26:39,000 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 15
+2016-05-24 17:26:39,002 [DEBUG] from application in application-akka.actor.default-dispatcher-2 - 10
+2016-05-24 17:28:46,261 [INFO] from application in application-akka.actor.default-dispatcher-3 - ApplicationTimer demo: Stopping application at 2016-05-24T16:28:46.261Z after 133s.
+2016-05-24 17:28:46,536 [INFO] from application in application-akka.actor.default-dispatcher-3 - ApplicationTimer demo: Starting application at 2016-05-24T16:28:46.536Z
+2016-05-24 17:28:46,680 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-3 - Application started (Dev)
+2016-05-24 17:28:46,754 [INFO] from application in application-akka.actor.default-dispatcher-9 - 1234
+2016-05-24 17:28:46,755 [INFO] from application in application-akka.actor.default-dispatcher-9 - 5678
+2016-05-24 17:28:46,757 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - 20
+2016-05-24 17:28:46,759 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - 50
+2016-05-24 17:28:46,759 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - 25
+2016-05-24 17:28:46,759 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - 20
+2016-05-24 17:28:46,759 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - 20
+2016-05-24 17:28:46,759 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - 0
+2016-05-24 17:28:46,759 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - 100
+2016-05-24 17:28:46,759 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - 48
+2016-05-24 17:28:46,759 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - 55
+2016-05-24 17:28:46,759 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - 62
+2016-05-24 17:28:46,759 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - 59
+2016-05-24 17:28:46,759 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - 50
+2016-05-24 17:28:46,759 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - 45
+2016-05-24 17:28:46,760 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - 40
+2016-05-24 17:28:46,765 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - 35
+2016-05-24 17:28:46,767 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - 30
+2016-05-24 17:28:46,767 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - 25
+2016-05-24 17:28:46,767 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - 20
+2016-05-24 17:28:46,767 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - 15
+2016-05-24 17:28:46,767 [DEBUG] from application in application-akka.actor.default-dispatcher-9 - 10

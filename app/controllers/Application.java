@@ -72,7 +72,7 @@ public class Application extends Controller {
             i++;
         }
         //renders graph.render with the hashmap
-        return ok(graph.render(userInfo));
+        return ok(graph.render(userInfo, list));
     }
 
     public Result viewGraph() {

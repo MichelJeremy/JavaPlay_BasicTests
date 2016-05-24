@@ -1,5 +1,4 @@
-@(userInfo: Map[String, String])
-@import helper._
+@(userInfo: Map[String, String], list: List[String])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +12,9 @@
     <body>
         <h1>User infos</h1>
         Email: @userInfo.get("email")<br>
-        Password: @userInfo.get("password")
+        Password: @userInfo.get("password")<br>
+        @for(l <- 0 until list.size) {
+            @list.get(l)<br>         
+        }
     </body>
 </html>
