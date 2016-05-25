@@ -66,9 +66,10 @@ public class Application extends Controller {
         
         // Read CVS file & send it into ArrayList list
         list = tools.readCsv("/home/jeremy/JavaPlay_BasicTests/public/sources/data.csv", ";", list);
+        Logger.info(list.size()+" results found in CVS file");
         int i = 0;
         while (i< list.size()) {
-            Logger.debug(list.get(i));
+            //Logger.debug(list.get(i));
             i++;
         }
         //renders graph.render with the hashmap
@@ -76,9 +77,12 @@ public class Application extends Controller {
     }
 
     public Result viewGraph() {
+        // Create an instance of Tools & an arraylist
+        Tools tools = new Tools();
+        ArrayList<String> list = new ArrayList<String>();
         // Read csv file
-        // send data to js
-        // make graph with data using amCharts
-        return TODO;
+        list = tools.readCsv("/home/jeremy/JavaPlay_BasicTests/public/sources/data.csv", ";", list);
+        // send data to html page & render it
+        return ok(viewGraph.render(list));
     }
 }
