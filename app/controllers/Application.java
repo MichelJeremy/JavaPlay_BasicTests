@@ -85,4 +85,8 @@ public class Application extends Controller {
         // send data to html page & render it
         return ok(viewGraph.render(list));
     }
+    
+    public Result viewGraphv2() {
+        return TODO;
+    }
 }

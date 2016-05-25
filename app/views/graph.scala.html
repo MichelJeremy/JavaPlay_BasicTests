@@ -9,7 +9,7 @@
         <script src="@routes.Assets.versioned("javascripts/hello.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/amcharts/amcharts.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/amcharts/serial.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/amcharts/theme/light.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/amcharts/themes/light.js")" type="text/javascript"></script>
     </head>
     
     <body>
@@ -23,12 +23,12 @@
         <script type="text/javascript">
             // Initiation of empty Object array chartData
             var chartData = [];
-            var firstDate = new Date();
-            firstDate.setDate(firstDate.getDate());
+            var firstDate = new Date("2015-03-25");
+            //firstDate.setDate(firstDate.getDate());
             
             @for(l <- 0 until list.size) {
-                var newDate = new Date(firstDate);
-                newDate.setDate(newDate.getDate()+@(l+1))
+                var newDate = new Date("2015-03-25");
+                //newDate.setDate(newDate.getDate()+@(l+1));
                 var tonsOfBananas = @list.get(l);
                 
                 chartData.push({
@@ -76,6 +76,7 @@
                 },
                 "categoryField": "date",
                 "categoryAxis": {
+                    "dataDateFormat": "YYYY",
                     "parseDates": true,
                     "axisColor": "#DADADA",
                     "dashLength": 1,
