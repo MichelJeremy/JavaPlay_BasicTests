@@ -99,4 +99,11 @@ public class Application extends Controller {
         }
         return ok(graphv2.render(list));
     }
+    
+    public Result d3Graph() {
+        Tools tools = new Tools();
+        ArrayList<String> list = new ArrayList<String>();
+        list = tools.readCsv2("/home/jeremy/JavaPlay_BasicTests/public/sources/data2.csv", ";", list);
+        return ok(graphv2.render(list));
+    }
 }

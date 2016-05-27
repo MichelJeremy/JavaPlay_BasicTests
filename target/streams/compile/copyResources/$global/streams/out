@@ -1,4 +1,0 @@
-[0m[[0mdebug[0m] [0mCopy resource mappings: [0m
-[0m[[0mdebug[0m] [0m	(/home/jeremy/JavaPlay_BasicTests/conf/routes,/home/jeremy/JavaPlay_BasicTests/target/scala-2.11/classes/routes)[0m
-[0m[[0mdebug[0m] [0m	(/home/jeremy/JavaPlay_BasicTests/conf/logback.xml,/home/jeremy/JavaPlay_BasicTests/target/scala-2.11/classes/logback.xml)[0m
-[0m[[0mdebug[0m] [0m	(/home/jeremy/JavaPlay_BasicTests/conf/application.conf,/home/jeremy/JavaPlay_BasicTests/target/scala-2.11/classes/application.conf)[0m
