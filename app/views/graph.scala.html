@@ -23,12 +23,12 @@
         <script type="text/javascript">
             // Initiation of empty Object array chartData
             var chartData = [];
-            var firstDate = new Date("2015-03-25");
+            var firstDate = new Date();
             //firstDate.setDate(firstDate.getDate());
             
             @for(l <- 0 until list.size) {
-                var newDate = new Date("2015-03-25");
-                //newDate.setDate(newDate.getDate()+@(l+1));
+                var newDate = new Date(firstDate);
+                newDate.setDate(newDate.getDate()+@(l+1));
                 var tonsOfBananas = @list.get(l);
                 
                 chartData.push({

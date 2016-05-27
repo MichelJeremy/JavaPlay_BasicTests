@@ -87,6 +87,16 @@ public class Application extends Controller {
     }
     
     public Result viewGraphv2() {
-        return TODO;
+        // creating instances each time might be a problem ?
+        Tools tools = new Tools();
+        ArrayList<String> list = new ArrayList<String>();
+        //Read csv file
+        list = tools.readCsv2("/home/jeremy/JavaPlay_BasicTests/public/sources/data2.csv", ";", list);
+        int i = 0;
+        while (i < list.size()) {
+            Logger.debug(list.get(i));
+            i++;
+        }
+        return ok(graphv2.render(list));
     }
 }
