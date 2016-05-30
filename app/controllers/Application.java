@@ -104,6 +104,6 @@ public class Application extends Controller {
         Tools tools = new Tools();
         ArrayList<String> list = new ArrayList<String>();
         list = tools.readCsv2("/home/jeremy/JavaPlay_BasicTests/public/sources/data2.csv", ";", list);
-        return ok(graphv2.render(list));
+        return ok(d3Graph.render(list));
     }
 }
