@@ -65,7 +65,7 @@ public class Application extends Controller {
         ArrayList<String> list = new ArrayList<String>();
         
         // Read CVS file & send it into ArrayList list
-        list = tools.readCsv("/home/jeremy/JavaPlay_BasicTests/public/sources/data.csv", ";", list);
+        list = tools.readCsv("/home/jeremy/dev/java/JavaPlay_BasicTests/public/sources/data.csv", ";", list);
         Logger.info(list.size()+" results found in CVS file");
         int i = 0;
         while (i< list.size()) {
@@ -81,7 +81,7 @@ public class Application extends Controller {
         Tools tools = new Tools();
         ArrayList<String> list = new ArrayList<String>();
         // Read csv file
-        list = tools.readCsv("/home/jeremy/JavaPlay_BasicTests/public/sources/data.csv", ";", list);
+        list = tools.readCsv("/home/jeremy/dev/java/JavaPlay_BasicTests/public/sources/data.csv", ";", list);
         // send data to html page & render it
         return ok(viewGraph.render(list));
     }
@@ -91,7 +91,7 @@ public class Application extends Controller {
         Tools tools = new Tools();
         ArrayList<String> list = new ArrayList<String>();
         //Read csv file
-        list = tools.readCsv2("/home/jeremy/JavaPlay_BasicTests/public/sources/data2.csv", ";", list);
+        list = tools.readCsv2("/home/jeremy/dev/java/JavaPlay_BasicTests/public/sources/data2.csv", ";", list);
         int i = 0;
         while (i < list.size()) {
             Logger.debug(list.get(i));
@@ -103,7 +103,14 @@ public class Application extends Controller {
     public Result d3Graph() {
         Tools tools = new Tools();
         ArrayList<String> list = new ArrayList<String>();
-        list = tools.readCsv2("/home/jeremy/JavaPlay_BasicTests/public/sources/data2.csv", ";", list);
+        list = tools.readCsv2("/home/jeremy/dev/java/JavaPlay_BasicTests/public/sources/data2.csv", ";", list);
         return ok(d3Graph.render(list));
+    }
+
+     public Result d3Graphv2() {
+        Tools tools = new Tools();
+        ArrayList<String> list = new ArrayList<String>();
+        list = tools.readCsv2("/home/jeremy/dev/java/JavaPlay_BasicTests/public/sources/data2.csv", ";", list);
+        return ok(d3Graphv2.render(list));
     }
 }
