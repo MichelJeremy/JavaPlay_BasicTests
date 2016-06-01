@@ -17,31 +17,10 @@
             margin: 0;
         }
 
-        html, body {
-            height: 100%;
-        }
-
-        path {
-            fill: none;
-            stroke: black;
-        }
-
         svg {
             display: block;
             width: 100%;
             height: 100%;
-        }
-
-        svg .data-point {
-            stroke: blue;
-            stroke-width: 1.5px;
-            fill: blue;        
-        }
-
-        svg .data-point-text {
-            font-family: sans-serif;
-            font-size: 11px;
-            fill: red;
         }
 
         svg .axis path, 
@@ -65,10 +44,10 @@
             var i;
             // goes through every members of the data arraylist
             @for(l <- 0 until list.size) {
-                // checks every 4 members, except the ery first which is text (= every Ids)
+                // checks every 4 members, except the very first (0) which is text (= every Ids)
                 
                 @if(l%4 == 0 && l != 0) {
-                    // checks every embers of listofSensorId
+                    // checks every members of listofSensorId
                     for(i = 0; i < listOfSensorId.length; i++) {
                         // if the list members exists in listofsensorsId, go to next value
                         if(@list.get(l) == listOfSensorId[i]) {
@@ -157,7 +136,7 @@
             // y-position encoding
             var y = d3.scale.linear()
                 .range([height, 0])
-                .domain([0, maxY]);
+                .domain([minY, maxY]);
 
 
             // init x axis
@@ -174,12 +153,13 @@
 
             // display line shape
             var line = d3.svg.line()
-                .interpolate("basis")
+                /*interpolate basis smoothes the peaks*/
+                .interpolate("linear")
                 .x(function(d) { return x(d.date);})
                 .y(function(d) { return y(d.tonsOfBananas);});
 
 
-
+            // parse the String dates to Date dates for every chartDatas
             chartData1.forEach(function(d) {
                 d.date = parseDate(d.date);
             })
@@ -219,14 +199,16 @@
                     .style("text-anchor", "end")
                     .text("Bananas (tons)");
 
+            svg.append("svg:path")
+                .attr("d", line(chartData1))
+                .attr("stroke", "blue")
+                .attr("fill", "none");
 
-            svg.append("path")
-                    .attr("d", line(chartData1))
-                    .attr("stroke", "blue")
+            svg.append("svg:path")
+                .attr("d", line(chartData2))
+                .attr("stroke", "red")
+                .attr("fill", "none");
 
-            /*svg.append("path")
-                    .attr("d", line(chartData2))
-                    .attr("stroke", "red");*/
-
+   
         </script>
     </body>

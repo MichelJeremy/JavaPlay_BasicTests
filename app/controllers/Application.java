@@ -108,9 +108,16 @@ public class Application extends Controller {
     }
 
      public Result d3Graphv2() {
+        int i = 0;
         Tools tools = new Tools();
         ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> chartDatas = new ArrayList<String>();
         list = tools.readCsv2("/home/jeremy/dev/java/JavaPlay_BasicTests/public/sources/data2.csv", ";", list);
+        chartDatas = tools.csvToChartDataLine(list, chartDatas);
+        while (i < chartDatas.size()) {
+            Logger.debug(chartDatas.get(i));
+            i++;
+        }
         return ok(d3Graphv2.render(list));
     }
 }
