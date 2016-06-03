@@ -12,6 +12,7 @@ GET     /graph                      controllers.Application.viewGraph
 GET     /graphv2                    controllers.Application.viewGraphv2
 GET     /d3Graph                    controllers.Application.d3Graph
 GET		/d3Graphv2					controllers.Application.d3Graphv2
+GET		/d3Graphv2Java				controllers.Application.d3Graphv2Java
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

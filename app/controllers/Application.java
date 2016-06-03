@@ -107,17 +107,21 @@ public class Application extends Controller {
         return ok(d3Graph.render(list));
     }
 
-     public Result d3Graphv2() {
+    public Result d3Graphv2() {
+        Tools tools = new Tools();
+        ArrayList<String> list = new ArrayList<String>();
+        list = tools.readCsv2("/home/jeremy/dev/java/JavaPlay_BasicTests/public/sources/data2.csv", ";", list);
+        return ok(d3Graphv2.render(list));
+    }
+
+
+     public Result d3Graphv2Java() {
         int i = 0;
         Tools tools = new Tools();
         ArrayList<String> list = new ArrayList<String>();
         ArrayList<String> chartDatas = new ArrayList<String>();
         list = tools.readCsv2("/home/jeremy/dev/java/JavaPlay_BasicTests/public/sources/data2.csv", ";", list);
         chartDatas = tools.csvToChartDataLine(list, chartDatas);
-        while (i < chartDatas.size()) {
-            Logger.debug(chartDatas.get(i));
-            i++;
-        }
-        return ok(d3Graphv2.render(list));
+        return ok(d3Graphv2Java.render(chartDatas));
     }
 }

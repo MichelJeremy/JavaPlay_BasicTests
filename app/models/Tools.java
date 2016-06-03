@@ -66,9 +66,14 @@ public class Tools {
 
         StringBuilder sb = new StringBuilder();
 
+        // var initialisation
         i = 0;
         j = 0;
-        chartData.set(0, null);
+        id = 0;
+        value = 0;
+        newDate = "";
+        dateMinus = "";
+        chartData.add("0");
         // goes through every members of the data arraylist
         for (i=0; i<list.size(); i++) {
             // checks every 4 members, except the very first (0) which is the column header  (= every Ids)
@@ -76,45 +81,37 @@ public class Tools {
                 // checks every members of sensor ids
                 for (j=0; j<ids.size(); j++) {
                     // if the list members exists in listofsensorsId, check next value
-                    if(Integer.parseInt(list.get(i)) == id.get(j)) {
+                    if(Integer.parseInt(list.get(i)) == ids.get(j)) {
                         alreadyExists = true;
                     }
                 }
                 // if the data list member didn't exist in the sensor list, add it in and then update 
                 if (alreadyExists == false) {
                     ids.add(Integer.parseInt(list.get(i)));
-                    chartData.set(0, (Integer.parseInt(chartData.get(0))+1)).toString();
+                    chartData.set(0, (""+(Integer.parseInt(chartData.get(0))+1)));
                 } else {
                     // Finally, we reset already exist to test the next value
                     alreadyExists = false;
                 }
                 // if we are at the second qudruplet iteration of the for loop, there is data to push to charData array
                 if (i >= 8 && i%4 == 0) {
-                    chartData.add(sb.append("chartData").append(id).append(".push({date: \"").append(newDate).append("\", tonsOfBananas: ").append(value).append("});"));
-                    Logger.info(sb);
-                    /*"chartData" + id + ".push({\
-                         date: " + "newDate" +",\
-                         tonsOfBananas: " + value +"\
-                         });"*/
+                    // construct the push
+                    sb.append("chartData").append(""+id).append(".push({date: \"").append(newDate).append("\", tonsOfBananas: ").append(""+value).append("});");
                 }
                 // now that we are not going to erase previous data, write new ones
                     id = Integer.parseInt(list.get(i));
-                    Logger.info(id);
             }
             if (i%4 == 1 && i != 1) {
                 dateMinus = list.get(i);
             } else if (i%4 == 2 && i != 2) {
                 time = list.get(i).substring(0, 5);
-                Logger.info(time);
                 newDate = dateMinus + " " + time;
-                Logger.info(newDate);
             } else if (i%4 == 3&& i != 3) {
-                value = list.get(i);
-                Logger.info(value);
+                value = Integer.parseInt(list.get(i));
             }
 
         }
-
+        chartData.add(sb.toString());
         return chartData;
     }
 
