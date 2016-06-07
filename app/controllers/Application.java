@@ -124,4 +124,14 @@ public class Application extends Controller {
         chartDatas = tools.csvToChartDataLine(list, chartDatas);
         return ok(d3Graphv2Java.render(chartDatas));
     }
+
+    public Result bootstrapSandstone() {
+        int i = 0;
+        Tools tools = new Tools();
+        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> chartDatas = new ArrayList<String>();
+        list = tools.readCsv2("/home/jeremy/dev/java/JavaPlay_BasicTests/public/sources/data2.csv", ";", list);
+        chartDatas = tools.csvToChartDataLine(list, chartDatas);
+        return ok(testpage.render(chartDatas));
+    }
 }
