@@ -13,6 +13,10 @@ import models.*;
 //imports for Java things
 import java.util.*;
 
+//imports for date
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 /**
  * This controller contains an action to handle HTTP requests
  * to the application's home page.
@@ -129,9 +133,21 @@ public class Application extends Controller {
         int i = 0;
         Tools tools = new Tools();
         ArrayList<String> list = new ArrayList<String>();
-        ArrayList<String> chartDatas = new ArrayList<String>();
+        ArrayList<String> dayDatas = new ArrayList<String>(); // used for thermometer
+        ArrayList<String> chartDatas = new ArrayList<String>(); // used for temperature
+
+        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+        Date dateobj = new Date();
+        /*String date = df.format(dateobj);*/
+        String date = "2015-25-05";
+
         list = tools.readCsv2("/home/jeremy/dev/java/JavaPlay_BasicTests/public/sources/data2.csv", ";", list);
+        dayDatas = tools.getAllDayValues(date, 1, list);
         chartDatas = tools.csvToChartDataLine(list, chartDatas);
-        return ok(testpage.render(chartDatas));
+        for (i=0;i<dayDatas.size() ;i++ ) {
+                    Logger.debug(dayDatas.get(i));
+        }
+
+        return ok(testpage.render(chartDatas, dayDatas));
     }
 }

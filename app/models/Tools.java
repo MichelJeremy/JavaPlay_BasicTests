@@ -5,12 +5,19 @@ import java.util.*;
 //imports for csv file
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
+
+
+//imports for date
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 
 import play.Logger;
 
 // gives some functionnalities
 public class Tools {
+
+    //old reader, shouldn't be used
     public ArrayList<String> readCsv(String csvPath, String delimiter, ArrayList<String> list) {
         int i = 0;
         try {
@@ -32,6 +39,7 @@ public class Tools {
         }
     }
     
+    // act reader, takes \n into account
     public ArrayList<String> readCsv2(String csvPath, String delimiter, ArrayList<String> list) {
         int i = 0;
         try {
@@ -115,4 +123,25 @@ public class Tools {
         return chartData;
     }
 
+    // give the function the day and the sensorId and it will return every values associated with this day
+    public ArrayList<String> getAllDayValues(String date, int sensorID, ArrayList<String> list) {
+        /*list:
+            - first column: sensorId
+            - second column: date
+            - third column: time
+            - fourth column: value*/
+        for(int i = 4; i <list.size(); i++) {
+            // check sensor ID
+            if ((i%4 == 0) && (Integer.parseInt(list.get(i)) == sensorID)) {
+                // if sensor id is the same, jump to date column
+                i++;
+                if (""+list.get(i) == date) {
+                    i+=2;
+                    // if date is also the same, jump to value column and add it to the array
+                    list.add(list.get(i));
+                }
+            }
+        }
+        return list;
+    }
 }
