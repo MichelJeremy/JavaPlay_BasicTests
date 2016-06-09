@@ -142,11 +142,11 @@ public class Application extends Controller {
         String date = "2015-25-05";
 
         list = tools.readCsv2("/home/jeremy/dev/java/JavaPlay_BasicTests/public/sources/data2.csv", ";", list);
-        dayDatas = tools.getAllDayValues(date, 1, list);
+        dayDatas = tools.getAllDayValues(date, 1, list, dayDatas);
         chartDatas = tools.csvToChartDataLine(list, chartDatas);
-        for (i=0;i<dayDatas.size() ;i++ ) {
+/*        for (i=0;i < dayDatas.size();i++ ) {
                     Logger.debug(dayDatas.get(i));
-        }
+        }*/
 
         return ok(testpage.render(chartDatas, dayDatas));
     }

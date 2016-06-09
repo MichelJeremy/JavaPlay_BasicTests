@@ -4,25 +4,39 @@
 function plotThermometer (param1) {
   var width = 180,
       height = 380,
-      maxTemp = 20.2,
-      minTemp = 15.4,
-      currentTemp = 19.2;
+      maxTemp = 0,
+      maxTime = "",
+      minTemp = 0,
+      minTime = "",
+      currentTemp = 0,
+      curTime = "";
 
   // get the temperature min, max and current for today 
-  // First: get date
+  // First: get date ( done in java atm)
   // then: scan whole day for min and max, and signal that scan has been done
   // then: get latest data (current temp)
   // end
 
-  // get date (YYYY-DD-MM)
-  var today = new Date();
-  var dateFormatted = today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate();
-  var i = 0;
-  while (i < param1.length) {
-    alert(param1[i]);
-    i++;
-  }
 
+  for (var i = 0; i < param1.length; i++) {
+    if ( i == 0) {
+        minTemp = param1[i][0];
+        minTime = param1[i][1];
+        maxTemp = param1[i][0];
+        maxTime = param1[i][1];
+    } else {
+      if (param1[i][0] < minTemp) {
+        minTemp = param1[i][0];
+        minTime = param1[i][1];
+      }
+      if (param1[i][0] > maxTemp) {
+        maxTemp = param1[i][0];
+        maxTime = param1[i][1];
+      }
+    }
+    currentTemp = param1[i][0];
+    curTime = param1[i][1];
+  }
 
 
 

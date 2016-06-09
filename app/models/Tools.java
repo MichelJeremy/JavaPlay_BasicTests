@@ -124,24 +124,24 @@ public class Tools {
     }
 
     // give the function the day and the sensorId and it will return every values associated with this day
-    public ArrayList<String> getAllDayValues(String date, int sensorID, ArrayList<String> list) {
+    public ArrayList<String> getAllDayValues(String date, int sensorID, ArrayList<String> list, ArrayList<String> output) {
         /*list:
             - first column: sensorId
             - second column: date
             - third column: time
             - fourth column: value*/
-        for(int i = 4; i <list.size(); i++) {
+        for(int i = 4; i < list.size(); i++) {
             // check sensor ID
             if ((i%4 == 0) && (Integer.parseInt(list.get(i)) == sensorID)) {
                 // if sensor id is the same, jump to date column
                 i++;
-                if (""+list.get(i) == date) {
+                if (list.get(i).equals(date)) {
                     i+=2;
                     // if date is also the same, jump to value column and add it to the array
-                    list.add(list.get(i));
+                    output.add(list.get(i) + "|" + list.get(i-1));
                 }
             }
         }
-        return list;
+        return output;
     }
 }

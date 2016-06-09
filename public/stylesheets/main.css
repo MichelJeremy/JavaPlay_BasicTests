@@ -52,6 +52,9 @@ header#main span.subtittle {
 	background-color: #E9E9E9;
 }
 
+
+
+/*panel css*/
 #header-rowcol {
 	text-align: center;
 	font-size: 28px;
@@ -74,3 +77,24 @@ header#main span.subtittle {
 	border-left: 1;
 	border-left-width: 1px;
 }
+
+#dataHeader {
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#dataValue {
+    font-size: 40px;
+    text-align: center; /*wtf does not work*/
+}
+
+#timeValue {
+    font-size: 12px;
+    font-style: italic;
+    text-align: center;
+    position: relative;
+    bottom: 4ex; 
+    font-size: 80%;
+}
+
