@@ -8,9 +8,8 @@
         <!-- load d3.min.js -->
         <script src="@routes.Assets.versioned("javascripts/d3.min.js")" type="text/javascript"></script>
 
-        <!-- load jquery -->
+        <!-- load jquery before bootstrap-->
         <script src="@routes.Assets.versioned("javascripts/jquery-2.2.4.js")" type="text/javascript"></script>
-        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
         <!-- load bootstrap js and css (bootstrap JS MUST be after jquery) -->
         <script src="@routes.Assets.versioned("bootstrap/js/bootstrap.min.js")" type="text/javascript"></script>
@@ -20,16 +19,23 @@
         <script src="@routes.Assets.versioned("javascripts/therm.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/temp.js")" type="text/javascript"></script>
         <link href="@routes.Assets.versioned("stylesheets/main.css")" rel="stylesheet" media="screen">
-        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     </head>
 
-    <script type="text/javascript">
-        $(function() {
-            $( "#dialog" ).dialog();
-        });
-    </script>
-
     <body>
+        <!-- MODAL -->
+        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
+                        <h4 class="modal-title" id="myModalLabel">Temperature</h4> <!-- need to find a way to display every data the user wants -->
+                    </div>
+                    <div class="modal-body" style="width: 960; height: 500;">
+                        <div id="graphTemp"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <header id="main">
             <div class="container">
                 <span class="title">Weather observation app.</span><br>
@@ -37,16 +43,11 @@
             </div>
         </header>
 
-<!--         <div id="graphjs"></div>
-        <script type="text/javascript">
-            var p1 = @chartDatas.get(0);
-            var p2 = "@chartDatas.get(1)".replace(/&quot;/g, '"');
-            plotGraphTemp(p1, p2);
-        </script> -->
+
         <div class="container" id="main-container"> <!-- open body container -->
             <div class="row"> <!-- open row -->
                 <div class="col-md-4">
-                    <div class="panel panel-default" id="panel">
+                    <div class="panel panel-default" id="panel1">
                         <div class="panel-heading" id="panel-header-box">
                             <h1 id="header-rowcol">Temperature</h1>
                         </div>
@@ -87,23 +88,23 @@
                                             cur = arrayTherm[i][0];
                                             curTime = arrayTherm[i][1];
                                         }
-                                    
                                     </script>
                                 </td>
                                 <td id="rightColumn">
                                     <script type="text/javascript">
                                         document.write("<span id=\"dataHeader\">Current temperature</span><br><span id=\"dataValue\">" + cur + "&#8451</span><span id=\"timeValue\">" + curTime + "</span><br>");
                                         document.write("<span id=\"dataHeader\">Max today</span><br><span id=\"dataValue\">" + max + "&#8451</span><span id=\"timeValue\">" + maxTime + "</span><br>");
-                                        document.write("<span id=\"dataHeader\">Min today</span><br><span id=\"dataValue\">" + min + "&#8451</span><span id=\"timeValue\">" + minTime + "</span>");
+                                        document.write("<span id=\"dataHeader\">Min today</span><br><span id=\"dataValue\">" + min + "&#8451</span><span id=\"timeValue\">" + minTime + "</span><br>");
                                     </script>
-                                </td>
+                                    <button class="btn btn-primary btn-lg" id="buttonTemp" data-toggle="modal" data-target="#myModal">Graph</button>
+                                </td> <!-- close right column -->
                             </tr>
                         </table>
                     </div>
                 </div>
 
                 <div class="col-md-4">
-                    <div class="panel panel-default" id="panel">
+                    <div class="panel panel-default" id="panel2">
                         <div class="panel-heading" id="panel-header-box">
                             <h1 id="header-rowcol">later.jpg</h1>
                         </div>
@@ -114,20 +115,28 @@
                 </div>
 
                 <div class="col-md-4">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default" id="panel3">
                         <div class="panel-heading" id="panel-header-box">
                             <h1 id="header-rowcol">not today</h1>
                         </div>
                         <p align="center">
                             <div class="panel-body">I am inside a  dumb panel.</div>
                         </p>
-                    </div>
-                </div>
+                    </div> <!-- close third panel-->
+                </div> <!-- close col md 4 -->
             </div> <!-- close row -->
-
-            <div id="dialog" title="Basic dialog">
-  <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
-</div>
         </div> <!-- close body container -->
     </body>
+    <!-- button onclick events -->
+    <script type="text/javascript">
+        $('#buttonTemp').on('click', function() {
+            var p1 = @chartDatas.get(0);
+            var p2 = "@chartDatas.get(1)".replace(/&quot;/g, '"');
+            plotGraphTemp(p1, p2);
+        });
+        $('#myModal').on('hidden.bs.modal', function(e) { 
+            $(this).removeData();
+        });
+    </script>   
 </html>
+
