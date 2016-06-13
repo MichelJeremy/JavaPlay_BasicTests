@@ -6,16 +6,16 @@
         <meta charset=utf-8>
         <title>WHAT ARE YOU DOING STALKER</title>
         <!-- load d3.min.js and c3.min.js/css-->
-        <script src="@routes.Assets.versioned("javascripts/d3.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/c3.min.js")" type="text/javascript"></script>
-        <link href="@routes.Assets.versioned("stylesheets/c3.min.css")" rel="stylesheet" media="screen">
+        <script src="@routes.Assets.versioned("javascripts/lib/d3.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/lib/c3.min.js")" type="text/javascript"></script>
+        <link href="@routes.Assets.versioned("stylesheets/lib/c3.min.css")" rel="stylesheet" media="screen">
 
         <!-- load jquery before bootstrap-->
-        <script src="@routes.Assets.versioned("javascripts/jquery-2.2.4.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/lib/jquery-2.2.4.js")" type="text/javascript"></script>
 
         <!-- load bootstrap js and css (bootstrap JS MUST be after jquery) -->
-        <script src="@routes.Assets.versioned("bootstrap/js/bootstrap.min.js")" type="text/javascript"></script>
-        <link href="@routes.Assets.versioned("bootstrap/css/bootstrap.min.css")" rel="stylesheet" media="screen">
+        <script src="@routes.Assets.versioned("javascripts/lib/bootstrap.min.js")" type="text/javascript"></script>
+        <link href="@routes.Assets.versioned("stylesheets/lib/bootstrap.min.css")" rel="stylesheet" media="screen">
 
         <!-- load custom assets in public/javascripts for js files and public/stylesheets for css files -->
         <script src="@routes.Assets.versioned("javascripts/therm.js")" type="text/javascript"></script>
@@ -112,15 +112,19 @@
                             <h1 id="header-rowcol">Humidity</h1>
                         </div>
                         <table class="table">
-                            <div id="humidity-gauge"></div>
-                            <script type="text/javascript">
-                                @for(d <- 0 until dayDatas.size()) {
-                                    var tmp = "@dayDatas.get(d)".split("|");
-                                    arrayGaugeHumidity.push([parseInt(tmp[0]),tmp[1].slice(0,-3 ).replace(":", "H")]);
-                                }
-                                drawGaugeChart();
-                            </script>
-                        <button class="btn btn-primary btn-lg" id="buttonTherm" data-toggle="modal" data-target="#myModal">Graph</button>
+                            <tr>
+                                <div id="humidity-gauge"></div>
+                                <script type="text/javascript">
+                                    var arrayGaugeHumidity = [];
+                                    @for(d <- 0 until dayDatas.size()) {
+                                        var tmp = "@dayDatas.get(d)".split("|");
+                                        arrayGaugeHumidity.push([parseInt(tmp[0]),tmp[1].slice(0,-3 ).replace(":", "H")]);
+                                    }
+                                    drawGaugeChart(20);
+                                </script>
+                            </tr>
+                            <button class="btn btn-primary btn-lg" id="buttonTherm" data-toggle="modal" data-target="#myModal">Graph</button>
+                        </table>
                     </div>
                 </div>
 
