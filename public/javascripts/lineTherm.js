@@ -1,17 +1,17 @@
 // param0: number of sensors
 // param1: data to push through eval
-function plotGraphTemp(param0, param1) {
+
+function plotGraphLineTherm(param0, param1) {
+    alert("should be a bar graph, see bookmarks");
     //First, we dynamically create as much chartData var as there are sensors
     var nbOfSensors = param0;
     for (i = 1; i < nbOfSensors+1; i++) {
-        eval("var chartData" + i + " = []");
-    }
+        eval("var chartData" + i + " = []")
+;    }
     // Now that we got every values needed, we can push the data in the correct array
     // We need to replace the '&quot' by real quotes before, though:
     var chartDatasToEval = param1;
     eval(chartDatasToEval);
-
-    alert(chartData1);
 
     // configuration of the chart
     var margin = {top:20 , right: 80, bottom: 80, left: 50},
@@ -22,8 +22,8 @@ function plotGraphTemp(param0, param1) {
     var parseDate = d3.time.format("%Y-%d-%m %H:%M").parse;
 
     // Get the min/max of each axis & the scales
-    var maxY = Math.max((d3.max(chartData1, function(d) { return d.tonsOfBananas;})), (d3.max(chartData2, function(d) { return d.tonsOfBananas;})));
-    var minY = Math.min((d3.min(chartData1, function(d) { return d.tonsOfBananas;})), (d3.min(chartData2, function(d) { return d.tonsOfBananas;})));
+    var maxY = 100;
+    var minY = 0;
 
     var maxX = d3.max(chartData1, function(d) { return parseDate(d.date);});
     var minX = d3.min(chartData1, function(d) { return parseDate(d.date);});
@@ -67,12 +67,13 @@ function plotGraphTemp(param0, param1) {
         d.date = parseDate(d.date);
     })
 
-    chartData2.forEach(function(d) {
+    //uncomment this to add chartData2 too
+/*    chartData2.forEach(function(d) {
         d.date = parseDate(d.date);
-    })
+    })*/
 
     // define svg canvas
-    var svg = d3.select("#graphjs")
+    var svg = d3.select("#graph")
         .append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
@@ -107,8 +108,9 @@ function plotGraphTemp(param0, param1) {
         .attr("stroke", "blue")
         .attr("fill", "none");
 
-    svg.append("svg:path")
+// other data serie, can be used with the first without conflict
+/*    svg.append("svg:path")
         .attr("d", line(chartData2))
         .attr("stroke", "red")
-        .attr("fill", "none");
+        .attr("fill", "none");*/
 }

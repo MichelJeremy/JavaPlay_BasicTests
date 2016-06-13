@@ -135,19 +135,24 @@ public class Application extends Controller {
         ArrayList<String> list = new ArrayList<String>();
         ArrayList<String> dayDatas = new ArrayList<String>(); // used for thermometer
         ArrayList<String> chartDatas = new ArrayList<String>(); // used for temperature
+        ArrayList<String> chartDatasHumidity = new ArrayList<String>(); // used for humidity
 
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
         Date dateobj = new Date();
         /*String date = df.format(dateobj);*/
-        String date = "2015-25-05";
+        String date = "2015-25-05"; // keep it static for dev purposes for now
 
         list = tools.readCsv2("/home/jeremy/dev/java/JavaPlay_BasicTests/public/sources/data2.csv", ";", list);
         dayDatas = tools.getAllDayValues(date, 1, list, dayDatas);
         chartDatas = tools.csvToChartDataLine(list, chartDatas);
+
+        list = new ArrayList<String>(); // re-instanciate it so it is empty. Clear could be used but perf gain is negligible.
+        list = tools.readCsv2("/home/jeremy/dev/java/JavaPlay_BasicTests/public/sources/data2-humidity.csv", ";", list);
+        chartDatasHumidity = tools.csvToChartDataLine(list, chartDatasHumidity);
 /*        for (i=0;i < dayDatas.size();i++ ) {
                     Logger.debug(dayDatas.get(i));
         }*/
 
-        return ok(testpage.render(chartDatas, dayDatas));
+        return ok(testpage.render(chartDatas, dayDatas, chartDatasHumidity));
     }
 }

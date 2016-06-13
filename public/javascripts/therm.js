@@ -45,7 +45,7 @@ function plotThermometer (param1) {
       bulbRadius = 20,
       tubeWidth = 21.5,
       tubeBorderWidth = 1,
-      mercuryColor = "#000000",
+      mercuryColor = "#FF0000", // go red here
       innerBulbColor = "#FFFFFF"
       tubeBorderColor = "#000000";
 
@@ -140,16 +140,7 @@ function plotThermometer (param1) {
   var step = 5;
 
   // Determine a suitable range of the temperature scale
-  var domain = [
-    step * Math.floor(minTemp / step),
-    step * Math.ceil(maxTemp / step)
-    ];
-
-  if (minTemp - domain[0] < 0.66 * step)
-    domain[0] -= step;
-
-  if (domain[1] - maxTemp < 0.66 * step)
-    domain[1] += step;
+  var domain = [-20, 45];
 
 
   // D3 scale object
@@ -182,7 +173,7 @@ function plotThermometer (param1) {
 
 
   // Values to use along the scale ticks up the thermometermeter
-  var tickValues = d3.range((domain[1] - domain[0])/step + 1).map(function(v) { return domain[0] + v * step; });
+  var tickValues = d3.range((domain[1] - domain[0])/5).map(function(v) { return domain[0] + v * 5; });
 
 
   // D3 axis object for the temperature scale

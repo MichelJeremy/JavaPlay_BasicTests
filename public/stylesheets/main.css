@@ -52,6 +52,11 @@ header#main span.subtittle {
 	background-color: #E9E9E9;
 }
 
+/*MODAL*/
+.modal-dialog {
+    width: 960px!important;
+    margin: 30px auto;
+}
 
 
 /*panel css*/
@@ -67,9 +72,6 @@ header#main span.subtittle {
 	background-color: #000000;
 }
 
-#panel {
-    border-color: #000000;
-}
 
 #rightColumn {
 	border-style: dashed;
@@ -98,3 +100,6 @@ header#main span.subtittle {
     font-size: 80%;
 }
 
+.panel {
+    border-color: #000000;
+}
