@@ -8,7 +8,7 @@
         <!-- load d3.min.js and c3.min.js/css-->
         <script src="@routes.Assets.versioned("javascripts/d3.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/c3.min.js")" type="text/javascript"></script>
-        <link href="@routes.Assets.versioned("bootstrap/c3.min.css")" rel="stylesheet" media="screen">
+        <link href="@routes.Assets.versioned("stylesheets/c3.min.css")" rel="stylesheet" media="screen">
 
         <!-- load jquery before bootstrap-->
         <script src="@routes.Assets.versioned("javascripts/jquery-2.2.4.js")" type="text/javascript"></script>
@@ -21,6 +21,7 @@
         <script src="@routes.Assets.versioned("javascripts/therm.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/lineTemp.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/lineTherm.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/gaugeChart.js")" type="text/javascript"></script>
         <link href="@routes.Assets.versioned("stylesheets/main.css")" rel="stylesheet" media="screen">
     </head>
 
@@ -110,7 +111,15 @@
                         <div class="panel-heading" id="panel-header-box">
                             <h1 id="header-rowcol">Humidity</h1>
                         </div>
-                        <div id="humidity-gauge"></div>
+                        <table class="table">
+                            <div id="humidity-gauge"></div>
+                            <script type="text/javascript">
+                                @for(d <- 0 until dayDatas.size()) {
+                                    var tmp = "@dayDatas.get(d)".split("|");
+                                    arrayGaugeHumidity.push([parseInt(tmp[0]),tmp[1].slice(0,-3 ).replace(":", "H")]);
+                                }
+                                drawGaugeChart();
+                            </script>
                         <button class="btn btn-primary btn-lg" id="buttonTherm" data-toggle="modal" data-target="#myModal">Graph</button>
                     </div>
                 </div>
