@@ -51,9 +51,9 @@
         <div class="container" id="main-container"> <!-- open body container -->
             <div class="row"> <!-- open row -->
                 <!-- TEMPERATURE START -->
-                <div class="col-md-4">
-                    <div class="panel panel-default" id="panel1">
-                        <div class="panel-heading" id="panel-header-box">
+                <div class="col-md-4"> <!-- col for panel temperature -->
+                    <div class="panel panel-default" id="panel1"> <!-- panel temperature -->
+                        <div class="panel-heading" id="panel-header-box"> <!-- panel temperature header -->
                             <h1 id="header-rowcol">Temperature</h1>
                         </div>
                         <table class="table">
@@ -95,7 +95,7 @@
                                             cur = arrayTherm[i][0];
                                             curTime = arrayTherm[i][1];
                                         }
-                                        document.write("<span id=\"dataHeader\">Current temperature</span><br><span id=\"dataValue\">" + cur + "&#8451</span><span id=\"timeValue\">" + curTime + "</span><br>");
+                                        document.write("<span id=\"dataHeader\">Latest temperature</span><br><span id=\"dataValue\">" + cur + "&#8451</span><span id=\"timeValue\">" + curTime + "</span><br>");
                                         document.write("<span id=\"dataHeader\">Max today</span><br><span id=\"dataValue\">" + max + "&#8451</span><span id=\"timeValue\">" + maxTime + "</span><br>");
                                         document.write("<span id=\"dataHeader\">Min today</span><br><span id=\"dataValue\">" + min + "&#8451</span><span id=\"timeValue\">" + minTime + "</span><br>");
                                     </script>
@@ -106,27 +106,41 @@
                     </div> <!-- close panel 1 -->
                 </div> <!-- close col md 4 -->
                 <!-- HUMIDITY START -->
-                <div class="col-md-4">
-                    <div class="panel panel-default" id="panel2">
-                        <div class="panel-heading" id="panel-header-box">
+                <div class="col-md-4"> <!-- col for panel humidity -->
+                    <div class="panel panel-default" id="panel2"> <!-- panel humidity -->
+                        <div class="panel-heading" id="panel-header-box"> <!-- panel humidity header -->
                             <h1 id="header-rowcol">Humidity</h1>
                         </div>
-                        <table class="table">
+                        <div id="humidity-gauge"></div>
+                        <script type="text/javascript">
+                            var arrayGaugeHumidity = [];
+                            @for(d <- 0 until dayDatas.size()) {
+                                var tmp = "@dayDatas.get(d)".split("|");
+                                arrayGaugeHumidity.push([parseInt(tmp[0]),tmp[1].slice(0,-3 ).replace(":", "H")]);
+                                drawGaugeChart(20);
+                            }
+                        </script>
+                        <hr>
+                        <table>
                             <tr>
-                                <div id="humidity-gauge"></div>
-                                <script type="text/javascript">
-                                    var arrayGaugeHumidity = [];
-                                    @for(d <- 0 until dayDatas.size()) {
-                                        var tmp = "@dayDatas.get(d)".split("|");
-                                        arrayGaugeHumidity.push([parseInt(tmp[0]),tmp[1].slice(0,-3 ).replace(":", "H")]);
-                                    }
-                                    drawGaugeChart(20);
-                                </script>
+                                <td class="col-md-2">
+                                    <!-- <button class="btn btn-primary btn-lg" id="buttonTherm" data-toggle="modal" data-target="#myModal">Graph</button> -->
+                                    <span id="dataHeader">Information 1:</span><span id="humDataValue"> value 1</span><br>
+                                    <span id="dataHeader">Information 2:</span><span id="humDataValue"> value 2</span><br>
+                                    <div style="padding-left: 15px;">
+                                        .<br>
+                                        .<br>
+                                        .<br>
+                                    </div>
+                                    <span id="dataHeader">Information n:</span><span id="humDataValue"> value n</span><br>
+                                </td>
+                                <td class="col-md-2" id="humRightColumn">
+                                    <button class="btn btn-primary btn-lg" id="buttonTherm" data-toggle="modal" data-target="#myModal">Graph</button>
+                                </td>
                             </tr>
-                            <button class="btn btn-primary btn-lg" id="buttonTherm" data-toggle="modal" data-target="#myModal">Graph</button>
                         </table>
-                    </div>
-                </div>
+                    </div> <!-- close panel -->
+                </div> <!-- close col-md-4 -->
 
                 <div class="col-md-4">
                     <div class="panel panel-default" id="panel3">

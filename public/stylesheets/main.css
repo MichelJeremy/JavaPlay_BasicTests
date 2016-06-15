@@ -1,3 +1,5 @@
+*
+
 /*d3*/
 svg {
     display: block;
@@ -102,4 +104,18 @@ header#main span.subtittle {
 
 .panel {
     border-color: #000000;
+}
+
+.panel-body {
+    padding-bottom: 5px;
+}
+
+#humRightColumn {
+    padding-bottom: 5px;
+    text-align: right;
+}
+
+#humDataValue {
+    font-size: 15px;
+    color: #FF0000;
 }

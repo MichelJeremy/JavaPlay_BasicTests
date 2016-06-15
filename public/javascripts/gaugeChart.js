@@ -16,7 +16,7 @@ function drawGaugeChart(param1) {
     //        },
         min: 0,
         max: 100,
-        units: '%',
+    //    units: '%',
     //    width: 39 // for adjusting arc thickness
         }, 
     //    color: {
