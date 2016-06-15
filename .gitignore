@@ -1,5 +1,5 @@
 project/*
 target/*
 bin/*
-logs/*
+logs/*.log
 libexec/*

@@ -16,6 +16,10 @@ import java.util.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+//import for injections
+import javax.inject.*;
+
+
 /**
  * This controller contains an action to handle HTTP requests
  * to the application's home page.
@@ -56,4 +60,6 @@ public class Application extends Controller {
 
         return ok(testpage.render(chartDatas, dayDatas, chartDatasHumidity));
     }
+
+
 }

@@ -111,11 +111,16 @@ header#main span.subtittle {
 }
 
 #humRightColumn {
-    padding-bottom: 5px;
     text-align: right;
 }
 
 #humDataValue {
     font-size: 15px;
     color: #FF0000;
+}
+
+#dots { /*should be removed*/
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
 }
