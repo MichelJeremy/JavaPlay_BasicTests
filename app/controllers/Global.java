@@ -4,12 +4,16 @@ import play.Application;
 import play.GlobalSettings;
 import java.util.concurrent.TimeUnit;
 import scala.concurrent.duration.Duration;
+import akka.actor.*;
+import actors.*;
+
+import models.*;
 import play.Logger;
+import controllers.*;
 
 
 public class Global extends GlobalSettings {
 	int i = 0;
-
 	@Override
     public void onStart(Application application) {
 
@@ -19,7 +23,7 @@ public class Global extends GlobalSettings {
             new Runnable() {
                 @Override
                 public void run() {
-                    Logger.info("blbl"+i);
+                    Logger.debug("blbl"+i);
                     i++;
                 }
             },

@@ -61,5 +61,7 @@ public class Application extends Controller {
         return ok(testpage.render(chartDatas, dayDatas, chartDatasHumidity));
     }
 
-
+    // getnewvalue (scheduler)
+    // tell html thqt new block exists
+    // render using ajax ?
 }
