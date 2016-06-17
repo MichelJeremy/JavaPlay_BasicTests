@@ -9,7 +9,6 @@ import actors.*;
 
 import models.*;
 import play.Logger;
-import controllers.*;
 
 
 public class Global extends GlobalSettings {

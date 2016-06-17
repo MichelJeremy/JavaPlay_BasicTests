@@ -1,9 +1,9 @@
 package controllers;
 
 //imports for forms and basic play things
-import play.mvc.*;
 import play.data.*;
 import play.Logger;
+import play.mvc.*;
 
 //import files needed in the project
 import views.html.*;
@@ -18,6 +18,12 @@ import java.text.SimpleDateFormat;
 
 //import for injections
 import javax.inject.*;
+
+//imports for actors
+import akka.actor.*;
+import play.libs.F.*;
+import play.mvc.WebSocket;
+import play.mvc.LegacyWebSocket;
 
 
 /**
@@ -50,18 +56,21 @@ public class Application extends Controller {
         list = tools.readCsv2("/home/jeremy/dev/java/JavaPlay_BasicTests/public/sources/data2.csv", ";", list);
         dayDatas = tools.getAllDayValues(date, 1, list, dayDatas);
         chartDatas = tools.csvToChartDataLine(list, chartDatas);
+        Logger.debug(chartDatas.get(1));
 
         list = new ArrayList<String>(); // re-instanciate it so it is empty. Clear could be used but perf gain is negligible.
         list = tools.readCsv2("/home/jeremy/dev/java/JavaPlay_BasicTests/public/sources/data2-humidity.csv", ";", list);
         chartDatasHumidity = tools.csvToChartDataLine(list, chartDatasHumidity);
-/*        for (i=0;i < dayDatas.size();i++ ) {
-                    Logger.debug(dayDatas.get(i));
-        }*/
 
         return ok(testpage.render(chartDatas, dayDatas, chartDatasHumidity));
     }
 
-    // getnewvalue (scheduler)
-    // tell html thqt new block exists
-    // render using ajax ?
+    public Result javascriptRoutes() {
+        response().setContentType("text/javascript");
+        return ok(
+            Routes.javascriptRouter("jsRoutes",
+                routes.javascript.Tools.blbl()
+            )
+        );
+    }
 }

@@ -107,8 +107,8 @@ function plotGraphLineTemp(param0, param1) {
         .attr("fill", "none");
 
 // other data serie, can be used with the first without conflict
-/*    svg.append("svg:path")
+    svg.append("svg:path")
         .attr("d", line(chartData2))
         .attr("stroke", "red")
-        .attr("fill", "none");*/
+        .attr("fill", "none");
 }
