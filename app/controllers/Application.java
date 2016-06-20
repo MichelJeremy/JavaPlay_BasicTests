@@ -64,13 +64,4 @@ public class Application extends Controller {
 
         return ok(testpage.render(chartDatas, dayDatas, chartDatasHumidity));
     }
-
-    public Result javascriptRoutes() {
-        response().setContentType("text/javascript");
-        return ok(
-            Routes.javascriptRouter("jsRoutes",
-                routes.javascript.Tools.blbl()
-            )
-        );
-    }
 }

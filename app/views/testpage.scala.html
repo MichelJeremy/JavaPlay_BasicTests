@@ -17,9 +17,6 @@
         <script src="@routes.Assets.versioned("javascripts/lib/bootstrap.min.js")" type="text/javascript"></script>
         <link href="@routes.Assets.versioned("stylesheets/lib/bootstrap.min.css")" rel="stylesheet" media="screen">
 
-        <!-- load javascript reverse router -->
-        <script type="text/javascript" src="@routes.Application.javascriptRoutes()"></script>
-
         <!-- load custom assets in public/javascripts for js files and public/stylesheets for css files -->
         <script src="@routes.Assets.versioned("javascripts/therm.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/lineTemp.js")" type="text/javascript"></script>
@@ -50,11 +47,10 @@
             </div>
         </header>
 
-
+        <!-- PANELS -->
         <div class="container" id="main-container"> <!-- open body container -->
             <div class="row"> <!-- open row -->
-                <!-- TEMPERATURE START -->
-                <div class="col-md-4"> <!-- col for panel temperature -->
+                <div class="col-md-4"> <!-- col md 4 for panel temperature -->
                     <div class="panel panel-default" id="panel1"> <!-- panel temperature -->
                         <div class="panel-heading" id="panel-header-box"> <!-- panel temperature header -->
                             <h1 id="header-rowcol">Temperature</h1>
@@ -106,14 +102,14 @@
                                 </td> <!-- close right column -->
                             </tr>
                         </table>
-                    </div> <!-- close panel 1 -->
-                </div> <!-- close col md 4 -->
-                <!-- HUMIDITY START -->
-                <div class="col-md-4"> <!-- col for panel humidity -->
-                    <div class="panel panel-default" id="panel2"> <!-- panel humidity -->
-                        <div class="panel-heading" id="panel-header-box"> <!-- panel humidity header -->
+                    </div> <!-- close panel temperature -->
+                </div> <!-- close col md 4 for temperature -->
+
+                <div class="col-md-4"> <!-- open col md 4 for panel humidity -->
+                    <div class="panel panel-default" id="panel2"> <!-- open panel humidity -->
+                        <div class="panel-heading" id="panel-header-box"> <!-- open panel humidity header -->
                             <h1 id="header-rowcol">Humidity</h1>
-                        </div>
+                        </div> <!-- close panel humidity header -->
                         <div id="humidity-gauge"></div>
                         <script type="text/javascript">
                             var arrayGaugeHumidity = [];
@@ -127,7 +123,6 @@
                         <table>
                             <tr>
                                 <td class="col-md-2">
-                                    <!-- <button class="btn btn-primary btn-lg" id="buttonTherm" data-toggle="modal" data-target="#myModal">Graph</button> -->
                                     <span id="dataHeader">Information 1:</span><span id="humDataValue"> value 1</span><br>
                                     <span id="dataHeader">Information 2:</span><span id="humDataValue"> value 2</span><br>
                                     <div id="dots">
@@ -145,24 +140,49 @@
                     </div> <!-- close panel -->
                 </div> <!-- close col-md-4 -->
 
-                <div class="col-md-4">
-                    <div class="panel panel-default" id="panel3">
-                        <div class="panel-heading" id="panel-header-box">
-                            <h1 id="header-rowcol">actor scheduler tests</h1>
-                        </div>
+                <!-- WIND START -->
+                <div class="col-md-4"> <!-- col md 4 for panel wind -->
+                    <div class="panel panel-default" id="panel3"> <!-- panel wind -->
+                        <div class="panel-heading" id="panel-header-box"> <!-- panel wind header -->
+                            <h1 id="header-rowcol">Wind</h1>
+                        </div> <!-- close panel wind header -->
                         <p align="center">
                             <div class="panel-body">
-                                There is going to be some text changing every 5 seconds there
-                                <script type="text/javascript">
-                                    var blbl = jsRoutes.controllers.Tools.blbl();
-                                </script> 
+                                wind
                             </div>
                         </p>
-                    </div> <!-- close third panel-->
-                </div> <!-- close col md 4 -->
+                    </div> <!-- close panel wind-->
+                </div> <!-- close col md 4 for panel wind-->
+                <!-- WIND END -->
             </div> <!-- close row -->
+
+            <!-- NEW ROW -->
+            <div class="row"> <!-- open row 2-->
+                <div class="col-md-4"> <!-- open col panel rain -->
+                    <div class="panel panel-default" id="panel4"> <!-- open panel rain -->
+                        <div class="panel-heading" id="panel-header-box"> <!-- open header panel rain -->
+                            <h1 id="header-rowcol">Rain</h1>
+                        </div> <!-- close header panel rain -->
+                        <div class="panel-body"> <!-- open body panel rain -->
+                            rain
+                        </div> <!-- close body panel rain -->
+                    </div> <!-- close panel rain-->
+                </div> <!-- close col md 4 for panel rain -->
+
+                <div class="col-md-4"> <!-- open col panel air quality -->
+                    <div class="panel panel-default" id="panel5"> <!-- open panel air quality -->
+                        <div class="panel-heading" id="panel-header-box"> <!-- open header panel air quality -->
+                            <h1 id="header-rowcol">Air quality</h1>
+                        </div> <!-- close header panel air quality -->
+                        <div class="panel-body"> <!-- open body panel air quality -->
+                            air quality
+                        </div> <!-- close body panel air quality -->
+                    </div> <!-- close panel air quality-->
+                </div> <!-- close col md 4 for air quality -->
+            </div> <!-- close row 2 -->
         </div> <!-- close body container -->
     </body>
+
     <!-- button onclick events -->
     <script type="text/javascript">
         /*onclick button graph temperature*/
