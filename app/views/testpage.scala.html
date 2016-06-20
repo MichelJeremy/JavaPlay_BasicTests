@@ -22,6 +22,7 @@
         <script src="@routes.Assets.versioned("javascripts/lineTemp.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/lineTherm.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/gaugeChart.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/compass.js")" type="text/javascript"></script>
         <link href="@routes.Assets.versioned("stylesheets/main.css")" rel="stylesheet" media="screen">
     </head>
 
@@ -49,59 +50,61 @@
 
         <!-- PANELS -->
         <div class="container" id="main-container"> <!-- open body container -->
-            <div class="row"> <!-- open row -->
+            <div class="row"> <!-- open row 1-->
                 <div class="col-md-4"> <!-- col md 4 for panel temperature -->
                     <div class="panel panel-default" id="panel1"> <!-- panel temperature -->
                         <div class="panel-heading" id="panel-header-box"> <!-- panel temperature header -->
                             <h1 id="header-rowcol">Temperature</h1>
                         </div>
-                        <table class="table">
-                            <tr>
-                                <td>
-                                    <div id="thermometer"></div>
-                                </td>
-                                <td id="rightColumn">
-                                    <script type="text/javascript">
-                                        var arrayTherm = [],
-                                            tmp = [],
-                                            min = 0,
-                                            max = 0,
-                                            cur = 0,
-                                            minTime = "",
-                                            maxTime = "",
-                                            curTime = "";
-                                        @for(d <- 0 until dayDatas.size()) {
-                                            var tmp = "@dayDatas.get(d)".split("|");
-                                            arrayTherm.push([parseInt(tmp[0]),tmp[1].slice(0,-3 ).replace(":", "H")]);
-                                        }
-                                        plotThermometer(arrayTherm);
-                                        for (var i = 0; i < arrayTherm.length; i++) {
-                                            if ( i == 0) {
-                                                min = arrayTherm[i][0];
-                                                minTime = arrayTherm[i][1];
-                                                max = arrayTherm[i][0];
-                                                maxTime = arrayTherm[i][1];
-                                            } else {
-                                                if (arrayTherm[i][0] < min) {
+                        <div class="body-panel-content">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <div id="thermometer"></div>
+                                    </td>
+                                    <td id="rightColumn">
+                                        <script type="text/javascript">
+                                            var arrayTherm = [],
+                                                tmp = [],
+                                                min = 0,
+                                                max = 0,
+                                                cur = 0,
+                                                minTime = "",
+                                                maxTime = "",
+                                                curTime = "";
+                                            @for(d <- 0 until dayDatas.size()) {
+                                                var tmp = "@dayDatas.get(d)".split("|");
+                                                arrayTherm.push([parseInt(tmp[0]),tmp[1].slice(0,-3 ).replace(":", "H")]);
+                                            }
+                                            plotThermometer(arrayTherm);
+                                            for (var i = 0; i < arrayTherm.length; i++) {
+                                                if ( i == 0) {
                                                     min = arrayTherm[i][0];
                                                     minTime = arrayTherm[i][1];
-                                                }
-                                                if (arrayTherm[i][0] > max) {
                                                     max = arrayTherm[i][0];
                                                     maxTime = arrayTherm[i][1];
+                                                } else {
+                                                    if (arrayTherm[i][0] < min) {
+                                                        min = arrayTherm[i][0];
+                                                        minTime = arrayTherm[i][1];
+                                                    }
+                                                    if (arrayTherm[i][0] > max) {
+                                                        max = arrayTherm[i][0];
+                                                        maxTime = arrayTherm[i][1];
+                                                    }
                                                 }
+                                                cur = arrayTherm[i][0];
+                                                curTime = arrayTherm[i][1];
                                             }
-                                            cur = arrayTherm[i][0];
-                                            curTime = arrayTherm[i][1];
-                                        }
-                                        document.write("<span id=\"dataHeader\">Latest temperature</span><br><span id=\"dataValue\">" + cur + "&#8451</span><span id=\"timeValue\">" + curTime + "</span><br>");
-                                        document.write("<span id=\"dataHeader\">Max today</span><br><span id=\"dataValue\">" + max + "&#8451</span><span id=\"timeValue\">" + maxTime + "</span><br>");
-                                        document.write("<span id=\"dataHeader\">Min today</span><br><span id=\"dataValue\">" + min + "&#8451</span><span id=\"timeValue\">" + minTime + "</span><br>");
-                                    </script>
-                                    <button class="btn btn-primary btn-lg" id="buttonTemp" data-toggle="modal" data-target="#myModal">Graph</button>
-                                </td> <!-- close right column -->
-                            </tr>
-                        </table>
+                                            document.write("<span id=\"dataHeader\">Latest temperature</span><br><span id=\"dataValue\">" + cur + "&#8451</span><span id=\"timeValue\">" + curTime + "</span><br>");
+                                            document.write("<span id=\"dataHeader\">Max today</span><br><span id=\"dataValue\">" + max + "&#8451</span><span id=\"timeValue\">" + maxTime + "</span><br>");
+                                            document.write("<span id=\"dataHeader\">Min today</span><br><span id=\"dataValue\">" + min + "&#8451</span><span id=\"timeValue\">" + minTime + "</span><br>");
+                                        </script>
+                                        <button class="btn btn-primary btn-lg" id="buttonTemp" data-toggle="modal" data-target="#myModal">Graph</button>
+                                    </td> <!-- close right column -->
+                                </tr>
+                            </table>
+                        </div>
                     </div> <!-- close panel temperature -->
                 </div> <!-- close col md 4 for temperature -->
 
@@ -133,7 +136,7 @@
                                     <span id="dataHeader">Information n:</span><span id="humDataValue"> value n</span><br>
                                 </td>
                                 <td class="col-md-2" id="humRightColumn">
-                                    <button class="btn btn-primary btn-lg" id="buttonTherm" data-toggle="modal" data-target="#myModal">Graph</button>
+                                    <button class="btn btn-primary btn-lg" id="buttonHum" data-toggle="modal" data-target="#myModal">Graph</button>
                                 </td>
                             </tr>
                         </table>
@@ -148,15 +151,17 @@
                         </div> <!-- close panel wind header -->
                         <p align="center">
                             <div class="panel-body">
-                                wind
+                                <div id="compass"></div>
+                                <script type="text/javascript">
+                                    drawCompass();
+                                </script>
                             </div>
                         </p>
                     </div> <!-- close panel wind-->
                 </div> <!-- close col md 4 for panel wind-->
                 <!-- WIND END -->
-            </div> <!-- close row -->
+            </div>
 
-            <!-- NEW ROW -->
             <div class="row"> <!-- open row 2-->
                 <div class="col-md-4"> <!-- open col panel rain -->
                     <div class="panel panel-default" id="panel4"> <!-- open panel rain -->
@@ -192,7 +197,7 @@
             plotGraphLineTemp(p1, p2);
         });
 
-        $('#buttonTherm').on('click', function() {
+        $('#buttonHum').on('click', function() {
             var p1 = @chartDatasHumidity.get(0);
             var p2 = "@chartDatasHumidity.get(1)".replace(/&quot;/g, '"');
             plotGraphLineTherm(p1, p2);

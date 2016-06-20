@@ -19,6 +19,23 @@ svg .axis text {
 }
 
 
+/*compass.js*/
+#compass{
+    text-align: center;
+}
+
+.dirArc {
+    fill: white;
+    stroke: #AAAAAA;
+}
+
+.dirText {
+    fill: #6B6B6B;
+    font-size: 13px;
+    font-family: sans-serif;
+}
+
+
 /*HEADER*/
 header#main {
     width: 100%;
@@ -62,6 +79,18 @@ header#main span.subtittle {
 
 
 /*panel css*/
+#buttonTemp {
+    position: relative;
+    margin-top: 85%;
+    float: right;
+}
+
+#buttonHum {
+    position: relative;
+    margin-top: 85%;
+    float: right;
+}
+
 #header-rowcol {
 	text-align: center;
 	font-size: 28px;
@@ -90,7 +119,7 @@ header#main span.subtittle {
 
 #dataValue {
     font-size: 40px;
-    text-align: center; /*wtf does not work*/
+    text-align: center;
 }
 
 #timeValue {
@@ -104,6 +133,7 @@ header#main span.subtittle {
 
 .panel {
     border-color: #000000;
+    height: 500px;
 }
 
 .panel-body {
