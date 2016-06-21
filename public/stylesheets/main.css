@@ -27,12 +27,13 @@ svg .axis text {
 .dirArc {
     fill: white;
     stroke: #AAAAAA;
+    width: 5px;
 }
 
-.dirText {
-    fill: #6B6B6B;
-    font-size: 13px;
+#dirText {
+    font-size: 15px;
     font-family: sans-serif;
+    font-weight: bold;
 }
 
 

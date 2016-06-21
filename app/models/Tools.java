@@ -145,7 +145,4 @@ public class Tools {
         return output;
     }
 
-    public String blbl() {
-        return "whatthefuck";
-    }
 }

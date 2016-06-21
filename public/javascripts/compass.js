@@ -3,7 +3,7 @@ function drawCompass() {
 	// size parameters
 	var width = 200;
 	var height = 200;
-	var margin = {left: 20, top: 20, right: 20, bottom: 20};
+	var margin = {left: 55, top: 20, right: 20, bottom: 20};
 
    	// create array with the directions
    	var dirData = [
@@ -17,35 +17,109 @@ function drawCompass() {
    		{dir: "NW"}
    	];
 
-//Create the SVG
+	//Create the SVG
 	var svg = d3.select("#compass")
 		.append("svg")
 			.attr("width", (width + margin.left + margin.right))
 			.attr("height", (height + margin.top + margin.bottom))
-		.append("g").attr("class", "wrapper")
-			.attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")");
+		.append("g")
+			.attr("transform", "translate(" + (width/2 + margin.left) + "," + (width/2 + margin.top) + ")");
 
-	// svg paths into arcs
+	// draw outer circle (will comtain graduation)
+	svg.append("circle")
+		.attr("cx", 0)
+		.attr("xy", 0)
+		.attr("r", 120)
+		.attr("fill", "#FFFFFF")
+		.attr("stroke", "#afafaf")
+		.attr("stroke-width", 2);
+
+	//draw inner circle
+	svg.append("circle")
+		.attr("cx", 0)
+		.attr("xy", 0)
+		.attr("r", 70)
+		.attr("fill", "#FFFFFF")
+		.attr("stroke", "#afafaf")
+		.attr("stroke-width", 1);
+
+/*	// svg paths into arcs
 	var arc = d3.svg.arc()
-		.innerRadius(width*0.9/2) 
-		.outerRadius(width*0.9/2 + 30);
+		.innerRadius(width/2) 
+		.outerRadius(width/2 + 20); // value does not matter, has to to equal to the return below
 
 	//define start and end angles
 	var pie = d3.layout.pie()
-		.value(function(d) {return 30;}) // 
+		.value(function(d) {return 20;}) // value does not matter, has to to equal to the outer radius adding
 		.padAngle(.01)
 		.sort(null);
 
-//Draw the arcs themselves
+	//Draw the arcs themselves
 	svg.selectAll(".dirArc")
 		.data(pie(dirData))
 	   	.enter()
 	   	.append("path")
 			.attr("class", "dirArc")
-			.attr("id", function(d,i) { return "dirArc_"+i; })
 			.attr("d", arc);
 
-	//Append the month names within the arcs
+
+	//now, append the directions inside (hardcoded)
+	svg.append("text")
+		.attr("id", "dirText")
+	    .attr("dy", "-7.0em")
+	    .attr("dx", "-0.3em")
+	    .text("N");
+
+	svg.append("text")
+		.attr("id", "dirText")
+	    .attr("dy", "7.7em")
+	    .attr("dx", "-0.3em")
+	    .text("S");
+*/
+/*	svg.append("text")
+		.attr("id", "dirText")
+	    .attr("dy", "-7.5em")
+	    .attr("dx", "-0.3em")
+	    .text("N");
+
+	svg.append("text")
+		.attr("id", "dirText")
+	    .attr("dy", "-7.5em")
+	    .attr("dx", "-0.3em")
+	    .text("N");
+
+	svg.append("text")
+		.attr("id", "dirText")
+	    .attr("dy", "-7.5em")
+	    .attr("dx", "-0.3em")
+	    .text("N");
+
+	svg.append("text")
+		.attr("id", "dirText")
+	    .attr("dy", "-7.5em")
+	    .attr("dx", "-0.3em")
+	    .text("N");
+
+	svg.append("text")
+		.attr("id", "dirText")
+	    .attr("dy", "-7.5em")
+	    .attr("dx", "-0.3em")
+	    .text("N");
+
+	svg.append("text")
+		.attr("id", "dirText")
+	    .attr("dy", "-7.5em")
+	    .attr("dx", "-0.3em")
+	    .text("N");
+
+	svg.append("text")
+		.attr("id", "dirText")
+	    .attr("dy", "-7.5em")
+	    .attr("dx", "-0.3em")
+	    .text("N");	    	    	    	    	    	    	    	   
+*/
+/*
+	//Append the dir names within the arcs
 	svg.selectAll(".dirText")
 		.data(dirData)
 	   	.enter()
@@ -55,7 +129,7 @@ function drawCompass() {
 			.attr("dy", 45) //Move the text down
 	   	.append("textPath")
 			.attr("xlink:href",function(d,i){return "#dirArc_"+i;}) //link text to corresponding arc (decided by "i" index)
-			.text(function(d){return d.dir;});	
+			.text(function(d){return d.dir;});	*/
 
 
 /*    Needle = function () {
