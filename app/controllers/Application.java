@@ -43,6 +43,7 @@ public class Application extends Controller {
     public Result bootstrapSandstone() {
         int i = 0;
         Tools tools = new Tools();
+        DataGenerators dg = new DataGenerators();
         ArrayList<String> list = new ArrayList<String>();
         ArrayList<String> dayDatas = new ArrayList<String>(); // used for thermometer
         ArrayList<String> chartDatas = new ArrayList<String>(); // used for temperature
@@ -56,11 +57,12 @@ public class Application extends Controller {
         list = tools.readCsv2("/home/jeremy/dev/java/JavaPlay_BasicTests/public/sources/data2.csv", ";", list);
         dayDatas = tools.getAllDayValues(date, 1, list, dayDatas);
         chartDatas = tools.csvToChartDataLine(list, chartDatas);
-        Logger.debug(chartDatas.get(1));
 
         list = new ArrayList<String>(); // re-instanciate it so it is empty. Clear could be used but perf gain is negligible.
         list = tools.readCsv2("/home/jeremy/dev/java/JavaPlay_BasicTests/public/sources/data2-humidity.csv", ";", list);
         chartDatasHumidity = tools.csvToChartDataLine(list, chartDatasHumidity);
+
+        dg.fullGeneratorMongoDB("blbl");
 
         return ok(testpage.render(chartDatas, dayDatas, chartDatasHumidity));
     }
