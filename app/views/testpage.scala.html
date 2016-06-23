@@ -104,7 +104,7 @@
                                     </td> <!-- close right column -->
                                 </tr>
                             </table>
-                        </div>
+                        </div> <!-- close body panel temperature -->
                     </div> <!-- close panel temperature -->
                 </div> <!-- close col md 4 for temperature -->
 
@@ -113,53 +113,65 @@
                         <div class="panel-heading" id="panel-header-box"> <!-- open panel humidity header -->
                             <h1 id="header-rowcol">Humidity</h1>
                         </div> <!-- close panel humidity header -->
-                        <div id="humidity-gauge"></div>
-                        <script type="text/javascript">
-                            var arrayGaugeHumidity = [];
-                            @for(d <- 0 until dayDatas.size()) {
-                                var tmp = "@dayDatas.get(d)".split("|");
-                                arrayGaugeHumidity.push([parseInt(tmp[0]),tmp[1].slice(0,-3 ).replace(":", "H")]);
-                                drawGaugeChart(20);
-                            }
-                        </script>
-                        <hr>
-                        <table>
-                            <tr>
-                                <td class="col-md-2">
-                                    <span id="dataHeader">Information 1:</span><span id="humDataValue"> value 1</span><br>
-                                    <span id="dataHeader">Information 2:</span><span id="humDataValue"> value 2</span><br>
-                                    <div id="dots">
-                                        .<br>
-                                        .<br>
-                                        .<br>
-                                    </div>
-                                    <span id="dataHeader">Information n:</span><span id="humDataValue"> value n</span><br>
-                                </td>
-                                <td class="col-md-2" id="humRightColumn">
-                                    <button class="btn btn-primary btn-lg" id="buttonHum" data-toggle="modal" data-target="#myModal">Graph</button>
-                                </td>
-                            </tr>
-                        </table>
+                        <div class="body-panel-content">
+                            <div id="humidity-gauge"></div>
+                            <script type="text/javascript">
+                                var arrayGaugeHumidity = [];
+                                @for(d <- 0 until dayDatas.size()) {
+                                    var tmp = "@dayDatas.get(d)".split("|");
+                                    arrayGaugeHumidity.push([parseInt(tmp[0]),tmp[1].slice(0,-3 ).replace(":", "H")]);
+                                    drawGaugeChart(20);
+                                }
+                            </script>
+                            <hr>
+                            <table>
+                                <tr>
+                                    <td class="col-md-2">
+                                        <span id="dataHeader">Information 1:</span><span id="humDataValue"> value 1</span><br>
+                                        <span id="dataHeader">Information 2:</span><span id="humDataValue"> value 2</span><br>
+                                        <div id="dots">
+                                            .<br>
+                                            .<br>
+                                            .<br>
+                                        </div>
+                                        <span id="dataHeader">Information n:</span><span id="humDataValue"> value n</span><br>
+                                    </td>
+                                    <td class="col-md-2" id="humRightColumn">
+                                        <button class="btn btn-primary btn-lg" id="buttonHum" data-toggle="modal" data-target="#myModal">Graph</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div> <!-- close body panel humidity -->
                     </div> <!-- close panel -->
                 </div> <!-- close col-md-4 -->
 
-                <!-- WIND START -->
                 <div class="col-md-4"> <!-- col md 4 for panel wind -->
                     <div class="panel panel-default" id="panel3"> <!-- panel wind -->
                         <div class="panel-heading" id="panel-header-box"> <!-- panel wind header -->
                             <h1 id="header-rowcol">Wind</h1>
                         </div> <!-- close panel wind header -->
-                        <p align="center">
-                            <div class="panel-body">
-                                <div id="compass"></div>
+                       <div class="body-panel-content">
+                            <!-- <div id="compass"></div>
                                 <script type="text/javascript">
-                                    drawCompass();
-                                </script>
-                            </div>
-                        </p>
+                                valueList = [150,7,62,359];
+                                index = 0
+                                //display compass amd compass needle
+                                drawCompass("@routes.Assets.versioned("images/svg/compass-rose-needleless.svg")", "@routes.Assets.versioned("images/svg/needle.svg")");
+                                setInterval(function(){
+                                    if (index != valueList.length-1) {
+                                        index++;
+                                    } else {
+                                        index=0;
+                                    }
+                                    rotateNeedle(valueList, index);
+                                }, 5000);
+                            </script> -->
+                            <span id="dataHeader">Latest value:</span><span id="windDataValue"> value 1</span><br>
+                            <span id="dataHeader">Today's min:</span><span id="windDataValue"> value 2</span><br>
+                            <span id="dataHeader">Today's max:</span><span id="windDataValue"> value 3</span><br>
+                        </div>
                     </div> <!-- close panel wind-->
                 </div> <!-- close col md 4 for panel wind-->
-                <!-- WIND END -->
             </div>
 
             <div class="row"> <!-- open row 2-->
@@ -168,7 +180,7 @@
                         <div class="panel-heading" id="panel-header-box"> <!-- open header panel rain -->
                             <h1 id="header-rowcol">Rain</h1>
                         </div> <!-- close header panel rain -->
-                        <div class="panel-body"> <!-- open body panel rain -->
+                        <div class="body-panel-content"> <!-- open body panel rain -->
                             rain
                         </div> <!-- close body panel rain -->
                     </div> <!-- close panel rain-->
@@ -179,7 +191,7 @@
                         <div class="panel-heading" id="panel-header-box"> <!-- open header panel air quality -->
                             <h1 id="header-rowcol">Air quality</h1>
                         </div> <!-- close header panel air quality -->
-                        <div class="panel-body"> <!-- open body panel air quality -->
+                        <div class="panel-body-content"> <!-- open body panel air quality -->
                             air quality
                         </div> <!-- close body panel air quality -->
                     </div> <!-- close panel air quality-->

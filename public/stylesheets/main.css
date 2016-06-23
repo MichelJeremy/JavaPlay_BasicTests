@@ -1,11 +1,8 @@
-*
-
 /*d3*/
 svg {
     display: block;
-    width: 100%;
-    height: 100%;
 }
+
 
 svg .axis path, 
 svg .axis line {
@@ -20,21 +17,10 @@ svg .axis text {
 
 
 /*compass.js*/
-#compass{
-    text-align: center;
+#compass{   
+    margin: 0 auto;
 }
 
-.dirArc {
-    fill: white;
-    stroke: #AAAAAA;
-    width: 5px;
-}
-
-#dirText {
-    font-size: 15px;
-    font-family: sans-serif;
-    font-weight: bold;
-}
 
 
 /*HEADER*/
@@ -154,4 +140,9 @@ header#main span.subtittle {
     text-align: center;
     font-size: 25px;
     font-weight: bold;
+}
+
+#windDataValue {
+    font-size: 15px;
+    color: #FF0000;
 }
