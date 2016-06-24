@@ -62,7 +62,7 @@ public class Application extends Controller {
         list = tools.readCsv2("/home/jeremy/dev/java/JavaPlay_BasicTests/public/sources/data2-humidity.csv", ";", list);
         chartDatasHumidity = tools.csvToChartDataLine(list, chartDatasHumidity);
 
-        dg.fullGeneratorMongoDB("blbl");
+        dg.fullGeneratorMongoDB("myDB", 2, 7, 7);
 
         return ok(testpage.render(chartDatas, dayDatas, chartDatasHumidity));
     }
