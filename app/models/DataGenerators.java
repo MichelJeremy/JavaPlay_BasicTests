@@ -7,10 +7,15 @@ import play.Logger;
 //mongoDB imports
 import com.mongodb.*;
 import com.mongodb.client.*;
-import org.bson.*;
+import org.bson.Document;
 import com.mongodb.client.model.*;
 import com.mongodb.client.model.Sorts.*;
 import com.mongodb.client.model.Filters.*;
+
+
+import static com.mongodb.client.model.Sorts.descending;
+
+
 
 public class DataGenerators {
 
@@ -158,12 +163,12 @@ public class DataGenerators {
 
 
 		/*4 - create the aggregations*/
-		//bind collections to vars
-
-
 		//get data older than daysDatakept, and aggregate it
+		
 		Document doc = tempRawCollection.find().sort(descending("timestamp")).first();
-		Logger.debug(""+doc);
+		Logger.debug(""+ doc.toJson());
+
+
 	}
 	
 }
