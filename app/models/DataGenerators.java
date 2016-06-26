@@ -90,7 +90,7 @@ public class DataGenerators {
 		/*3 - insert the data following the function's parameter*/
 		/*3.1 - get generation starting date in milliseconds (epoch)*/
 		Calendar now = Calendar.getInstance(); // get current time
-		Calendar nextDay = Calendar.getInstance(); // instanciate new calendar with current tine
+		Calendar nextDay = Calendar.getInstance(); // instanciate new calendar with current time
 		nextDay.clear(); // clear the new calendar (which is now 0)
 		nextDay.set(
 			now.get(Calendar.YEAR),
@@ -166,7 +166,36 @@ public class DataGenerators {
 		//get data older than daysDatakept, and aggregate it
 		
 		Document doc = tempRawCollection.find().sort(descending("timestamp")).first();
-		Logger.debug(""+ doc.toJson());
+		long timestampLatest = (long) doc.get("timestamp");
+		Logger.debug(""+timestampLatest);
+		Calendar midnightEarlier = new GregorianCalendar();
+		midnightEarlier.clear();
+		midnightEarlier.setTimeInMillis(timestampLatest);
+		midnightEarlier.set(
+			midnightEarlier.get(Calendar.YEAR),
+			midnightEarlier.get(Calendar.MONTH),
+			midnightEarlier.get(Calendar.DAY_OF_MONTH),
+			0,
+			0,
+			0
+		);
+
+		long midnightEarlierTimestamp = midnightEarlier.getTimeInMillis(); // get timetamp of latest day's (earlier) midnight timestamp
+		Logger.debug(""+midnightEarlierTimestamp);
+
+		long timestampEqKept = 1000 * 60 * 60 * 24 * daysDatakept; // timestamp equivalent to duration of daysDataKept in milliseconds
+		Logger.debug(""+timestampEqKept);
+		long limitTimestamp = midnightEarlierTimestamp - timestampEqKept; //timestamp equivalent to the oldest data that is to be kept
+		Logger.debug(""+limitTimestamp);
+
+		MongoCursor<Document> cursor = tempRawCollection.find().iterator();
+	/*	try {
+   			while (cursor.hasNext()) {
+        		Logger.debug(""+cursor.next().get("timestamp"));
+    		}
+		} finally {
+    		cursor.close();
+		}*/
 
 
 	}
