@@ -5,15 +5,17 @@ import java.lang.Object;
 import play.Logger;
 
 //mongoDB imports
-import com.mongodb.*;
-import com.mongodb.client.*;
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.DeleteOneModel;
+import com.mongodb.client.model.InsertOneModel;
 import org.bson.Document;
-import com.mongodb.client.model.*;
-import com.mongodb.client.model.Sorts.*;
-import com.mongodb.client.model.Filters.*;
 
 
 import static com.mongodb.client.model.Sorts.descending;
+import static com.mongodb.client.model.Filters.lte;
 
 
 
@@ -167,7 +169,6 @@ public class DataGenerators {
 		
 		Document doc = tempRawCollection.find().sort(descending("timestamp")).first();
 		long timestampLatest = (long) doc.get("timestamp");
-		Logger.debug(""+timestampLatest);
 		Calendar midnightEarlier = new GregorianCalendar();
 		midnightEarlier.clear();
 		midnightEarlier.setTimeInMillis(timestampLatest);
@@ -181,23 +182,512 @@ public class DataGenerators {
 		);
 
 		long midnightEarlierTimestamp = midnightEarlier.getTimeInMillis(); // get timetamp of latest day's (earlier) midnight timestamp
-		Logger.debug(""+midnightEarlierTimestamp);
 
 		long timestampEqKept = 1000 * 60 * 60 * 24 * daysDatakept; // timestamp equivalent to duration of daysDataKept in milliseconds
-		Logger.debug(""+timestampEqKept);
 		long limitTimestamp = midnightEarlierTimestamp - timestampEqKept; //timestamp equivalent to the oldest data that is to be kept
-		Logger.debug(""+limitTimestamp);
 
-		MongoCursor<Document> cursor = tempRawCollection.find().iterator();
-	/*	try {
+		/****************************************************************************************************************
+		*												TEMPERATURE PROCESSING 											*
+		*****************************************************************************************************************/
+
+		MongoCursor<Document> cursor = tempRawCollection.find().sort(descending("timestamp")).iterator();
+
+		int cursorDayIterator = 0;
+		int minDay=0, maxDay=0, documentCount = 0;
+		float averageDay = 0;
+		long cursorTimestamp, dayEndInMillis;
+		try {
    			while (cursor.hasNext()) {
-        		Logger.debug(""+cursor.next().get("timestamp"));
+   				Document cursorNext = cursor.next();
+   				cursorTimestamp = (long) cursorNext.get("timestamp");
+    			if (cursorTimestamp >= limitTimestamp) { //cast java Object to long
+    				// cursor still in data kept range
+    				// do nothing (possibility to count documents here with iterator / process things maybe)
+    			} else {
+    				// here, we are in the data aggregation range
+    				Calendar dayEnd = new GregorianCalendar();
+    				dayEnd.clear();
+					dayEnd.setTimeInMillis(cursorTimestamp);
+					dayEnd.set(
+						dayEnd.get(Calendar.YEAR),
+						dayEnd.get(Calendar.MONTH),
+						dayEnd.get(Calendar.DAY_OF_MONTH),
+						0,
+						0,
+						0
+					);
+					dayEndInMillis = dayEnd.getTimeInMillis();
+
+					while (((long) cursorNext.get("timestamp") >= dayEndInMillis) && (cursor.hasNext())) {
+						//we are in a new day
+						if (cursorDayIterator == 0) {
+							//if it is the first cursor of the new day, init
+							minDay = (int) cursorNext.get("temperature");
+							maxDay = (int) cursorNext.get("temperature");
+							averageDay = (int) cursorNext.get("temperature");
+							cursorNext = cursor.next(); //get the next cursor
+							cursorDayIterator++;
+						} else {
+							//go through the other documents
+							if (((int) cursorNext.get("temperature")) > maxDay) maxDay = ((int) cursorNext.get("temperature"));
+							if (((int) cursorNext.get("temperature")) < minDay) minDay = ((int) cursorNext.get("temperature"));
+							averageDay += (int) cursorNext.get("temperature");
+							cursorDayIterator++;
+							cursorNext = cursor.next();
+						}
+					}
+					// if the code goes here, it means cursorNext.get("timestamp") is lesser or equal to dayEndInMillis
+					// thus, it is a new day
+					// we can reset for the next loop (this code could be at the beginning of the while(cursor.hasNext) too)
+					Document document = new Document("timestamp", dayEndInMillis)
+						.append("min", minDay)
+						.append("max", maxDay)
+						.append("average", averageDay/(cursorDayIterator+1))
+						.append("unit", "C");
+
+					tempAggregatedCollection.insertOne(document);
+					cursorDayIterator = 0;
+					averageDay = 0;
+					minDay =0;
+					maxDay = 0;
+					documentCount++;
+        		}
     		}
+		} catch (Exception e) {
+			//error processing, not much to do there atm
+			Logger.error("AN ERROR OCCURED");
 		} finally {
-    		cursor.close();
-		}*/
+    		cursor.close(); // close the cursor to free the memory
+    		Logger.info(documentCount + " aggregation documents have been created");
+		}
 
 
+		/****************************************************************************************************************
+		*												HUMIDITY PROCESSING 											*
+		*****************************************************************************************************************/
+
+		cursor = humiRawCollection.find().sort(descending("timestamp")).iterator();
+
+		cursorDayIterator = 0;
+		minDay=0;
+		maxDay=0;
+		documentCount = 0;
+		averageDay = 0;
+
+		try {
+   			while (cursor.hasNext()) {
+   				Document cursorNext = cursor.next();
+   				cursorTimestamp = (long) cursorNext.get("timestamp");
+    			if (cursorTimestamp > limitTimestamp) { //cast java Object to long
+    				// cursor still in data kept range
+    				// do nothing (possibility to count documents here with iterator / process things maybe)
+    			} else {
+    				// here, we are in the data aggregation range
+    				Calendar dayEnd = new GregorianCalendar();
+    				dayEnd.clear();
+					dayEnd.setTimeInMillis(cursorTimestamp);
+					dayEnd.set(
+						dayEnd.get(Calendar.YEAR),
+						dayEnd.get(Calendar.MONTH),
+						dayEnd.get(Calendar.DAY_OF_MONTH),
+						0,
+						0,
+						0
+					);
+					dayEndInMillis = dayEnd.getTimeInMillis();
+
+					while (((long) cursorNext.get("timestamp") >= dayEndInMillis) && (cursor.hasNext())) {
+						//we are in a new day
+						if (cursorDayIterator == 0) {
+							//if it is the first cursor of the new day, init
+							minDay = (int) cursorNext.get("humidity");
+							maxDay = (int) cursorNext.get("humidity");
+							averageDay = (int) cursorNext.get("humidity");
+							cursorNext = cursor.next(); //get the next cursor
+							cursorDayIterator++;
+						} else {
+							//go through the other documents
+							if (((int) cursorNext.get("humidity")) > maxDay) maxDay = ((int) cursorNext.get("humidity"));
+							if (((int) cursorNext.get("humidity")) < minDay) minDay = ((int) cursorNext.get("humidity"));
+							averageDay += (int) cursorNext.get("humidity");
+							cursorDayIterator++;
+							cursorNext = cursor.next();
+						}
+					}
+					// if the code goes here, it means cursorNext.get("timestamp") is lesser or equal to dayEndInMillis
+					// thus, it is a new day
+					// we can reset for the next loop (this code could be at the beginning of the while(cursor.hasNext) too)
+					Document document = new Document("timestamp", dayEndInMillis)
+						.append("min", minDay)
+						.append("max", maxDay)
+						.append("average", averageDay/(cursorDayIterator+1))
+						.append("unit", "%");
+
+					humiAggregatedCollection.insertOne(document);
+					cursorDayIterator = 0;
+					averageDay = 0;
+					minDay =0;
+					maxDay = 0;
+					documentCount++;
+        		}
+    		}
+		} catch (Exception e) {
+			//error processing, not much to do there atm
+			Logger.error("AN ERROR OCCURED");
+		} finally {
+    		cursor.close(); // close the cursor to free the memory
+    		Logger.info(documentCount + " aggregation documents have been created");
+		}
+
+		/****************************************************************************************************************
+		*												RAIN PROCESSING 												*
+		*****************************************************************************************************************/
+
+		cursor = rainRawCollection.find().sort(descending("timestamp")).iterator();
+
+		cursorDayIterator = 0;
+		minDay=0;
+		maxDay=0;
+		documentCount = 0;
+		averageDay = 0;
+
+		try {
+   			while (cursor.hasNext()) {
+   				Document cursorNext = cursor.next();
+   				cursorTimestamp = (long) cursorNext.get("timestamp");
+    			if (cursorTimestamp > limitTimestamp) { //cast java Object to long
+    				// cursor still in data kept range
+    				// do nothing (possibility to count documents here with iterator / process things maybe)
+    			} else {
+    				// here, we are in the data aggregation range
+    				Calendar dayEnd = new GregorianCalendar();
+    				dayEnd.clear();
+					dayEnd.setTimeInMillis(cursorTimestamp);
+					dayEnd.set(
+						dayEnd.get(Calendar.YEAR),
+						dayEnd.get(Calendar.MONTH),
+						dayEnd.get(Calendar.DAY_OF_MONTH),
+						0,
+						0,
+						0
+					);
+					dayEndInMillis = dayEnd.getTimeInMillis();
+
+					while (((long) cursorNext.get("timestamp") >= dayEndInMillis) && (cursor.hasNext())) {
+						//we are in a new day
+						if (cursorDayIterator == 0) {
+							//if it is the first cursor of the new day, init
+							minDay = (int) cursorNext.get("rain");
+							maxDay = (int) cursorNext.get("rain");
+							averageDay = (int) cursorNext.get("rain");
+							cursorNext = cursor.next(); //get the next cursor
+							cursorDayIterator++;
+						} else {
+							//go through the other documents
+							if (((int) cursorNext.get("rain")) > maxDay) maxDay = ((int) cursorNext.get("rain"));
+							if (((int) cursorNext.get("rain")) < minDay) minDay = ((int) cursorNext.get("rain"));
+							averageDay += (int) cursorNext.get("rain");
+							cursorDayIterator++;
+							cursorNext = cursor.next();
+						}
+					}
+					// if the code goes here, it means cursorNext.get("timestamp") is lesser or equal to dayEndInMillis
+					// thus, it is a new day
+					// we can reset for the next loop (this code could be at the beginning of the while(cursor.hasNext) too)
+					Document document = new Document("timestamp", dayEndInMillis) 
+						.append("min", minDay)
+						.append("max", maxDay)
+						.append("average", averageDay/(cursorDayIterator+1))
+						.append("unit", "mm");
+
+					rainAggregatedCollection.insertOne(document);
+					cursorDayIterator = 0;
+					averageDay = 0;
+					minDay =0;
+					maxDay = 0;
+					documentCount++;
+        		}
+    		}
+		} catch (Exception e) {
+			//error processing, not much to do there atm
+			Logger.error("AN ERROR OCCURED");
+		} finally {
+    		cursor.close(); // close the cursor to free the memory
+    		Logger.info(documentCount + " aggregation documents have been created");
+		}
+
+
+
+		/****************************************************************************************************************
+		*												AIR PROCESSING 													*
+		*****************************************************************************************************************/
+
+		cursor = airRawCollection.find().sort(descending("timestamp")).iterator();
+
+		cursorDayIterator = 0;
+		minDay=0;
+		maxDay=0;
+		documentCount = 0;
+		averageDay = 0;
+
+		try {
+   			while (cursor.hasNext()) {
+   				Document cursorNext = cursor.next();
+   				cursorTimestamp = (long) cursorNext.get("timestamp");
+    			if (cursorTimestamp > limitTimestamp) { //cast java Object to long
+    				// cursor still in data kept range
+    				// do nothing (possibility to count documents here with iterator / process things maybe)
+    			} else {
+    				// here, we are in the data aggregation range
+    				Calendar dayEnd = new GregorianCalendar();
+    				dayEnd.clear();
+					dayEnd.setTimeInMillis(cursorTimestamp);
+					dayEnd.set(
+						dayEnd.get(Calendar.YEAR),
+						dayEnd.get(Calendar.MONTH),
+						dayEnd.get(Calendar.DAY_OF_MONTH),
+						0,
+						0,
+						0
+					);
+					dayEndInMillis = dayEnd.getTimeInMillis();
+
+					while (((long) cursorNext.get("timestamp") >= dayEndInMillis) && (cursor.hasNext())) {
+						//we are in a new day
+						if (cursorDayIterator == 0) {
+							//if it is the first cursor of the new day, init
+							minDay = (int) cursorNext.get("airquality");
+							maxDay = (int) cursorNext.get("airquality");
+							averageDay = (int) cursorNext.get("airquality");
+							cursorNext = cursor.next(); //get the next cursor
+							cursorDayIterator++;
+						} else {
+							//go through the other documents
+							if (((int) cursorNext.get("airquality")) > maxDay) maxDay = ((int) cursorNext.get("airquality"));
+							if (((int) cursorNext.get("airquality")) < minDay) minDay = ((int) cursorNext.get("airquality"));
+							averageDay += (int) cursorNext.get("airquality");
+							cursorDayIterator++;
+							cursorNext = cursor.next();
+						}
+					}
+					// if the code goes here, it means cursorNext.get("timestamp") is lesser or equal to dayEndInMillis
+					// thus, it is a new day
+					// we can reset for the next loop (this code could be at the beginning of the while(cursor.hasNext) too)
+					Document document = new Document("timestamp", dayEndInMillis) 
+						.append("min", minDay)
+						.append("max", maxDay)
+						.append("average", averageDay/(cursorDayIterator+1))
+						.append("unit", "%");
+
+					airAggregatedCollection.insertOne(document);
+					cursorDayIterator = 0;
+					averageDay = 0;
+					minDay =0;
+					maxDay = 0;
+					documentCount++;
+        		}
+    		}
+		} catch (Exception e) {
+			//error processing, not much to do there atm
+			Logger.error("AN ERROR OCCURED");
+		} finally {
+    		cursor.close(); // close the cursor to free the memory
+    		Logger.info(documentCount + " aggregation documents have been created");
+		}
+
+
+		/****************************************************************************************************************
+		*												WIND PROCESSING 												*
+		*****************************************************************************************************************/
+
+		cursor = windRawCollection.find().sort(descending("timestamp")).iterator();
+
+		cursorDayIterator = 0;
+		minDay = 0;
+		int minDay2 = 0;
+		maxDay = 0;
+		int maxDay2 = 0;
+		documentCount = 0;
+		averageDay = 0;
+		float averageDay2 = 0;
+
+		try {
+   			while (cursor.hasNext()) {
+   				Document cursorNext = cursor.next();
+   				cursorTimestamp = (long) cursorNext.get("timestamp");
+    			if (cursorTimestamp > limitTimestamp) { //cast java Object to long
+    				// cursor still in data kept range
+    				// do nothing (possibility to count documents here with iterator / process things maybe)
+    			} else {
+    				// here, we are in the data aggregation range
+    				Calendar dayEnd = new GregorianCalendar();
+    				dayEnd.clear();
+					dayEnd.setTimeInMillis(cursorTimestamp);
+					dayEnd.set(
+						dayEnd.get(Calendar.YEAR),
+						dayEnd.get(Calendar.MONTH),
+						dayEnd.get(Calendar.DAY_OF_MONTH),
+						0,
+						0,
+						0
+					);
+					dayEndInMillis = dayEnd.getTimeInMillis();
+
+					while (((long) cursorNext.get("timestamp") >= dayEndInMillis) && (cursor.hasNext())) {
+						//we are in a new day
+						if (cursorDayIterator == 0) {
+							//if it is the first cursor of the new day, init
+							minDay = (int) cursorNext.get("windspeed");
+							minDay2 = (int) cursorNext.get("windspeed");
+							maxDay = (int) cursorNext.get("windspeed");
+							maxDay2 = (int) cursorNext.get("windspeed");
+							averageDay = (int) cursorNext.get("windspeed");
+							averageDay2 = (int) cursorNext.get("windspeed");
+							cursorNext = cursor.next(); //get the next cursor
+							cursorDayIterator++;
+						} else {
+							//go through the other documents
+							if (((int) cursorNext.get("windspeed")) > maxDay) maxDay = ((int) cursorNext.get("windspeed"));
+							if (((int) cursorNext.get("winddirection")) > maxDay2) maxDay2 = ((int) cursorNext.get("winddirection"));
+							if (((int) cursorNext.get("windspeed")) < minDay) minDay = ((int) cursorNext.get("windspeed"));
+							if (((int) cursorNext.get("winddirection")) < minDay2) minDay2 = ((int) cursorNext.get("winddirection"));
+							averageDay += (int) cursorNext.get("windspeed");
+							averageDay2 += (int) cursorNext.get("winddirection");
+							cursorDayIterator++;
+							cursorNext = cursor.next();
+						}
+					}
+					// if the code goes here, it means cursorNext.get("timestamp") is lesser or equal to dayEndInMillis
+					// thus, it is a new day
+					// we can reset for the next loop (this code could be at the beginning of the while(cursor.hasNext) too)
+					Document document = new Document("timestamp", dayEndInMillis) 
+						.append("minWS", minDay)
+						.append("minWD", minDay2)
+						.append("maxWS", maxDay)
+						.append("maxWD", maxDay2)
+						.append("averageWS", averageDay/(cursorDayIterator+1))
+						.append("averageWD", averageDay2/(cursorDayIterator+1))
+						.append("unitWS", "kn")
+						.append("unitWD", "°");
+
+					windAggregatedCollection.insertOne(document);
+					cursorDayIterator = 0;
+					averageDay = 0;
+					minDay =0;
+					maxDay = 0;
+					documentCount++;
+        		}
+    		}
+		} catch (Exception e) {
+			//error processing, not much to do there atm
+			Logger.error("AN ERROR OCCURED");
+		} finally {
+    		cursor.close(); // close the cursor to free the memory
+    		Logger.info(documentCount + " aggregation documents have been created");
+		}
+
+
+		/*5 - removal of useless documents*/
+
+		/****************************************************************************************************************
+		*												TEMP REMOVAL 													*
+		*****************************************************************************************************************/
+
+		MongoCursor<Document> cursorRemoval = tempRawCollection.find(lte("timestamp", limitTimestamp)).sort(descending("timestamp")).iterator();
+		int removalCounter = 0;
+		try {
+			while (cursorRemoval.hasNext()) {
+				tempRawCollection.deleteOne(cursorRemoval.next());
+				removalCounter++;
+			}	
+		} catch (Exception e) {
+			//error processing, not much to do there atm
+			Logger.debug("AN ERROR OCCURED");
+		} finally {
+    		cursorRemoval.close(); // close the cursor to free the memory
+    		Logger.info(removalCounter + " documents have been removed");
+		}
+
+
+
+		/****************************************************************************************************************
+		*												HUMI REMOVAL 													*
+		*****************************************************************************************************************/		
+
+		cursorRemoval = humiRawCollection.find(lte("timestamp", limitTimestamp)).sort(descending("timestamp")).iterator();
+		removalCounter = 0;
+		try {
+			while (cursorRemoval.hasNext()) {
+				humiRawCollection.deleteOne(cursorRemoval.next());
+				removalCounter++;
+			}	
+		} catch (Exception e) {
+			//error processing, not much to do there atm
+			Logger.debug("AN ERROR OCCURED");
+		} finally {
+    		cursorRemoval.close(); // close the cursor to free the memory
+    		Logger.info(removalCounter + " documents have been removed");
+		}
+
+
+		/****************************************************************************************************************
+		*												RAIN REMOVAL 													*
+		*****************************************************************************************************************/
+
+		cursorRemoval = rainRawCollection.find(lte("timestamp", limitTimestamp)).sort(descending("timestamp")).iterator();
+		removalCounter = 0;
+		try {
+			while (cursorRemoval.hasNext()) {
+				rainRawCollection.deleteOne(cursorRemoval.next());
+				removalCounter++;
+			}	
+		} catch (Exception e) {
+			//error processing, not much to do there atm
+			Logger.debug("AN ERROR OCCURED");
+		} finally {
+    		cursorRemoval.close(); // close the cursor to free the memory
+    		Logger.info(removalCounter + " documents have been removed");
+		}
+
+
+		/****************************************************************************************************************
+		*												AIR REMOVAL 													*
+		*****************************************************************************************************************/
+
+		cursorRemoval = airRawCollection.find(lte("timestamp", limitTimestamp)).sort(descending("timestamp")).iterator();
+		removalCounter = 0;
+		try {
+			while (cursorRemoval.hasNext()) {
+				airRawCollection.deleteOne(cursorRemoval.next());
+				removalCounter++;
+			}	
+		} catch (Exception e) {
+			//error processing, not much to do there atm
+			Logger.debug("AN ERROR OCCURED");
+		} finally {
+    		cursorRemoval.close(); // close the cursor to free the memory
+    		Logger.info(removalCounter + " documents have been removed");
+		}
+
+
+		/****************************************************************************************************************
+		*												WIND REMOVAL 													*
+		*****************************************************************************************************************/		
+
+		cursorRemoval = windRawCollection.find(lte("timestamp", limitTimestamp)).sort(descending("timestamp")).iterator();
+		removalCounter = 0;
+		try {
+			while (cursorRemoval.hasNext()) {
+				windRawCollection.deleteOne(cursorRemoval.next());
+				removalCounter++;
+			}	
+		} catch (Exception e) {
+			//error processing, not much to do there atm
+			Logger.debug("AN ERROR OCCURED");
+		} finally {
+    		cursorRemoval.close(); // close the cursor to free the memory
+    		Logger.info(removalCounter + " documents have been removed");
+		}
 	}
 	
 }
