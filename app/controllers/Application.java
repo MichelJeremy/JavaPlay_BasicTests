@@ -47,6 +47,9 @@ public class Application extends Controller {
         ArrayList<String> dayDatas = new ArrayList<String>(); // used for thermometer
         ArrayList<String> chartDatas = new ArrayList<String>(); // used for temperature
         ArrayList<String> chartDatasHumidity = new ArrayList<String>(); // used for humidity
+        List<List<String>> mongoData = new ArrayList<List<String>>(); // contains every datas stored
+        ArrayList<String> mongoDataTempRaw = new ArrayList<String>();
+        ArrayList<String> mongoDataTempAgr = new ArrayList<String>();
 
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
         Date dateobj = new Date();
@@ -60,8 +63,28 @@ public class Application extends Controller {
         list = new ArrayList<String>(); // re-instanciate it so it is empty. Clear could be used but perf gain is negligible.
         list = tools.readCsv2("/home/jeremy/dev/java/JavaPlay_BasicTests/public/sources/data2-humidity.csv", ";", list);
         chartDatasHumidity = tools.csvToChartDataLine(list, chartDatasHumidity);
+        mongoData = tools.jsonToDataList("localhost", 27017, "myDB");
 
-        return ok(testpage.render(chartDatas, dayDatas, chartDatasHumidity));
+        /*    INDEX:  
+            0 = temperature_raw
+            1 = temperature_agr
+            2 = humidity_raw
+            3 = humidity_agr
+            4 = wind_raw
+            5 = wind_agr
+            6 = rain_raw
+            7 = rain_agr
+            8 = air_raw
+            9 = air_agr*/
+
+        mongoDataTempAgr = tools.jsonToDataFormat(mongoData, 4);
+
+        for (i=0; i<mongoDataTempAgr.size(); i++) {
+            Logger.debug(""+mongoDataTempAgr.get(i));
+        }
+
+
+        return ok(testpage.render(chartDatas, dayDatas, chartDatasHumidity, mongoData));
     }
 
     public Result generator() {

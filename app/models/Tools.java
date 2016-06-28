@@ -11,33 +11,18 @@ import java.io.FileNotFoundException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.MongoCollection;
+import org.bson.Document;
 
+import static com.mongodb.client.model.Sorts.*;
+import static com.mongodb.client.model.Projections.*;
 import play.Logger;
 
 // gives some functionnalities
 public class Tools {
-
-    //old reader, shouldn't be used
-    public ArrayList<String> readCsv(String csvPath, String delimiter, ArrayList<String> list) {
-        int i = 0;
-        try {
-            Scanner scanner = new Scanner(new File(csvPath));
-            scanner.useDelimiter(delimiter);
-            while(scanner.hasNext()) {
-                i++;
-                if (i%2 != 0) {
-                    scanner.next();
-                } else {
-                    list.add(scanner.next());
-                }
-            }
-        scanner.close();
-        return list;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
     
     // act reader, takes \n into account
     public ArrayList<String> readCsv2(String csvPath, String delimiter, ArrayList<String> list) {
@@ -122,6 +107,281 @@ public class Tools {
         chartData.add(sb.toString());
         return chartData;
     }
+
+
+
+    //this method is going to return the data stored in a list
+    public List<List<String>> jsonToDataList(String dbHost, int port, String dbName) {
+/*      List[0][x] = temp
+        List[1][x] = tempAgr
+        List[2][x] = humidity
+        List[3][x] = humidityAgr
+        List[4][x] = wind
+        List[5][x] = windAgr
+        List[6][x] = rain
+        List[7][x] = rainAgr
+        List[8][x] = air
+        List[9][x] = airAgr*/
+
+        List<List<String>> dataList = new ArrayList<List<String>>();
+
+        String[] COLLECTIONS = {
+            "S001_Temp_raw",
+            "S001_Temp_aggregated",
+            "S002_Humi_raw",
+            "S002_Humi_aggregated",
+            "S003_Wind_raw",
+            "S003_Wind_aggregated",
+            "S004_Rain_raw",
+            "S004_Rain_aggregated",
+            "S005_Air_raw",
+            "S005_Air_aggregated",
+        };
+
+
+        MongoClient mongoClient = new MongoClient(dbHost , port);
+        MongoDatabase database = mongoClient.getDatabase(dbName);
+
+        MongoCollection<Document> tempRawCollection = database.getCollection(COLLECTIONS[0]);
+        MongoCollection<Document> humiRawCollection = database.getCollection(COLLECTIONS[2]);
+        MongoCollection<Document> windRawCollection = database.getCollection(COLLECTIONS[4]);
+        MongoCollection<Document> rainRawCollection = database.getCollection(COLLECTIONS[6]);
+        MongoCollection<Document> airRawCollection = database.getCollection(COLLECTIONS[8]);
+        
+        MongoCollection<Document> tempAggregatedCollection = database.getCollection(COLLECTIONS[1]);
+        MongoCollection<Document> humiAggregatedCollection = database.getCollection(COLLECTIONS[3]);
+        MongoCollection<Document> windAggregatedCollection = database.getCollection(COLLECTIONS[5]);
+        MongoCollection<Document> rainAggregatedCollection = database.getCollection(COLLECTIONS[7]);
+        MongoCollection<Document> airAggregatedCollection = database.getCollection(COLLECTIONS[9]);
+
+        int i;
+        for (i = 0; i < 10 ; i++) {
+            List<String> list = new ArrayList<String>();
+            dataList.add(list);
+            MongoCursor<Document> cursor = database
+                .getCollection(COLLECTIONS[i])
+                .find()
+                .projection(excludeId())
+                .sort(descending("timestamp"))
+                .iterator();
+
+            try {
+                while (cursor.hasNext()) {
+                    Document cursorNext = cursor.next();
+                    switch (i) {
+                        //raw temperature
+                        case 0: dataList.get(i).add(cursorNext.get("timestamp").toString());
+                                dataList.get(i).add(cursorNext.get("temperature").toString());
+                                dataList.get(i).add(cursorNext.get("unit").toString());
+                                break;
+
+                        //raw humidity
+                        case 2: dataList.get(i).add(cursorNext.get("timestamp").toString());
+                                dataList.get(i).add(cursorNext.get("humidity").toString());
+                                dataList.get(i).add(cursorNext.get("unit").toString());
+                                break;
+
+                        //raw wind
+                        case 4: dataList.get(i).add(cursorNext.get("timestamp").toString());
+                                dataList.get(i).add(cursorNext.get("windspeed").toString());
+                                dataList.get(i).add(cursorNext.get("winddirection").toString());
+                                dataList.get(i).add(cursorNext.get("unit1").toString());
+                                dataList.get(i).add(cursorNext.get("unit2").toString());
+                                break;
+
+                        //raw rain
+                        case 6: dataList.get(i).add(cursorNext.get("timestamp").toString());
+                                dataList.get(i).add(cursorNext.get("rain").toString());
+                                dataList.get(i).add(cursorNext.get("unit").toString());
+                                break;
+
+                        //raw air
+                        case 8: dataList.get(i).add(cursorNext.get("timestamp").toString());
+                                dataList.get(i).add(cursorNext.get("airquality").toString());
+                                dataList.get(i).add(cursorNext.get("unit").toString());
+                                break;
+
+                        //agr temp
+                        case 1: dataList.get(i).add(cursorNext.get("timestamp").toString());
+                                dataList.get(i).add(cursorNext.get("min").toString());
+                                dataList.get(i).add(cursorNext.get("max").toString());
+                                dataList.get(i).add(cursorNext.get("average").toString());
+                                dataList.get(i).add(cursorNext.get("unit").toString());
+                                break;
+
+                        //agr humidity
+                        case 3: dataList.get(i).add(cursorNext.get("timestamp").toString());
+                                dataList.get(i).add(cursorNext.get("min").toString());
+                                dataList.get(i).add(cursorNext.get("max").toString());
+                                dataList.get(i).add(cursorNext.get("average").toString());
+                                dataList.get(i).add(cursorNext.get("unit").toString());
+                                break;
+
+                        //agr wind
+                        case 5: dataList.get(i).add(cursorNext.get("timestamp").toString());
+                                dataList.get(i).add(cursorNext.get("minWS").toString());
+                                dataList.get(i).add(cursorNext.get("maxWS").toString());
+                                dataList.get(i).add(cursorNext.get("minWD").toString());
+                                dataList.get(i).add(cursorNext.get("maxWD").toString());
+                                dataList.get(i).add(cursorNext.get("averageWS").toString());
+                                dataList.get(i).add(cursorNext.get("averageWD").toString());
+                                dataList.get(i).add(cursorNext.get("unitWS").toString());
+                                dataList.get(i).add(cursorNext.get("unitWD").toString());
+                                break;
+
+                        //agr rain
+                        case 7: dataList.get(i).add(cursorNext.get("timestamp").toString());
+                                dataList.get(i).add(cursorNext.get("min").toString());
+                                dataList.get(i).add(cursorNext.get("max").toString());
+                                dataList.get(i).add(cursorNext.get("average").toString());
+                                dataList.get(i).add(cursorNext.get("unit").toString());
+                                break;
+
+                        //agr air
+                        case 9: dataList.get(i).add(cursorNext.get("timestamp").toString());
+                                dataList.get(i).add(cursorNext.get("min").toString());
+                                dataList.get(i).add(cursorNext.get("max").toString());
+                                dataList.get(i).add(cursorNext.get("average").toString());
+                                dataList.get(i).add(cursorNext.get("unit").toString());
+                                break;
+
+                    }
+                }
+            } catch (Exception e) {
+                Logger.error("An unknown error occured when fetching result from MongoDB");
+            } finally {
+                cursor.close();
+            }
+        }
+
+        return dataList;
+    }
+
+    //give the function the json data list obtained with jsonToDataList and the index of the data you need (see below)
+    //return one dimension array for javascript easier processing
+/*    INDEX:  0 = temperature_raw
+            1 = temperature_agr
+            2 = humidity_raw
+            3 = humidity_agr
+            4 = wind_raw
+            5 = wind_agr
+            6 = rain_raw
+            7 = rain_agr
+            8 = air_raw
+            9 = air_agr*/
+    public ArrayList<String> jsonToDataFormat(List<List<String>> jsonDataList, int index) {
+        ArrayList<String> jsonPushList = new ArrayList<String>();
+        StringBuilder sb = new StringBuilder();
+        String timestamp= "", value = "", unit = "", value2 = "", unit2 = "", min = "", max = "", min2 = "", max2 = "", average = "", average2 = "";
+        //raw collections
+        if (index != 4 && index%2 == 0) { // remove special cases
+            for (int i=0; i<jsonDataList.get(index).size(); i++) {
+                if (i%3 == 0) timestamp = jsonDataList.get(index).get(i);
+                if (i%3 == 1) value = jsonDataList.get(index).get(i);
+                if (i%3 == 2) {
+                    unit = jsonDataList.get(index).get(i);
+                    sb.append(".push({timestamp: \"")
+                    .append(timestamp)
+                    .append("\", value: ")
+                    .append(value)
+                    .append("\", unit: ")
+                    .append(unit)
+                    .append("});");
+                    jsonPushList.add(sb.toString().replace("\"", ""));
+                    sb.setLength(0); //reset the string builder
+                }
+            }
+        }
+        if (index == 4) { //special case because different format
+            for (int i=0; i<jsonDataList.get(index).size(); i++) {
+                if (i%5 == 0) timestamp = jsonDataList.get(index).get(i);
+                if (i%5 == 1) value = jsonDataList.get(index).get(i);
+                if (i%5 == 2) value2 = jsonDataList.get(index).get(i);
+                if (i%5 == 3) unit = jsonDataList.get(index).get(i);
+                if (i%5 == 4) {
+                    unit2 = jsonDataList.get(index).get(i);
+                    unit = jsonDataList.get(index).get(i);
+                    sb.append(".push({timestamp: ")
+                        .append(timestamp)
+                        .append(", value1: ")
+                        .append(value)
+                        .append(", value2: ")
+                        .append(value2)
+                        .append(", unit1: ")
+                        .append(unit)
+                        .append(", unit2: ")
+                        .append(unit2)
+                        .append("});");
+                    jsonPushList.add(sb.toString().replace("\"", ""));
+                    sb.setLength(0); //reset the string builder 
+                }
+            }
+        }
+        //agr collections
+        if (index%2 == 1 && index != 5) {
+            for (int i=0; i<jsonDataList.get(index).size(); i++) {
+                if (i%5 == 0) timestamp = jsonDataList.get(index).get(i);
+                if (i%5 == 1) min = jsonDataList.get(index).get(i);
+                if (i%5 == 2) max = jsonDataList.get(index).get(i);
+                if (i%5 == 3) average = jsonDataList.get(index).get(i);
+                if (i%5 == 4) {
+                    unit = jsonDataList.get(index).get(i);
+                    sb.append(".push({timestamp: \"")
+                    .append(timestamp)
+                    .append("\", min: ")
+                    .append(min)
+                    .append("\", max: ")
+                    .append(max)
+                    .append("\", average: ")
+                    .append(average)
+                    .append("});");
+                    jsonPushList.add(sb.toString().replace("\"", ""));
+                    sb.setLength(0); //reset the string builder
+                }
+            }
+        }
+
+        if (index == 5) { //special case because different format
+            for (int i=0; i<jsonDataList.get(index).size(); i++) {
+                if (i%9 == 0) timestamp = jsonDataList.get(index).get(i);
+                if (i%9 == 1) min = jsonDataList.get(index).get(i);
+                if (i%9 == 2) min2 = jsonDataList.get(index).get(i);
+                if (i%9 == 3) max = jsonDataList.get(index).get(i);
+                if (i%9 == 4) max2 = jsonDataList.get(index).get(i);
+                if (i%9 == 5) average = jsonDataList.get(index).get(i);
+                if (i%9 == 6) average2 = jsonDataList.get(index).get(i);
+                if (i%9 == 7) unit = jsonDataList.get(index).get(i);
+                if (i%9 == 8) {
+                    unit2 = jsonDataList.get(index).get(i);
+                    sb.append(".push({timestamp: \"")
+                        .append(timestamp)
+                        .append("\", min1: ")
+                        .append(min)
+                        .append("\", min2: ")
+                        .append(min2)
+                        .append("\", max1: ")
+                        .append(max)
+                        .append("\", max2: ")
+                        .append(max2)
+                        .append("\", average1: ")
+                        .append(average)
+                        .append("\", average2: ")
+                        .append(average2)
+                        .append("\", unit1: ")
+                        .append(unit)
+                        .append("\", unit2: ")
+                        .append(unit2)
+                        .append("});");
+                    jsonPushList.add(sb.toString().replace("\"", ""));
+                    sb.setLength(0); //reset the string builder
+                }
+            }
+        }
+        return jsonPushList;
+    }
+
+
+
 
     // give the function the day and the sensorId and it will return every values associated with this day
     public ArrayList<String> getAllDayValues(String date, int sensorID, ArrayList<String> list, ArrayList<String> output) {

@@ -1,4 +1,4 @@
-@(chartDatas: List[String], dayDatas: List[String], chartDatasHumidity: List[String])
+@(chartDatas: List[String], dayDatas: List[String], chartDatasHumidity: List[String], mongoData: List[List[String]])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +19,7 @@
 
         <!-- load custom assets in public/javascripts for js files and public/stylesheets for css files -->
         <script src="@routes.Assets.versioned("javascripts/therm.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/windData.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/lineTemp.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/lineTherm.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/gaugeChart.js")" type="text/javascript"></script>
@@ -151,9 +152,9 @@
                             <h1 id="header-rowcol">Wind</h1>
                         </div> <!-- close panel wind header -->
                        <div class="body-panel-content">
-                            <!-- <div id="compass"></div>
-                                <script type="text/javascript">
-                                valueList = [150,7,62,359];
+                        <!-- <div id="compass"></div> -->
+                            <script type="text/javascript">
+                                /*valueList = [150,7,62,359];
                                 index = 0
                                 //display compass amd compass needle
                                 drawCompass("@routes.Assets.versioned("images/svg/compass-rose-needleless.svg")", "@routes.Assets.versioned("images/svg/needle.svg")");
@@ -164,11 +165,11 @@
                                         index=0;
                                     }
                                     rotateNeedle(valueList, index);
-                                }, 5000);
-                            </script> -->
-                            <span id="dataHeader">Latest value:</span><span id="windDataValue"> value 1</span><br>
-                            <span id="dataHeader">Today's min:</span><span id="windDataValue"> value 2</span><br>
-                            <span id="dataHeader">Today's max:</span><span id="windDataValue"> value 3</span><br>
+                                }, 5000);*/
+                            </script>
+                            <span id="dataHeader">Latest value:</span><span id="windDataValue"></span><br>
+                            <span id="dataHeader">Today's min:</span><span id="windDataValue"></span><br>
+                            <span id="dataHeader">Today's max:</span><span id="windDataValue"></span><br>
                         </div>
                     </div> <!-- close panel wind-->
                 </div> <!-- close col md 4 for panel wind-->
@@ -181,7 +182,6 @@
                             <h1 id="header-rowcol">Rain</h1>
                         </div> <!-- close header panel rain -->
                         <div class="body-panel-content"> <!-- open body panel rain -->
-                            rain
                         </div> <!-- close body panel rain -->
                     </div> <!-- close panel rain-->
                 </div> <!-- close col md 4 for panel rain -->
