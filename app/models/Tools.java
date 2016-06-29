@@ -285,9 +285,9 @@ public class Tools {
                     .append("\", value: ")
                     .append(value)
                     .append("\", unit: ")
-                    .append(unit)
+                    .append("\""+unit+"\"")
                     .append("});");
-                    jsonPushList.add(sb.toString().replace("\"", ""));
+                    jsonPushList.add(sb.toString());
                     sb.setLength(0); //reset the string builder
                 }
             }
@@ -300,7 +300,6 @@ public class Tools {
                 if (i%5 == 3) unit = jsonDataList.get(index).get(i);
                 if (i%5 == 4) {
                     unit2 = jsonDataList.get(index).get(i);
-                    unit = jsonDataList.get(index).get(i);
                     sb.append(".push({timestamp: ")
                         .append(timestamp)
                         .append(", value1: ")
@@ -308,11 +307,11 @@ public class Tools {
                         .append(", value2: ")
                         .append(value2)
                         .append(", unit1: ")
-                        .append(unit)
+                        .append("\""+unit+"\"")
                         .append(", unit2: ")
-                        .append(unit2)
+                        .append("\""+unit2+"\"")
                         .append("});");
-                    jsonPushList.add(sb.toString().replace("\"", ""));
+                    jsonPushList.add(sb.toString());
                     sb.setLength(0); //reset the string builder 
                 }
             }
@@ -335,7 +334,7 @@ public class Tools {
                     .append("\", average: ")
                     .append(average)
                     .append("});");
-                    jsonPushList.add(sb.toString().replace("\"", ""));
+                    jsonPushList.add(sb.toString());
                     sb.setLength(0); //reset the string builder
                 }
             }
@@ -368,11 +367,11 @@ public class Tools {
                         .append("\", average2: ")
                         .append(average2)
                         .append("\", unit1: ")
-                        .append(unit)
+                        .append("\""+unit+"\"")
                         .append("\", unit2: ")
                         .append(unit2)
                         .append("});");
-                    jsonPushList.add(sb.toString().replace("\"", ""));
+                    jsonPushList.add(sb.toString());
                     sb.setLength(0); //reset the string builder
                 }
             }
@@ -404,5 +403,65 @@ public class Tools {
         }
         return output;
     }
+
+    //overrides the previous method to work with json
+    //takes the list of list<String> generated with jsonToDataList, and the index of the collection wished
+/*  INDEX:  0 = temperature_raw
+            2 = humidity_raw
+            4 = wind_raw
+            6 = rain_raw
+            8 = air_raw*/
+    public ArrayList<Object> getAllDayValues(List<List<String>> mongoData, int collectionIndex) {
+        ArrayList<Object> stats = new ArrayList<Object>();
+        long lastTimestamp = 0, dayLimitTimestamp = 0, nextTimestamp = 0, minTime = 0, maxTime = 0, currentTime = 0;
+        int i = 0, min = 0, max = 0, current = 0;
+        float average = 0;
+        if (collectionIndex != 4 && collectionIndex%2 == 0) { // raws, except wind which is formatted differently
+            currentTime = lastTimestamp = Long.parseLong(mongoData.get(collectionIndex).get(0));
+            current = Integer.parseInt(mongoData.get(collectionIndex).get(1));
+            Calendar dayLimit = Calendar.getInstance();
+            dayLimit.setTimeInMillis(lastTimestamp);
+            dayLimit.set(
+                dayLimit.get(Calendar.YEAR),
+                dayLimit.get(Calendar.MONTH),
+                dayLimit.get(Calendar.DAY_OF_MONTH),
+                0,
+                0,
+                0
+            ); // get time at the beginning of the day
+            dayLimitTimestamp = dayLimit.getTimeInMillis(); // get time in milliseconds
+            nextTimestamp = lastTimestamp; // for while loop and var name comprehension
+            while (nextTimestamp >= dayLimitTimestamp) {
+                if (i == 0) { // init all values
+                    minTime = maxTime =  Long.parseLong(mongoData.get(collectionIndex).get(i));
+                    nextTimestamp = Long.parseLong(mongoData.get(collectionIndex).get(i+3));
+                } else if (i == 1) {
+                    min = max = Integer.parseInt(mongoData.get(collectionIndex).get(i)); 
+                    average += Integer.parseInt(mongoData.get(collectionIndex).get(i));
+                } else if (i%3 == 1) {
+                    nextTimestamp = Long.parseLong(mongoData.get(collectionIndex).get(i+2)); // get next tinestamp for while loop test
+                    average += Integer.parseInt(mongoData.get(collectionIndex).get(i)); // add value to average
+                    if (Integer.parseInt(mongoData.get(collectionIndex).get(i)) > max) { //case where value gt max
+                        max = Integer.parseInt(mongoData.get(collectionIndex).get(i)); // replace max with new value
+                        maxTime = Long.parseLong(mongoData.get(collectionIndex).get(i-1)); // get time associated with this value
+                    } else if (Integer.parseInt(mongoData.get(collectionIndex).get(i)) < min) { // case where value lt min
+                        min = Integer.parseInt(mongoData.get(collectionIndex).get(i)); // replace min with new value
+                        minTime = Long.parseLong(mongoData.get(collectionIndex).get(i-1)); // get time associated with this value
+                    }
+                }
+                i++;
+            }
+            average /= i+1; //divides average with the number of iterations (and thus values)
+        }
+        stats.add(min);
+        stats.add(minTime);
+        stats.add(max);
+        stats.add(maxTime);
+        stats.add(average);
+        stats.add(current);
+        stats.add(currentTime);
+        return stats;
+    }
+
 
 }

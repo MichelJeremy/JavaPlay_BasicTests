@@ -1,4 +1,4 @@
-@(chartDatas: List[String], dayDatas: List[String], chartDatasHumidity: List[String], mongoData: List[List[String]])
+@(chartDatas: List[String], dayDatas: List[String], chartDatasHumidity: List[String], mongoDataTempRaw: List[String], mongoDataTempAgr: List[String], mongoDataHumiRaw: List[String], mongoDataHumiAgr: List[String], mongoDataWindRaw: List[String], mongoDataWindAgr: List[String], mongoDataRainRaw: List[String], mongoDataRainAgr: List[String], mongoDataAirRaw: List[String], mongoDataAirAgr: List[String], allDayTemp: List[Object], allDayRain: List[Object])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +19,7 @@
 
         <!-- load custom assets in public/javascripts for js files and public/stylesheets for css files -->
         <script src="@routes.Assets.versioned("javascripts/therm.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/windData.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/displayData.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/lineTemp.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/lineTherm.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/gaugeChart.js")" type="text/javascript"></script>
@@ -154,18 +154,11 @@
                        <div class="body-panel-content">
                         <!-- <div id="compass"></div> -->
                             <script type="text/javascript">
-                                /*valueList = [150,7,62,359];
-                                index = 0
-                                //display compass amd compass needle
-                                drawCompass("@routes.Assets.versioned("images/svg/compass-rose-needleless.svg")", "@routes.Assets.versioned("images/svg/needle.svg")");
-                                setInterval(function(){
-                                    if (index != valueList.length-1) {
-                                        index++;
-                                    } else {
-                                        index=0;
-                                    }
-                                    rotateNeedle(valueList, index);
-                                }, 5000);*/
+@**                                var arrayWindDataRaw = [];
+                                @for(d <- 0 until allDayWind.size()) {
+                                    arrayWindDataRaw.push(@allDayWind.get(d))
+                                }
+                                displayDataWind(arrayWindDataRaw);**@
                             </script>
                             <span id="dataHeader">Latest value:</span><span id="windDataValue"></span><br>
                             <span id="dataHeader">Today's min:</span><span id="windDataValue"></span><br>
@@ -182,6 +175,18 @@
                             <h1 id="header-rowcol">Rain</h1>
                         </div> <!-- close header panel rain -->
                         <div class="body-panel-content"> <!-- open body panel rain -->
+                            <span id="dataHeader">Latest value:</span> <span id="rainDataValueCur"></span> || <span id="rainDataTimeCur"></span><br>
+                            <span id="dataHeader">Today's min:</span> <span id="rainDataValueMin"></span> || <span id="rainDataTimeMin"></span><br>
+                            <span id="dataHeader">Today's max:</span> <span id="rainDataValueMax"></span> || <span id="rainDataTimeMax"></span><br>
+                            <span id="dataHeader">Today's average:</span> <span id="rainDataValueAvg"></span><br>
+                            <script type="text/javascript">
+                                var arrayRainDataRaw = []
+                                @for(d <- 0 until allDayRain.size()) {
+                                    arrayRainDataRaw.push(@allDayRain.get(d))
+                                }
+
+                                displayRainData(arrayRainDataRaw)
+                            </script>
                         </div> <!-- close body panel rain -->
                     </div> <!-- close panel rain-->
                 </div> <!-- close col md 4 for panel rain -->

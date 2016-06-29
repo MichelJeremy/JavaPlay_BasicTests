@@ -48,8 +48,6 @@ public class Application extends Controller {
         ArrayList<String> chartDatas = new ArrayList<String>(); // used for temperature
         ArrayList<String> chartDatasHumidity = new ArrayList<String>(); // used for humidity
         List<List<String>> mongoData = new ArrayList<List<String>>(); // contains every datas stored
-        ArrayList<String> mongoDataTempRaw = new ArrayList<String>();
-        ArrayList<String> mongoDataTempAgr = new ArrayList<String>();
 
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
         Date dateobj = new Date();
@@ -77,15 +75,55 @@ public class Application extends Controller {
             8 = air_raw
             9 = air_agr*/
 
-        mongoDataTempAgr = tools.jsonToDataFormat(mongoData, 4);
+        ArrayList<String> mongoDataTempRaw = new ArrayList<String>();
+        ArrayList<String> mongoDataTempAgr = new ArrayList<String>();
+        ArrayList<String> mongoDataHumiRaw = new ArrayList<String>();
+        ArrayList<String> mongoDataHumiAgr = new ArrayList<String>();
+        ArrayList<String> mongoDataWindRaw = new ArrayList<String>();
+        ArrayList<String> mongoDataWindAgr = new ArrayList<String>();
+        ArrayList<String> mongoDataRainRaw = new ArrayList<String>();
+        ArrayList<String> mongoDataRainAgr = new ArrayList<String>();
+        ArrayList<String> mongoDataAirRaw = new ArrayList<String>();
+        ArrayList<String> mongoDataAirAgr = new ArrayList<String>();
 
-        for (i=0; i<mongoDataTempAgr.size(); i++) {
-            Logger.debug(""+mongoDataTempAgr.get(i));
+        mongoDataTempRaw = tools.jsonToDataFormat(mongoData, 0);
+        mongoDataTempAgr = tools.jsonToDataFormat(mongoData, 1);
+        mongoDataHumiRaw = tools.jsonToDataFormat(mongoData, 2);
+        mongoDataHumiAgr = tools.jsonToDataFormat(mongoData, 3);
+        mongoDataWindRaw = tools.jsonToDataFormat(mongoData, 4);
+        mongoDataWindAgr = tools.jsonToDataFormat(mongoData, 5);
+        mongoDataRainRaw = tools.jsonToDataFormat(mongoData, 6);
+        mongoDataRainAgr = tools.jsonToDataFormat(mongoData, 7);
+        mongoDataAirRaw = tools.jsonToDataFormat(mongoData, 8);
+        mongoDataAirAgr = tools.jsonToDataFormat(mongoData, 9);
+/*        
+        for(i = 0; i<mongoData.get(0).size(); i++){
+            Logger.debug(""+mongoData.get(0).get(i));
+        }*/
+
+        ArrayList<Object> allDayTemp = new ArrayList<Object>();
+        allDayTemp = tools.getAllDayValues(mongoData, 0);
+
+        ArrayList<Object> allDayRain = new ArrayList<Object>();
+        allDayRain = tools.getAllDayValues(mongoData, 6);
+
+        return ok(testpage.render(
+            chartDatas,
+            dayDatas,
+            chartDatasHumidity,
+            mongoDataTempRaw,
+            mongoDataTempAgr,
+            mongoDataHumiRaw,
+            mongoDataHumiAgr,
+            mongoDataWindRaw,
+            mongoDataWindAgr,
+            mongoDataRainRaw,
+            mongoDataRainAgr,
+            mongoDataAirRaw,
+            mongoDataAirAgr,
+            allDayTemp,
+            allDayRain));
         }
-
-
-        return ok(testpage.render(chartDatas, dayDatas, chartDatasHumidity, mongoData));
-    }
 
     public Result generator() {
         DataGenerators dg = new DataGenerators();
