@@ -102,10 +102,16 @@ public class Application extends Controller {
         }*/
 
         ArrayList<Object> allDayTemp = new ArrayList<Object>();
-        allDayTemp = tools.getAllDayValues(mongoData, 0);
-
         ArrayList<Object> allDayRain = new ArrayList<Object>();
+        ArrayList<Object> allDayHumi = new ArrayList<Object>();
+        ArrayList<Object> allDayAir = new ArrayList<Object>();
+        ArrayList<Object> allDayWind = new ArrayList<Object>();
+
+        allDayTemp = tools.getAllDayValues(mongoData, 0);
+        allDayHumi = tools.getAllDayValues(mongoData, 2);
+        //allDayWind = tools.getAllDayValues(mongoData, 4);
         allDayRain = tools.getAllDayValues(mongoData, 6);
+        allDayAir = tools.getAllDayValues(mongoData, 8);
 
         return ok(testpage.render(
             chartDatas,
@@ -122,7 +128,9 @@ public class Application extends Controller {
             mongoDataAirRaw,
             mongoDataAirAgr,
             allDayTemp,
-            allDayRain));
+            allDayHumi,
+            allDayRain,
+            allDayAir));
         }
 
     public Result generator() {

@@ -1,4 +1,4 @@
-@(chartDatas: List[String], dayDatas: List[String], chartDatasHumidity: List[String], mongoDataTempRaw: List[String], mongoDataTempAgr: List[String], mongoDataHumiRaw: List[String], mongoDataHumiAgr: List[String], mongoDataWindRaw: List[String], mongoDataWindAgr: List[String], mongoDataRainRaw: List[String], mongoDataRainAgr: List[String], mongoDataAirRaw: List[String], mongoDataAirAgr: List[String], allDayTemp: List[Object], allDayRain: List[Object])
+@(chartDatas: List[String], dayDatas: List[String], chartDatasHumidity: List[String], mongoDataTempRaw: List[String], mongoDataTempAgr: List[String], mongoDataHumiRaw: List[String], mongoDataHumiAgr: List[String], mongoDataWindRaw: List[String], mongoDataWindAgr: List[String], mongoDataRainRaw: List[String], mongoDataRainAgr: List[String], mongoDataAirRaw: List[String], mongoDataAirAgr: List[String], allDayTemp: List[Object], allDayHumi: List[Object], allDayRain: List[Object], allDayAir: List[Object])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -197,7 +197,18 @@
                             <h1 id="header-rowcol">Air quality</h1>
                         </div> <!-- close header panel air quality -->
                         <div class="panel-body-content"> <!-- open body panel air quality -->
-                            air quality
+                            <span id="dataHeader">Latest value:</span> <span id="airDataValueCur"></span> || <span id="airDataTimeCur"></span><br>
+                            <span id="dataHeader">Today's min:</span> <span id="airDataValueMin"></span> || <span id="airDataTimeMin"></span><br>
+                            <span id="dataHeader">Today's max:</span> <span id="airDataValueMax"></span> || <span id="airDataTimeMax"></span><br>
+                            <span id="dataHeader">Today's average:</span> <span id="airDataValueAvg"></span><br>
+                            <script type="text/javascript">
+                                var arrayAirDataRaw = []
+                                @for(d <- 0 until allDayAir.size()) {
+                                    arrayAirDataRaw.push(@allDayAir.get(d))
+                                }
+
+                                displayAirData(arrayAirDataRaw)
+                            </script>
                         </div> <!-- close body panel air quality -->
                     </div> <!-- close panel air quality-->
                 </div> <!-- close col md 4 for air quality -->
