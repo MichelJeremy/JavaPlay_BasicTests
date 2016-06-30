@@ -1,4 +1,4 @@
-@(chartDatas: List[String], dayDatas: List[String], chartDatasHumidity: List[String], mongoDataTempRaw: List[String], mongoDataTempAgr: List[String], mongoDataHumiRaw: List[String], mongoDataHumiAgr: List[String], mongoDataWindRaw: List[String], mongoDataWindAgr: List[String], mongoDataRainRaw: List[String], mongoDataRainAgr: List[String], mongoDataAirRaw: List[String], mongoDataAirAgr: List[String], allDayTemp: List[Object], allDayHumi: List[Object], allDayRain: List[Object], allDayAir: List[Object])
+@(chartDatas: List[String], dayDatas: List[String], chartDatasHumidity: List[String], mongoDataTempRaw: List[String], mongoDataTempAgr: List[String], mongoDataHumiRaw: List[String], mongoDataHumiAgr: List[String], mongoDataWindRaw: List[String], mongoDataWindAgr: List[String], mongoDataRainRaw: List[String], mongoDataRainAgr: List[String], mongoDataAirRaw: List[String], mongoDataAirAgr: List[String], allDayTemp: List[Object], allDayHumi: List[Object], allDayWind: List[Object], allDayRain: List[Object], allDayAir: List[Object])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -152,17 +152,25 @@
                             <h1 id="header-rowcol">Wind</h1>
                         </div> <!-- close panel wind header -->
                        <div class="body-panel-content">
-                        <!-- <div id="compass"></div> -->
+                            <div style="text-align: center;">WIND SPEED</div>
+                            <span id="dataHeader">Latest value:</span> <span id="windDataValueWSCur"></span> || <span id="windDataTimeWSCur"></span><br>
+                            <span id="dataHeader">Today's min:</span> <span id="windDataValueWSMin"></span> || <span id="windDataTimeWSMin"></span><br>
+                            <span id="dataHeader">Today's max:</span> <span id="windDataValueWSMax"></span> || <span id="windDataTimeWSMax"></span><br>
+                            <span id="dataHeader">Today's average:</span> <span id="windDataValueWSAvg"></span><br>
+
+                            <div style="text-align: center;">WIND DIRECTION</div>
+                            <span id="dataHeader">Latest value:</span> <span id="windDataValueWDCur"></span> || <span id="windDataTimeWDCur"></span><br>
+                            <span id="dataHeader">Today's min:</span> <span id="windDataValueWDMin"></span> || <span id="windDataTimeWDMin"></span><br>
+                            <span id="dataHeader">Today's max:</span> <span id="windDataValueWDMax"></span> || <span id="windDataTimeWDMax"></span><br>
+                            <span id="dataHeader">Today's average:</span> <span id="windDataValueWDAvg"></span><br>
+
                             <script type="text/javascript">
-@**                                var arrayWindDataRaw = [];
+                                var arrayWindDataRaw = [];
                                 @for(d <- 0 until allDayWind.size()) {
                                     arrayWindDataRaw.push(@allDayWind.get(d))
                                 }
-                                displayDataWind(arrayWindDataRaw);**@
+                                displayWindData(arrayWindDataRaw);
                             </script>
-                            <span id="dataHeader">Latest value:</span><span id="windDataValue"></span><br>
-                            <span id="dataHeader">Today's min:</span><span id="windDataValue"></span><br>
-                            <span id="dataHeader">Today's max:</span><span id="windDataValue"></span><br>
                         </div>
                     </div> <!-- close panel wind-->
                 </div> <!-- close col md 4 for panel wind-->

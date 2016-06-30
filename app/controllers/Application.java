@@ -109,7 +109,7 @@ public class Application extends Controller {
 
         allDayTemp = tools.getAllDayValues(mongoData, 0);
         allDayHumi = tools.getAllDayValues(mongoData, 2);
-        //allDayWind = tools.getAllDayValues(mongoData, 4);
+        allDayWind = tools.getAllDayValues(mongoData, 4);
         allDayRain = tools.getAllDayValues(mongoData, 6);
         allDayAir = tools.getAllDayValues(mongoData, 8);
 
@@ -129,6 +129,7 @@ public class Application extends Controller {
             mongoDataAirAgr,
             allDayTemp,
             allDayHumi,
+            allDayWind,
             allDayRain,
             allDayAir));
         }

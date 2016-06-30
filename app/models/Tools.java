@@ -413,34 +413,61 @@ public class Tools {
             8 = air_raw*/
     public ArrayList<Object> getAllDayValues(List<List<String>> mongoData, int collectionIndex) {
         ArrayList<Object> stats = new ArrayList<Object>();
-        long lastTimestamp = 0, dayLimitTimestamp = 0, nextTimestamp = 0, minTime = 0, maxTime = 0, currentTime = 0;
-        int i = 0, min = 0, max = 0, current = 0;
-        float average = 0;
+        long lastTimestamp = 0,
+            dayLimitTimestamp = 0,
+            nextTimestamp = 0,
+            minTime = 0,
+            maxTime = 0,
+            currentTime = 0,
+            minTimeWS = 0,
+            maxTimeWS = 0,
+            currentTimeWS = 0,
+            minTimeWD = 0,
+            maxTimeWD = 0,
+            currentTimeWD = 0;
+
+        int i = 0,
+            min = 0,
+            max = 0,
+            current = 0,
+            currentWS = 0,
+            minWS = 0,
+            maxWS = 0,
+            currentWD = 0,
+            minWD = 0,
+            maxWD = 0;
+
+        float   average = 0,
+                averageWS = 0,
+                averageWD = 0;
+
+        lastTimestamp = Long.parseLong(mongoData.get(collectionIndex).get(0));
+        Calendar dayLimit = Calendar.getInstance();
+        dayLimit.setTimeInMillis(lastTimestamp);
+        dayLimit.set(
+            dayLimit.get(Calendar.YEAR),
+            dayLimit.get(Calendar.MONTH),
+            dayLimit.get(Calendar.DAY_OF_MONTH),
+            0,
+            0,
+            0
+        ); // get time at the beginning of the day
+
         if (collectionIndex != 4 && collectionIndex%2 == 0) { // raws, except wind which is formatted differently
-            currentTime = lastTimestamp = Long.parseLong(mongoData.get(collectionIndex).get(0));
             current = Integer.parseInt(mongoData.get(collectionIndex).get(1));
-            Calendar dayLimit = Calendar.getInstance();
-            dayLimit.setTimeInMillis(lastTimestamp);
-            dayLimit.set(
-                dayLimit.get(Calendar.YEAR),
-                dayLimit.get(Calendar.MONTH),
-                dayLimit.get(Calendar.DAY_OF_MONTH),
-                0,
-                0,
-                0
-            ); // get time at the beginning of the day
+            currentTime = lastTimestamp;
             dayLimitTimestamp = dayLimit.getTimeInMillis(); // get time in milliseconds
             nextTimestamp = lastTimestamp; // for while loop and var name comprehension
             while (nextTimestamp >= dayLimitTimestamp) {
-                if (i == 0) { // init all values
+                if (i == 0) { // cursor on first entry (init timestamps)
                     minTime = maxTime =  Long.parseLong(mongoData.get(collectionIndex).get(i));
                     nextTimestamp = Long.parseLong(mongoData.get(collectionIndex).get(i+3));
-                } else if (i == 1) {
+                } else if (i == 1) { // cursor on second entry (init values)
                     min = max = Integer.parseInt(mongoData.get(collectionIndex).get(i)); 
                     average += Integer.parseInt(mongoData.get(collectionIndex).get(i));
-                } else if (i%3 == 1) {
-                    nextTimestamp = Long.parseLong(mongoData.get(collectionIndex).get(i+2)); // get next tinestamp for while loop test
+                } else if (i%3 == 1) { //cursor on every seconds entries (except the first second)
                     average += Integer.parseInt(mongoData.get(collectionIndex).get(i)); // add value to average
+                    nextTimestamp = Long.parseLong(mongoData.get(collectionIndex).get(i+2));
                     if (Integer.parseInt(mongoData.get(collectionIndex).get(i)) > max) { //case where value gt max
                         max = Integer.parseInt(mongoData.get(collectionIndex).get(i)); // replace max with new value
                         maxTime = Long.parseLong(mongoData.get(collectionIndex).get(i-1)); // get time associated with this value
@@ -451,15 +478,76 @@ public class Tools {
                 }
                 i++;
             }
-            average /= i+1; //divides average with the number of iterations (and thus values)
+            average /= ((i+1)/3); //divides average with the number of iterations divided by the amount of "loop entries"
+                                // because when i is incremented, it only went through one entry
+                                // while a full data is composed of 3 entries here
+                                // thus i is iterated three times as much as there are data
+            stats.add(min);
+            stats.add(minTime);
+            stats.add(max);
+            stats.add(maxTime);
+            stats.add(average);
+            stats.add(current);
+            stats.add(currentTime);
+        } else if (collectionIndex == 4) { // raws, except wind which is formatted differently
+            currentWS = Integer.parseInt(mongoData.get(collectionIndex).get(1));
+            currentWD = Integer.parseInt(mongoData.get(collectionIndex).get(2));
+            dayLimitTimestamp = dayLimit.getTimeInMillis(); // get time in milliseconds
+            nextTimestamp = lastTimestamp; // for while loop and var name comprehension
+            while (nextTimestamp >= dayLimitTimestamp) {
+                if (i == 0) { // cursor on first entry (init timestamps)
+                    minTimeWS = maxTimeWS = minTimeWD = maxTimeWD = currentTimeWS = currentTimeWD = Long.parseLong(mongoData.get(collectionIndex).get(i));
+                    nextTimestamp = Long.parseLong(mongoData.get(collectionIndex).get(i+5));
+                } else if (i == 1) { // cursor on second entry (init windspeed)
+                    minWS = maxWS = Integer.parseInt(mongoData.get(collectionIndex).get(i));
+                    averageWS += Integer.parseInt(mongoData.get(collectionIndex).get(i));
+                } else if (i == 2) { // cursor on third entry (init winddirection)
+                    minWD = maxWD = Integer.parseInt(mongoData.get(collectionIndex).get(i));
+                    averageWD += Integer.parseInt(mongoData.get(collectionIndex).get(i));
+                } else if (i%5 == 1) { //cursor on every seconds entries (except the first second) -> wind speed
+                    nextTimestamp = Long.parseLong(mongoData.get(collectionIndex).get(i+4)); // get next tinestamp for while loop test
+                    averageWS += Integer.parseInt(mongoData.get(collectionIndex).get(i)); // add value to average
+                    if (Integer.parseInt(mongoData.get(collectionIndex).get(i)) > maxWS) { //case where value gt max
+                        maxWS = Integer.parseInt(mongoData.get(collectionIndex).get(i)); // replace max with new value
+                        maxTimeWS = Long.parseLong(mongoData.get(collectionIndex).get(i-1)); // get time associated with this value
+                    } else if (Integer.parseInt(mongoData.get(collectionIndex).get(i)) < minWS) { // case where value lt min
+                        minWS = Integer.parseInt(mongoData.get(collectionIndex).get(i)); // replace min with new value
+                        minTimeWS = Long.parseLong(mongoData.get(collectionIndex).get(i-1)); // get time associated with this value
+                    }
+                } else if (i%5 == 2) { // every third entries (except the first third) -> wind direction
+                    averageWD += Integer.parseInt(mongoData.get(collectionIndex).get(i)); // add value to average
+                    if (Integer.parseInt(mongoData.get(collectionIndex).get(i)) > maxWD) {
+                        maxWD = Integer.parseInt(mongoData.get(collectionIndex).get(i)); // replace max with new value
+                        maxTimeWD = Long.parseLong(mongoData.get(collectionIndex).get(i-2)); // get time associated with this value
+                    } else if (Integer.parseInt(mongoData.get(collectionIndex).get(i)) < minWD) {
+                        minWD = Integer.parseInt(mongoData.get(collectionIndex).get(i)); // replace min with new value
+                        minTimeWD = Long.parseLong(mongoData.get(collectionIndex).get(i-2)); // get time associated with this value
+                    }
+                }
+                i++;
+            }
+            averageWS /= ((i+1)/5); //divides average with the number of iterations divided by the amount of "loop entries"
+            averageWD /= ((i+1)/5); // because when i is incremented, it only went through one entry
+                                    // while a full data is composed of 5 entries here
+                                    // thus i is iterated five times as much as there are data
+
+
+            stats.add(minWS);
+            stats.add(minTimeWS); 
+            stats.add(maxWS); 
+            stats.add(maxTimeWS); 
+            stats.add(averageWS); 
+            stats.add(currentWS); 
+            stats.add(currentTimeWS); 
+            stats.add(minWD); 
+            stats.add(minTimeWD); 
+            stats.add(maxWD); 
+            stats.add(maxTimeWD); 
+            stats.add(averageWD); 
+            stats.add(currentWD); 
+            stats.add(currentTimeWD);
         }
-        stats.add(min);
-        stats.add(minTime);
-        stats.add(max);
-        stats.add(maxTime);
-        stats.add(average);
-        stats.add(current);
-        stats.add(currentTime);
+
         return stats;
     }
 
