@@ -54,7 +54,7 @@ public class DataGenerators {
 		//value range for each collection
 		int MINTEMP = -15;
 		int MAXTEMP = 30;
-		int MINHUMI = 0;
+		int MINHUMI = 80;
 		int MAXHUMI = 100;
 		int MINWINDSPEED = 0;
 		int MAXWINDSPEED = 100;
