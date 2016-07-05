@@ -88,7 +88,7 @@ function plotGraphLineTemp(param0, param1) {
             .attr("dy", ".25em")
             .attr("x", 660)
             .attr("dx", ".25em")
-            .text("Banana domination over time");
+            .text("Temperature evolution over time");
 
     // append y axis
     svg.append("g")
@@ -99,7 +99,7 @@ function plotGraphLineTemp(param0, param1) {
             .attr("y", 6)
             .attr("dy", ".71em")
             .style("text-anchor", "end")
-            .text("Bananas (tons)");
+            .text("Temperature(°C)");
 
     svg.append("svg:path")
         .attr("d", line(chartData1))
@@ -107,8 +107,8 @@ function plotGraphLineTemp(param0, param1) {
         .attr("fill", "none");
 
 // other data serie, can be used with the first without conflict
-    svg.append("svg:path")
+/*    svg.append("svg:path")
         .attr("d", line(chartData2))
         .attr("stroke", "red")
-        .attr("fill", "none");
+        .attr("fill", "none");*/
 }

@@ -68,7 +68,7 @@ header#main span.subtittle {
 /*panel css*/
 #buttonTemp {
     position: relative;
-    margin-top: 85%;
+    margin-top: 30%;
     float: right;
 }
 
@@ -104,12 +104,12 @@ header#main span.subtittle {
     text-decoration: underline;
 }
 
-#dataValue {
+.dataValue {
     font-size: 40px;
     text-align: center;
 }
 
-#timeValue {
+.timeValue {
     font-size: 12px;
     font-style: italic;
     text-align: center;

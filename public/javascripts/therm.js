@@ -1,7 +1,7 @@
 //display thermometer
 /*Parameters :
       - param1: @list test*/
-function plotThermometer (param1) {
+function plotThermometer (dataList) {
   var width = 180,
       height = 380,
       maxTemp = 0,
@@ -18,7 +18,7 @@ function plotThermometer (param1) {
   // end
 
 
-  for (var i = 0; i < param1.length; i++) {
+/*  for (var i = 0; i < param1.length; i++) {
     if ( i == 0) {
         minTemp = param1[i][0];
         minTime = param1[i][1];
@@ -37,8 +37,8 @@ function plotThermometer (param1) {
     currentTemp = param1[i][0];
     curTime = param1[i][1];
   }
-
-
+*/
+  var currentTemp = dataList[5];
 
   var bottomY = height - 5,
       topY = 5,

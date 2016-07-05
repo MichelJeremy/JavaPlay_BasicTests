@@ -1,4 +1,4 @@
-package models;
+package controllers;
 
 import java.util.*;
 
@@ -280,11 +280,11 @@ public class Tools {
                 if (i%3 == 1) value = jsonDataList.get(index).get(i);
                 if (i%3 == 2) {
                     unit = jsonDataList.get(index).get(i);
-                    sb.append(".push({timestamp: \"")
+                    sb.append(".push({timestamp: ")
                     .append(timestamp)
-                    .append("\", value: ")
+                    .append(", value: ")
                     .append(value)
-                    .append("\", unit: ")
+                    .append(", unit: ")
                     .append("\""+unit+"\"")
                     .append("});");
                     jsonPushList.add(sb.toString());

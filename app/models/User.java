@@ -9,6 +9,7 @@ public class User {
     
     @Required protected String email;
     @Required protected String password;
+    @Required protected String permission;
     
         
     public void setEmail(String email) {
