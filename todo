@@ -1,0 +1,16 @@
+NOT THE PRIORITY
+
+
+1: create models (one for each panel)
+js setintervals {
+	2: get latest model using java
+	2: use a reverse routing query (or w/e this is called)
+	3: get new model values
+}
+
+
+
+PRIORITY
+- GRAPHS
+- WIDGETS
+- BDD

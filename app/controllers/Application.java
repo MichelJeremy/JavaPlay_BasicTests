@@ -42,7 +42,6 @@ public class Application extends Controller {
 
     public Result bootstrapSandstone() {
         int i = 0;
-        Tools tools = new Tools();
         ArrayList<String> list = new ArrayList<String>();
         ArrayList<String> dayDatas = new ArrayList<String>(); // used for thermometer
         ArrayList<String> chartDatas = new ArrayList<String>(); // used for temperature
@@ -53,7 +52,7 @@ public class Application extends Controller {
         Date dateobj = new Date();
         /*String date = df.format(dateobj);*/
         String date = "2015-25-05"; // keep it static for dev purposes for now
-
+        Tools tools = new Tools();
         list = tools.readCsv2("/home/jeremy/dev/java/JavaPlay_BasicTests/public/sources/data2.csv", ";", list);
         dayDatas = tools.getAllDayValues(date, 1, list, dayDatas);
         chartDatas = tools.csvToChartDataLine(list, chartDatas);
@@ -79,8 +78,10 @@ public class Application extends Controller {
         ArrayList<String> mongoDataTempAgr = new ArrayList<String>();
         ArrayList<String> mongoDataHumiRaw = new ArrayList<String>();
         ArrayList<String> mongoDataHumiAgr = new ArrayList<String>();
-        ArrayList<String> mongoDataWindRaw = new ArrayList<String>();
-        ArrayList<String> mongoDataWindAgr = new ArrayList<String>();
+        ArrayList<String> mongoDataWindSRaw = new ArrayList<String>();
+        ArrayList<String> mongoDataWindSAgr = new ArrayList<String>();
+        ArrayList<String> mongoDataWindDRaw = new ArrayList<String>();
+        ArrayList<String> mongoDataWindDAgr = new ArrayList<String>();
         ArrayList<String> mongoDataRainRaw = new ArrayList<String>();
         ArrayList<String> mongoDataRainAgr = new ArrayList<String>();
         ArrayList<String> mongoDataAirRaw = new ArrayList<String>();
@@ -90,12 +91,14 @@ public class Application extends Controller {
         mongoDataTempAgr = tools.jsonToDataFormat(mongoData, 1);
         mongoDataHumiRaw = tools.jsonToDataFormat(mongoData, 2);
         mongoDataHumiAgr = tools.jsonToDataFormat(mongoData, 3);
-        mongoDataWindRaw = tools.jsonToDataFormat(mongoData, 4);
-        mongoDataWindAgr = tools.jsonToDataFormat(mongoData, 5);
-        mongoDataRainRaw = tools.jsonToDataFormat(mongoData, 6);
-        mongoDataRainAgr = tools.jsonToDataFormat(mongoData, 7);
-        mongoDataAirRaw = tools.jsonToDataFormat(mongoData, 8);
-        mongoDataAirAgr = tools.jsonToDataFormat(mongoData, 9);
+        mongoDataWindSRaw = tools.jsonToDataFormat(mongoData, 4);
+        mongoDataWindSAgr = tools.jsonToDataFormat(mongoData, 5);
+        mongoDataWindDRaw = tools.jsonToDataFormat(mongoData, 6);
+        mongoDataWindDAgr = tools.jsonToDataFormat(mongoData, 7);
+        mongoDataRainRaw = tools.jsonToDataFormat(mongoData, 8);
+        mongoDataRainAgr = tools.jsonToDataFormat(mongoData, 9);
+        mongoDataAirRaw = tools.jsonToDataFormat(mongoData, 10);
+        mongoDataAirAgr = tools.jsonToDataFormat(mongoData, 11);
 /*        
         for(i = 0; i<mongoData.get(0).size(); i++){
             Logger.debug(""+mongoData.get(0).get(i));
@@ -105,13 +108,15 @@ public class Application extends Controller {
         ArrayList<Object> allDayRain = new ArrayList<Object>();
         ArrayList<Object> allDayHumi = new ArrayList<Object>();
         ArrayList<Object> allDayAir = new ArrayList<Object>();
-        ArrayList<Object> allDayWind = new ArrayList<Object>();
+        ArrayList<Object> allDayWindS = new ArrayList<Object>();
+        ArrayList<Object> allDayWindD = new ArrayList<Object>();
 
         allDayTemp = tools.getAllDayValues(mongoData, 0);
         allDayHumi = tools.getAllDayValues(mongoData, 2);
-        allDayWind = tools.getAllDayValues(mongoData, 4);
-        allDayRain = tools.getAllDayValues(mongoData, 6);
-        allDayAir = tools.getAllDayValues(mongoData, 8);
+        allDayWindS = tools.getAllDayValues(mongoData, 4);
+        allDayWindD = tools.getAllDayValues(mongoData, 6);
+        allDayRain = tools.getAllDayValues(mongoData, 8);
+        allDayAir = tools.getAllDayValues(mongoData, 10);
 
         return ok(testpage.render(
             chartDatas,
@@ -121,15 +126,18 @@ public class Application extends Controller {
             mongoDataTempAgr,
             mongoDataHumiRaw,
             mongoDataHumiAgr,
-            mongoDataWindRaw,
-            mongoDataWindAgr,
+            mongoDataWindSRaw,
+            mongoDataWindSAgr,
+            mongoDataWindDRaw,
+            mongoDataWindDAgr,
             mongoDataRainRaw,
             mongoDataRainAgr,
             mongoDataAirRaw,
             mongoDataAirAgr,
             allDayTemp,
             allDayHumi,
-            allDayWind,
+            allDayWindS,
+            allDayWindD,
             allDayRain,
             allDayAir));
         }

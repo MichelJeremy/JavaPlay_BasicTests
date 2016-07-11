@@ -43,12 +43,14 @@ public class DataGenerators {
 			"S001_Temp_aggregated",
 			"S002_Humi_raw",
 			"S002_Humi_aggregated",
-			"S003_Wind_raw",
-			"S003_Wind_aggregated",
-			"S004_Rain_raw",
-			"S004_Rain_aggregated",
-			"S005_Air_raw",
-			"S005_Air_aggregated",
+			"S003_WindSpeed_raw",
+			"S003_WindSpeed_aggregated",
+			"S004_WindDirection_raw",
+			"S004_WindDirection_aggregated",
+			"S005_Rain_raw",
+			"S005_Rain_aggregated",
+			"S006_Air_raw",
+			"S006_Air_aggregated",
 		};
 
 		//value range for each collection
@@ -65,7 +67,7 @@ public class DataGenerators {
 		int MINAIR = 0;
 		int MAXAIR = 100;
 
-		/*0 - drop the database, whether it exists or not*/
+		/*0 - drop the database, whether it exists or not to make it a clean state*/
 		MongoClient mongoClient = new MongoClient( "localhost" , 27017);
 		MongoDatabase database = mongoClient.getDatabase(databaseName);
 		database.drop();
@@ -78,15 +80,17 @@ public class DataGenerators {
 		/*2 - create new collections, with raw and aggregated suffixes for each sensor*/
 		MongoCollection<Document> tempRawCollection = database.getCollection(COLLECTIONS[0]);
 		MongoCollection<Document> humiRawCollection = database.getCollection(COLLECTIONS[2]);
-		MongoCollection<Document> windRawCollection = database.getCollection(COLLECTIONS[4]);
-		MongoCollection<Document> rainRawCollection = database.getCollection(COLLECTIONS[6]);
-		MongoCollection<Document> airRawCollection = database.getCollection(COLLECTIONS[8]);
+		MongoCollection<Document> windSRawCollection = database.getCollection(COLLECTIONS[4]);
+		MongoCollection<Document> windDRawCollection = database.getCollection(COLLECTIONS[6]);
+		MongoCollection<Document> rainRawCollection = database.getCollection(COLLECTIONS[8]);
+		MongoCollection<Document> airRawCollection = database.getCollection(COLLECTIONS[10]);
 		
 		MongoCollection<Document> tempAggregatedCollection = database.getCollection(COLLECTIONS[1]);
 		MongoCollection<Document> humiAggregatedCollection = database.getCollection(COLLECTIONS[3]);
-		MongoCollection<Document> windAggregatedCollection = database.getCollection(COLLECTIONS[5]);
-		MongoCollection<Document> rainAggregatedCollection = database.getCollection(COLLECTIONS[7]);
-		MongoCollection<Document> airAggregatedCollection = database.getCollection(COLLECTIONS[9]);
+		MongoCollection<Document> windSAggregatedCollection = database.getCollection(COLLECTIONS[5]);
+		MongoCollection<Document> windDAggregatedCollection = database.getCollection(COLLECTIONS[7]);
+		MongoCollection<Document> rainAggregatedCollection = database.getCollection(COLLECTIONS[9]);
+		MongoCollection<Document> airAggregatedCollection = database.getCollection(COLLECTIONS[11]);
 
 
 		/*3 - insert the data following the function's parameter*/
@@ -115,7 +119,7 @@ public class DataGenerators {
 
 		int numberOfInsert = timeSpanDay * pointsPerDay;
 		Random random = new Random();
-		//temp insert
+		//temperature raw insert
 		for (long i = 0 ; i < numberOfInsert ; i++) {
 			long finalTimestamp = nextDayTimestamp + i * deltaMillis; // every var in this operation MUST be long because java use var type to store result when 
 			Document document = new Document("timestamp", finalTimestamp) // prioritizing. ( i * deltaMillis can exceed 32 bits easily on long periods of time)
@@ -125,6 +129,7 @@ public class DataGenerators {
 			tempRawCollection.insertOne(document);
 		}
 
+		//humidity raw insert
 		for (long i = 0 ; i < numberOfInsert ; i++) {
 			long finalTimestamp = nextDayTimestamp + i * deltaMillis; // every var in this operation MUST be long because java use var type to store result when 
 			Document document = new Document("timestamp", finalTimestamp) // prioritizing. ( i * deltaMillis can exceed 32 bits easily on long periods of time)
@@ -134,17 +139,27 @@ public class DataGenerators {
 			humiRawCollection.insertOne(document);
 		}
 
+		//wind speed raw insert
 		for (long i = 0 ; i < numberOfInsert ; i++) {
 			long finalTimestamp = nextDayTimestamp + i * deltaMillis; // every var in this operation MUST be long because java use var type to store result when 
 			Document document = new Document("timestamp", finalTimestamp) // prioritizing. ( i * deltaMillis can exceed 32 bits easily on long periods of time)
 				.append("windspeed", random.nextInt(MAXWINDSPEED - MINWINDSPEED) + MINWINDSPEED)
-				.append("winddirection", random.nextInt(MAXWINDIR - MINWINDDIR) + MINWINDDIR)
-				.append("unit1", "kn")
-				.append("unit2", "°");
+				.append("unit", "kn");
 
-			windRawCollection.insertOne(document);
+			windSRawCollection.insertOne(document);
 		}
 
+		//wind direction raw insert
+		for (long i = 0 ; i < numberOfInsert ; i++) {
+			long finalTimestamp = nextDayTimestamp + i * deltaMillis; // every var in this operation MUST be long because java use var type to store result when 
+			Document document = new Document("timestamp", finalTimestamp) // prioritizing. ( i * deltaMillis can exceed 32 bits easily on long periods of time)
+				.append("winddirection", random.nextInt(MAXWINDIR - MINWINDDIR) + MINWINDDIR)
+				.append("unit", "°");
+
+			windDRawCollection.insertOne(document);
+		}		
+
+		//rain raw insert
 		for (long i = 0 ; i < numberOfInsert ; i++) {
 			long finalTimestamp = nextDayTimestamp + i * deltaMillis; // every var in this operation MUST be long because java use var type to store result when 
 			Document document = new Document("timestamp", finalTimestamp) // prioritizing. ( i * deltaMillis can exceed 32 bits easily on long periods of time)
@@ -154,6 +169,7 @@ public class DataGenerators {
 			rainRawCollection.insertOne(document);
 		}
 
+		//air raw insert
 		for (long i = 0 ; i < numberOfInsert ; i++) {
 			long finalTimestamp = nextDayTimestamp + i * deltaMillis; // every var in this operation MUST be long because java use var type to store result when 
 			Document document = new Document("timestamp", finalTimestamp) // prioritizing. ( i * deltaMillis can exceed 32 bits easily on long periods of time)
@@ -202,7 +218,7 @@ public class DataGenerators {
    				cursorTimestamp = (long) cursorNext.get("timestamp");
     			if (cursorTimestamp >= limitTimestamp) { //cast java Object to long
     				// cursor still in data kept range
-    				// do nothing (possibility to count documents here with iterator / process things maybe)
+    				// do nothing (possibility to count documents here with iterator / process things if you want)
     			} else {
     				// here, we are in the data aggregation range
     				Calendar dayEnd = new GregorianCalendar();
@@ -497,19 +513,16 @@ public class DataGenerators {
 
 
 		/****************************************************************************************************************
-		*												WIND PROCESSING 												*
+		*												WIND SPEED PROCESSING 												*
 		*****************************************************************************************************************/
 
-		cursor = windRawCollection.find().sort(descending("timestamp")).iterator();
+		cursor = windSRawCollection.find().sort(descending("timestamp")).iterator();
 
 		cursorDayIterator = 0;
 		minDay = 0;
-		int minDay2 = 0;
 		maxDay = 0;
-		int maxDay2 = 0;
 		documentCount = 0;
 		averageDay = 0;
-		float averageDay2 = 0;
 
 		try {
    			while (cursor.hasNext()) {
@@ -538,39 +551,29 @@ public class DataGenerators {
 						if (cursorDayIterator == 0) {
 							//if it is the first cursor of the new day, init
 							minDay = (int) cursorNext.get("windspeed");
-							minDay2 = (int) cursorNext.get("windspeed");
 							maxDay = (int) cursorNext.get("windspeed");
-							maxDay2 = (int) cursorNext.get("windspeed");
 							averageDay = (int) cursorNext.get("windspeed");
-							averageDay2 = (int) cursorNext.get("windspeed");
 							cursorNext = cursor.next(); //get the next cursor
 							cursorDayIterator++;
 						} else {
 							//go through the other documents
 							if (((int) cursorNext.get("windspeed")) > maxDay) maxDay = ((int) cursorNext.get("windspeed"));
-							if (((int) cursorNext.get("winddirection")) > maxDay2) maxDay2 = ((int) cursorNext.get("winddirection"));
 							if (((int) cursorNext.get("windspeed")) < minDay) minDay = ((int) cursorNext.get("windspeed"));
-							if (((int) cursorNext.get("winddirection")) < minDay2) minDay2 = ((int) cursorNext.get("winddirection"));
 							averageDay += (int) cursorNext.get("windspeed");
-							averageDay2 += (int) cursorNext.get("winddirection");
 							cursorDayIterator++;
 							cursorNext = cursor.next();
 						}
 					}
 					// if the code goes here, it means cursorNext.get("timestamp") is lesser or equal to dayEndInMillis
 					// thus, it is a new day
-					// we can reset for the next loop (this code could be at the beginning of the while(cursor.hasNext) too)
+					// we can reset for the next loop and agregate the day calculated
 					Document document = new Document("timestamp", dayEndInMillis) 
-						.append("minWS", minDay)
-						.append("minWD", minDay2)
-						.append("maxWS", maxDay)
-						.append("maxWD", maxDay2)
-						.append("averageWS", averageDay/(cursorDayIterator+1))
-						.append("averageWD", averageDay2/(cursorDayIterator+1))
-						.append("unitWS", "kn")
-						.append("unitWD", "°");
+						.append("min", minDay)
+						.append("max", maxDay)
+						.append("average", averageDay/(cursorDayIterator+1))
+						.append("unit", "kn");
 
-					windAggregatedCollection.insertOne(document);
+					windSAggregatedCollection.insertOne(document);
 					cursorDayIterator = 0;
 					averageDay = 0;
 					minDay =0;
@@ -580,11 +583,89 @@ public class DataGenerators {
     		}
 		} catch (Exception e) {
 			//error processing, not much to do there atm
-			Logger.error("AN ERROR OCCURED");
+			Logger.error("AN ERROR OCCURED WHILE FETCHING FROM DATABASE");
 		} finally {
     		cursor.close(); // close the cursor to free the memory
     		Logger.info(documentCount + " aggregation documents have been created");
 		}
+
+
+		/****************************************************************************************************************
+		*												WIND DIRECTION PROCESSING 												*
+		*****************************************************************************************************************/
+
+		cursor = windDRawCollection.find().sort(descending("timestamp")).iterator();
+
+		cursorDayIterator = 0;
+		minDay = 0;
+		maxDay = 0;
+		documentCount = 0;
+		averageDay = 0;
+
+		try {
+   			while (cursor.hasNext()) {
+   				Document cursorNext = cursor.next();
+   				cursorTimestamp = (long) cursorNext.get("timestamp");
+    			if (cursorTimestamp > limitTimestamp) { //cast java Object to long
+    				// cursor still in data kept range
+    				// do nothing (possibility to count documents here with iterator / process things maybe)
+    			} else {
+    				// here, we are in the data aggregation range
+    				Calendar dayEnd = new GregorianCalendar();
+    				dayEnd.clear();
+					dayEnd.setTimeInMillis(cursorTimestamp);
+					dayEnd.set(
+						dayEnd.get(Calendar.YEAR),
+						dayEnd.get(Calendar.MONTH),
+						dayEnd.get(Calendar.DAY_OF_MONTH),
+						0,
+						0,
+						0
+					);
+					dayEndInMillis = dayEnd.getTimeInMillis();
+
+					while (((long) cursorNext.get("timestamp") >= dayEndInMillis) && (cursor.hasNext())) {
+						//we are in a new day
+						if (cursorDayIterator == 0) {
+							//if it is the first cursor of the new day, init
+							minDay = (int) cursorNext.get("winddirection");
+							maxDay = (int) cursorNext.get("winddirection");
+							averageDay = (int) cursorNext.get("winddirection");
+							cursorNext = cursor.next(); //get the next cursor
+							cursorDayIterator++;
+						} else {
+							//go through the other documents
+							if (((int) cursorNext.get("winddirection")) > maxDay) maxDay = ((int) cursorNext.get("winddirection"));
+							if (((int) cursorNext.get("winddirection")) < minDay) minDay = ((int) cursorNext.get("winddirection"));
+							averageDay += (int) cursorNext.get("winddirection");
+							cursorDayIterator++;
+							cursorNext = cursor.next();
+						}
+					}
+					// if the code goes here, it means cursorNext.get("timestamp") is lesser or equal to dayEndInMillis
+					// thus, it is a new day
+					// we can reset for the next loop and agregate the day calculated
+					Document document = new Document("timestamp", dayEndInMillis) 
+						.append("min", minDay)
+						.append("max", maxDay)
+						.append("average", averageDay/(cursorDayIterator+1))
+						.append("unit", "°");
+
+					windDAggregatedCollection.insertOne(document);
+					cursorDayIterator = 0;
+					averageDay = 0;
+					minDay =0;
+					maxDay = 0;
+					documentCount++;
+        		}
+    		}
+		} catch (Exception e) {
+			//error processing, not much to do there atm
+			Logger.error("AN ERROR OCCURED WHILE FETCHING FROM DATABASE");
+		} finally {
+    		cursor.close(); // close the cursor to free the memory
+    		Logger.info(documentCount + " aggregation documents have been created");
+		}		
 
 
 		/*5 - removal of useless documents*/
@@ -671,14 +752,35 @@ public class DataGenerators {
 
 
 		/****************************************************************************************************************
-		*												WIND REMOVAL 													*
+		*												WIND SPEED REMOVAL 													*
 		*****************************************************************************************************************/		
 
-		cursorRemoval = windRawCollection.find(lte("timestamp", limitTimestamp)).sort(descending("timestamp")).iterator();
+		cursorRemoval = windSRawCollection.find(lte("timestamp", limitTimestamp)).sort(descending("timestamp")).iterator();
 		removalCounter = 0;
 		try {
 			while (cursorRemoval.hasNext()) {
-				windRawCollection.deleteOne(cursorRemoval.next());
+				windSRawCollection.deleteOne(cursorRemoval.next());
+				removalCounter++;
+			}	
+		} catch (Exception e) {
+			//error processing, not much to do there atm
+			Logger.debug("AN ERROR OCCURED");
+		} finally {
+    		cursorRemoval.close(); // close the cursor to free the memory
+    		Logger.info(removalCounter + " documents have been removed");
+		}
+	
+
+
+		/****************************************************************************************************************
+		*												WIND DIRECTION REMOVAL 													*
+		*****************************************************************************************************************/		
+
+		cursorRemoval = windDRawCollection.find(lte("timestamp", limitTimestamp)).sort(descending("timestamp")).iterator();
+		removalCounter = 0;
+		try {
+			while (cursorRemoval.hasNext()) {
+				windDRawCollection.deleteOne(cursorRemoval.next());
 				removalCounter++;
 			}	
 		} catch (Exception e) {
@@ -689,7 +791,6 @@ public class DataGenerators {
     		Logger.info(removalCounter + " documents have been removed");
 		}
 	}
-	
 }
 
 

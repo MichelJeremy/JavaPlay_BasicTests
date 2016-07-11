@@ -116,12 +116,14 @@ public class Tools {
         List[1][x] = tempAgr
         List[2][x] = humidity
         List[3][x] = humidityAgr
-        List[4][x] = wind
-        List[5][x] = windAgr
-        List[6][x] = rain
-        List[7][x] = rainAgr
-        List[8][x] = air
-        List[9][x] = airAgr*/
+        List[4][x] = windspeed
+        List[5][x] = windspeedAgr
+        List[6][x] = winddirection
+        List[7][x] = winddirectionAgr
+        List[8][x] = rain
+        List[9][x] = rainAgr
+        List[10][x] = air
+        List[11][x] = airAgr*/
 
         List<List<String>> dataList = new ArrayList<List<String>>();
 
@@ -130,12 +132,14 @@ public class Tools {
             "S001_Temp_aggregated",
             "S002_Humi_raw",
             "S002_Humi_aggregated",
-            "S003_Wind_raw",
-            "S003_Wind_aggregated",
-            "S004_Rain_raw",
-            "S004_Rain_aggregated",
-            "S005_Air_raw",
-            "S005_Air_aggregated",
+            "S003_WindSpeed_raw",
+            "S003_WindSpeed_aggregated",
+            "S004_WindDirection_raw",
+            "S004_WindDirection_aggregated",
+            "S005_Rain_raw",
+            "S005_Rain_aggregated",
+            "S006_Air_raw",
+            "S006_Air_aggregated",
         };
 
 
@@ -144,18 +148,22 @@ public class Tools {
 
         MongoCollection<Document> tempRawCollection = database.getCollection(COLLECTIONS[0]);
         MongoCollection<Document> humiRawCollection = database.getCollection(COLLECTIONS[2]);
-        MongoCollection<Document> windRawCollection = database.getCollection(COLLECTIONS[4]);
-        MongoCollection<Document> rainRawCollection = database.getCollection(COLLECTIONS[6]);
-        MongoCollection<Document> airRawCollection = database.getCollection(COLLECTIONS[8]);
+        MongoCollection<Document> windSRawCollection = database.getCollection(COLLECTIONS[4]);
+        MongoCollection<Document> windDRawCollection = database.getCollection(COLLECTIONS[6]);
+        MongoCollection<Document> rainRawCollection = database.getCollection(COLLECTIONS[8]);
+        MongoCollection<Document> airRawCollection = database.getCollection(COLLECTIONS[10]);
         
         MongoCollection<Document> tempAggregatedCollection = database.getCollection(COLLECTIONS[1]);
         MongoCollection<Document> humiAggregatedCollection = database.getCollection(COLLECTIONS[3]);
-        MongoCollection<Document> windAggregatedCollection = database.getCollection(COLLECTIONS[5]);
-        MongoCollection<Document> rainAggregatedCollection = database.getCollection(COLLECTIONS[7]);
-        MongoCollection<Document> airAggregatedCollection = database.getCollection(COLLECTIONS[9]);
+        MongoCollection<Document> windSAggregatedCollection = database.getCollection(COLLECTIONS[5]);
+        MongoCollection<Document> windDAggregatedCollection = database.getCollection(COLLECTIONS[7]);
+        MongoCollection<Document> rainAggregatedCollection = database.getCollection(COLLECTIONS[9]);
+        MongoCollection<Document> airAggregatedCollection = database.getCollection(COLLECTIONS[11]);
 
         int i;
-        for (i = 0; i < 10 ; i++) {
+
+        // get database values
+        for (i = 0; i < COLLECTIONS.length; i++) {
             List<String> list = new ArrayList<String>();
             dataList.add(list);
             MongoCursor<Document> cursor = database
@@ -181,70 +189,36 @@ public class Tools {
                                 dataList.get(i).add(cursorNext.get("unit").toString());
                                 break;
 
-                        //raw wind
+                        //raw wind speed
                         case 4: dataList.get(i).add(cursorNext.get("timestamp").toString());
                                 dataList.get(i).add(cursorNext.get("windspeed").toString());
-                                dataList.get(i).add(cursorNext.get("winddirection").toString());
-                                dataList.get(i).add(cursorNext.get("unit1").toString());
-                                dataList.get(i).add(cursorNext.get("unit2").toString());
+                                dataList.get(i).add(cursorNext.get("unit").toString());
                                 break;
 
-                        //raw rain
                         case 6: dataList.get(i).add(cursorNext.get("timestamp").toString());
+                                dataList.get(i).add(cursorNext.get("winddirection").toString());
+                                dataList.get(i).add(cursorNext.get("unit").toString());
+                                break;                               
+
+                        //raw rain
+                        case 8: dataList.get(i).add(cursorNext.get("timestamp").toString());
                                 dataList.get(i).add(cursorNext.get("rain").toString());
                                 dataList.get(i).add(cursorNext.get("unit").toString());
                                 break;
 
                         //raw air
-                        case 8: dataList.get(i).add(cursorNext.get("timestamp").toString());
+                        case 10: dataList.get(i).add(cursorNext.get("timestamp").toString());
                                 dataList.get(i).add(cursorNext.get("airquality").toString());
                                 dataList.get(i).add(cursorNext.get("unit").toString());
                                 break;
 
-                        //agr temp
-                        case 1: dataList.get(i).add(cursorNext.get("timestamp").toString());
+                        //every cases left are the agregations
+                        default: dataList.get(i).add(cursorNext.get("timestamp").toString());
                                 dataList.get(i).add(cursorNext.get("min").toString());
                                 dataList.get(i).add(cursorNext.get("max").toString());
                                 dataList.get(i).add(cursorNext.get("average").toString());
                                 dataList.get(i).add(cursorNext.get("unit").toString());
                                 break;
-
-                        //agr humidity
-                        case 3: dataList.get(i).add(cursorNext.get("timestamp").toString());
-                                dataList.get(i).add(cursorNext.get("min").toString());
-                                dataList.get(i).add(cursorNext.get("max").toString());
-                                dataList.get(i).add(cursorNext.get("average").toString());
-                                dataList.get(i).add(cursorNext.get("unit").toString());
-                                break;
-
-                        //agr wind
-                        case 5: dataList.get(i).add(cursorNext.get("timestamp").toString());
-                                dataList.get(i).add(cursorNext.get("minWS").toString());
-                                dataList.get(i).add(cursorNext.get("maxWS").toString());
-                                dataList.get(i).add(cursorNext.get("minWD").toString());
-                                dataList.get(i).add(cursorNext.get("maxWD").toString());
-                                dataList.get(i).add(cursorNext.get("averageWS").toString());
-                                dataList.get(i).add(cursorNext.get("averageWD").toString());
-                                dataList.get(i).add(cursorNext.get("unitWS").toString());
-                                dataList.get(i).add(cursorNext.get("unitWD").toString());
-                                break;
-
-                        //agr rain
-                        case 7: dataList.get(i).add(cursorNext.get("timestamp").toString());
-                                dataList.get(i).add(cursorNext.get("min").toString());
-                                dataList.get(i).add(cursorNext.get("max").toString());
-                                dataList.get(i).add(cursorNext.get("average").toString());
-                                dataList.get(i).add(cursorNext.get("unit").toString());
-                                break;
-
-                        //agr air
-                        case 9: dataList.get(i).add(cursorNext.get("timestamp").toString());
-                                dataList.get(i).add(cursorNext.get("min").toString());
-                                dataList.get(i).add(cursorNext.get("max").toString());
-                                dataList.get(i).add(cursorNext.get("average").toString());
-                                dataList.get(i).add(cursorNext.get("unit").toString());
-                                break;
-
                     }
                 }
             } catch (Exception e) {
@@ -253,7 +227,6 @@ public class Tools {
                 cursor.close();
             }
         }
-
         return dataList;
     }
 
@@ -274,7 +247,7 @@ public class Tools {
         StringBuilder sb = new StringBuilder();
         String timestamp= "", value = "", unit = "", value2 = "", unit2 = "", min = "", max = "", min2 = "", max2 = "", average = "", average2 = "";
         //raw collections
-        if (index != 4 && index%2 == 0) { // remove special cases
+        if (index%2 == 0) {
             for (int i=0; i<jsonDataList.get(index).size(); i++) {
                 if (i%3 == 0) timestamp = jsonDataList.get(index).get(i);
                 if (i%3 == 1) value = jsonDataList.get(index).get(i);
@@ -292,30 +265,7 @@ public class Tools {
                 }
             }
         }
-        if (index == 4) { //special case because different format
-            for (int i=0; i<jsonDataList.get(index).size(); i++) {
-                if (i%5 == 0) timestamp = jsonDataList.get(index).get(i);
-                if (i%5 == 1) value = jsonDataList.get(index).get(i);
-                if (i%5 == 2) value2 = jsonDataList.get(index).get(i);
-                if (i%5 == 3) unit = jsonDataList.get(index).get(i);
-                if (i%5 == 4) {
-                    unit2 = jsonDataList.get(index).get(i);
-                    sb.append(".push({timestamp: ")
-                        .append(timestamp)
-                        .append(", value1: ")
-                        .append(value)
-                        .append(", value2: ")
-                        .append(value2)
-                        .append(", unit1: ")
-                        .append("\""+unit+"\"")
-                        .append(", unit2: ")
-                        .append("\""+unit2+"\"")
-                        .append("});");
-                    jsonPushList.add(sb.toString());
-                    sb.setLength(0); //reset the string builder 
-                }
-            }
-        }
+
         //agr collections
         if (index%2 == 1 && index != 5) {
             for (int i=0; i<jsonDataList.get(index).size(); i++) {
@@ -340,42 +290,6 @@ public class Tools {
             }
         }
 
-        if (index == 5) { //special case because different format
-            for (int i=0; i<jsonDataList.get(index).size(); i++) {
-                if (i%9 == 0) timestamp = jsonDataList.get(index).get(i);
-                if (i%9 == 1) min = jsonDataList.get(index).get(i);
-                if (i%9 == 2) min2 = jsonDataList.get(index).get(i);
-                if (i%9 == 3) max = jsonDataList.get(index).get(i);
-                if (i%9 == 4) max2 = jsonDataList.get(index).get(i);
-                if (i%9 == 5) average = jsonDataList.get(index).get(i);
-                if (i%9 == 6) average2 = jsonDataList.get(index).get(i);
-                if (i%9 == 7) unit = jsonDataList.get(index).get(i);
-                if (i%9 == 8) {
-                    unit2 = jsonDataList.get(index).get(i);
-                    sb.append(".push({timestamp: \"")
-                        .append(timestamp)
-                        .append("\", min1: ")
-                        .append(min)
-                        .append("\", min2: ")
-                        .append(min2)
-                        .append("\", max1: ")
-                        .append(max)
-                        .append("\", max2: ")
-                        .append(max2)
-                        .append("\", average1: ")
-                        .append(average)
-                        .append("\", average2: ")
-                        .append(average2)
-                        .append("\", unit1: ")
-                        .append("\""+unit+"\"")
-                        .append("\", unit2: ")
-                        .append(unit2)
-                        .append("});");
-                    jsonPushList.add(sb.toString());
-                    sb.setLength(0); //reset the string builder
-                }
-            }
-        }
         return jsonPushList;
     }
 
@@ -437,9 +351,9 @@ public class Tools {
             minWD = 0,
             maxWD = 0;
 
-        float   average = 0,
-                averageWS = 0,
-                averageWD = 0;
+        float average = 0,
+            averageWS = 0,
+            averageWD = 0;
 
         lastTimestamp = Long.parseLong(mongoData.get(collectionIndex).get(0));
         Calendar dayLimit = Calendar.getInstance();
@@ -453,7 +367,7 @@ public class Tools {
             0
         ); // get time at the beginning of the day
 
-        if (collectionIndex != 4 && collectionIndex%2 == 0) { // raws, except wind which is formatted differently
+        if (collectionIndex%2 == 0) { //raws
             current = Integer.parseInt(mongoData.get(collectionIndex).get(1));
             currentTime = lastTimestamp;
             dayLimitTimestamp = dayLimit.getTimeInMillis(); // get time in milliseconds
@@ -489,65 +403,8 @@ public class Tools {
             stats.add(average);
             stats.add(current);
             stats.add(currentTime);
-        } else if (collectionIndex == 4) { // raws, except wind which is formatted differently
-            currentWS = Integer.parseInt(mongoData.get(collectionIndex).get(1));
-            currentWD = Integer.parseInt(mongoData.get(collectionIndex).get(2));
-            dayLimitTimestamp = dayLimit.getTimeInMillis(); // get time in milliseconds
-            nextTimestamp = lastTimestamp; // for while loop and var name comprehension
-            while (nextTimestamp >= dayLimitTimestamp) {
-                if (i == 0) { // cursor on first entry (init timestamps)
-                    minTimeWS = maxTimeWS = minTimeWD = maxTimeWD = currentTimeWS = currentTimeWD = Long.parseLong(mongoData.get(collectionIndex).get(i));
-                    nextTimestamp = Long.parseLong(mongoData.get(collectionIndex).get(i+5));
-                } else if (i == 1) { // cursor on second entry (init windspeed)
-                    minWS = maxWS = Integer.parseInt(mongoData.get(collectionIndex).get(i));
-                    averageWS += Integer.parseInt(mongoData.get(collectionIndex).get(i));
-                } else if (i == 2) { // cursor on third entry (init winddirection)
-                    minWD = maxWD = Integer.parseInt(mongoData.get(collectionIndex).get(i));
-                    averageWD += Integer.parseInt(mongoData.get(collectionIndex).get(i));
-                } else if (i%5 == 1) { //cursor on every seconds entries (except the first second) -> wind speed
-                    nextTimestamp = Long.parseLong(mongoData.get(collectionIndex).get(i+4)); // get next tinestamp for while loop test
-                    averageWS += Integer.parseInt(mongoData.get(collectionIndex).get(i)); // add value to average
-                    if (Integer.parseInt(mongoData.get(collectionIndex).get(i)) > maxWS) { //case where value gt max
-                        maxWS = Integer.parseInt(mongoData.get(collectionIndex).get(i)); // replace max with new value
-                        maxTimeWS = Long.parseLong(mongoData.get(collectionIndex).get(i-1)); // get time associated with this value
-                    } else if (Integer.parseInt(mongoData.get(collectionIndex).get(i)) < minWS) { // case where value lt min
-                        minWS = Integer.parseInt(mongoData.get(collectionIndex).get(i)); // replace min with new value
-                        minTimeWS = Long.parseLong(mongoData.get(collectionIndex).get(i-1)); // get time associated with this value
-                    }
-                } else if (i%5 == 2) { // every third entries (except the first third) -> wind direction
-                    averageWD += Integer.parseInt(mongoData.get(collectionIndex).get(i)); // add value to average
-                    if (Integer.parseInt(mongoData.get(collectionIndex).get(i)) > maxWD) {
-                        maxWD = Integer.parseInt(mongoData.get(collectionIndex).get(i)); // replace max with new value
-                        maxTimeWD = Long.parseLong(mongoData.get(collectionIndex).get(i-2)); // get time associated with this value
-                    } else if (Integer.parseInt(mongoData.get(collectionIndex).get(i)) < minWD) {
-                        minWD = Integer.parseInt(mongoData.get(collectionIndex).get(i)); // replace min with new value
-                        minTimeWD = Long.parseLong(mongoData.get(collectionIndex).get(i-2)); // get time associated with this value
-                    }
-                }
-                i++;
-            }
-            averageWS /= ((i+1)/5); //divides average with the number of iterations divided by the amount of "loop entries"
-            averageWD /= ((i+1)/5); // because when i is incremented, it only went through one entry
-                                    // while a full data is composed of 5 entries here
-                                    // thus i is iterated five times as much as there are data
-
-
-            stats.add(minWS);
-            stats.add(minTimeWS); 
-            stats.add(maxWS); 
-            stats.add(maxTimeWS); 
-            stats.add(averageWS); 
-            stats.add(currentWS); 
-            stats.add(currentTimeWS); 
-            stats.add(minWD); 
-            stats.add(minTimeWD); 
-            stats.add(maxWD); 
-            stats.add(maxTimeWD); 
-            stats.add(averageWD); 
-            stats.add(currentWD); 
-            stats.add(currentTimeWD);
         }
-
+        
         return stats;
     }
 

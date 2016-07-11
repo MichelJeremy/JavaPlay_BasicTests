@@ -1,4 +1,4 @@
-@(chartDatas: List[String], dayDatas: List[String], chartDatasHumidity: List[String], mongoDataTempRaw: List[String], mongoDataTempAgr: List[String], mongoDataHumiRaw: List[String], mongoDataHumiAgr: List[String], mongoDataWindRaw: List[String], mongoDataWindAgr: List[String], mongoDataRainRaw: List[String], mongoDataRainAgr: List[String], mongoDataAirRaw: List[String], mongoDataAirAgr: List[String], allDayTemp: List[Object], allDayHumi: List[Object], allDayWind: List[Object], allDayRain: List[Object], allDayAir: List[Object])
+@(chartDatas: List[String], dayDatas: List[String], chartDatasHumidity: List[String], mongoDataTempRaw: List[String], mongoDataTempAgr: List[String], mongoDataHumiRaw: List[String], mongoDataHumiAgr: List[String], mongoDataWindSRaw: List[String], mongoDataWindSAgr: List[String], mongoDataWindDRaw: List[String], mongoDataWindDAgr: List[String], mongoDataRainRaw: List[String], mongoDataRainAgr: List[String], mongoDataAirRaw: List[String], mongoDataAirAgr: List[String], allDayTemp: List[Object], allDayHumi: List[Object], allDayWindS: List[Object], allDayWindD: List[Object], allDayRain: List[Object], allDayAir: List[Object])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +25,8 @@
         <script src="@routes.Assets.versioned("javascripts/gaugeChart.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/compass.js")" type="text/javascript"></script>
         <link href="@routes.Assets.versioned("stylesheets/main.css")" rel="stylesheet" media="screen">
+
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
     </head>
 
     <body>
@@ -34,10 +36,88 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
-                        <h4 class="modal-title" id="myModalLabel">Temperature</h4> <!-- need to find a way to display every data the user wants -->
+                        <!-- <h4 class="modal-title" id="myModalLabel">Temperature</h4>  -->
                     </div>
                     <div class="modal-body">
-                        <div id="graph"></div>
+                        <div class="tabbable">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="" data-target="#tab1" data-toggle="tab">Today</a></li>
+                                <li><a href="" data-target="#tab2" data-toggle="tab">Last 10 days</a></li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="" >Select month
+                                    <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="" data-target="#tabMonth1" data-toggle="tab">Jan</a></li>
+                                        <li><a href="" data-target="#tabMonth2" data-toggle="tab">Feb</a></li>
+                                        <li><a href="" data-target="#tabMonth3" data-toggle="tab">Mar</a></li>
+                                        <li><a href="" data-target="#tabMonth4" data-toggle="tab">Apr</a></li>
+                                        <li><a href="" data-target="#tabMonth5" data-toggle="tab">May</a></li>
+                                        <li><a href="" data-target="#tabMonth6" data-toggle="tab">Jun</a></li> 
+                                        <li><a href="" data-target="#tabMonth7" data-toggle="tab">Jul</a></li>
+                                        <li><a href="" data-target="#tabMonth8" data-toggle="tab">Aug</a></li>
+                                        <li><a href="" data-target="#tabMonth9" data-toggle="tab">Sep</a></li>
+                                        <li><a href="" data-target="#tabMonth10" data-toggle="tab">Oct</a></li>
+                                        <li><a href="" data-target="#tabMonth11" data-toggle="tab">Nov</a></li>
+                                        <li><a href="" data-target="#tabMonth12" data-toggle="tab">Dec</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="" >Select year
+                                    <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="" data-target="#tabYear" data-toggle="tab">2016</a></li>
+                                        <li><a href="" data-target="#tabYear" data-toggle="tab">2015</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tab1">
+                                    <div id="graph"></div>
+                                </div>
+                                <div class="tab-pane active" id="tab2">
+                                    blbl
+                                </div>
+                                <div class="tab-pane active" id="tabMonth1">
+                                    tm1
+                                </div>
+                                <div class="tab-pane active" id="tabMonth2">
+                                    tm2
+                                </div>
+                                <div class="tab-pane active" id="tabMonth3">
+                                    tm3
+                                </div>
+                                <div class="tab-pane active" id="tabMonth4">
+                                    tm4
+                                </div>
+                                <div class="tab-pane active" id="tabMonth5">
+                                    tm5
+                                </div>
+                                <div class="tab-pane active" id="tabMonth6">
+                                    tm6
+                                </div>
+                                <div class="tab-pane active" id="tabMonth7">
+                                    tm7
+                                </div>
+                                <div class="tab-pane active" id="tabMonth8">
+                                    tm8
+                                </div>
+                                <div class="tab-pane active" id="tabMonth9">
+                                    tm9
+                                </div>
+                                <div class="tab-pane active" id="tabMonth10">
+                                    tm10
+                                </div>
+                                <div class="tab-pane active" id="tabMonth11">
+                                    tm11
+                                </div>
+                                <div class="tab-pane active" id="tabMonth12">
+                                    tm12
+                                </div>
+                                <div class="tab-pane active" id="tab2">
+                                    year
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -149,11 +229,19 @@
                             <span id="dataHeader">Today's average:</span> <span id="windDataValueWDAvg"></span><br>
 
                             <script type="text/javascript">
-                                var arrayWindDataRaw = [];
-                                @for(d <- 0 until allDayWind.size()) {
-                                    arrayWindDataRaw.push(@allDayWind.get(d))
+                                //wind speed
+                                var arrayWindSDataRaw = [];
+                                @for(d <- 0 until allDayWindS.size()) {
+                                    arrayWindSDataRaw.push(@allDayWindS.get(d))
                                 }
-                                displayWindData(arrayWindDataRaw);
+                                displayWindSData(arrayWindSDataRaw);
+
+                                //wind direction
+                                var arrayWindDDataRaw = [];
+                                @for(d <- 0 until allDayWindD.size()) {
+                                    arrayWindDDataRaw.push(@allDayWindD.get(d))
+                                }
+                                displayWindDData(arrayWindDDataRaw);
                             </script>
                         </div>
                     </div> <!-- close panel wind-->
