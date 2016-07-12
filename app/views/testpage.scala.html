@@ -39,84 +39,50 @@
                         <!-- <h4 class="modal-title" id="myModalLabel">Temperature</h4>  -->
                     </div>
                     <div class="modal-body">
-                        <div class="tabbable">
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="" data-target="#tab1" data-toggle="tab">Today</a></li>
-                                <li><a href="" data-target="#tab2" data-toggle="tab">Last 10 days</a></li>
-                                <li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="" >Select month
-                                    <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="" data-target="#tabMonth1" data-toggle="tab">Jan</a></li>
-                                        <li><a href="" data-target="#tabMonth2" data-toggle="tab">Feb</a></li>
-                                        <li><a href="" data-target="#tabMonth3" data-toggle="tab">Mar</a></li>
-                                        <li><a href="" data-target="#tabMonth4" data-toggle="tab">Apr</a></li>
-                                        <li><a href="" data-target="#tabMonth5" data-toggle="tab">May</a></li>
-                                        <li><a href="" data-target="#tabMonth6" data-toggle="tab">Jun</a></li> 
-                                        <li><a href="" data-target="#tabMonth7" data-toggle="tab">Jul</a></li>
-                                        <li><a href="" data-target="#tabMonth8" data-toggle="tab">Aug</a></li>
-                                        <li><a href="" data-target="#tabMonth9" data-toggle="tab">Sep</a></li>
-                                        <li><a href="" data-target="#tabMonth10" data-toggle="tab">Oct</a></li>
-                                        <li><a href="" data-target="#tabMonth11" data-toggle="tab">Nov</a></li>
-                                        <li><a href="" data-target="#tabMonth12" data-toggle="tab">Dec</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="" >Select year
-                                    <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="" data-target="#tabYear" data-toggle="tab">2016</a></li>
-                                        <li><a href="" data-target="#tabYear" data-toggle="tab">2015</a></li>
-                                    </ul>
-                                </li>
+                            <ul class="nav nav-pills">
+                                <li class="active"><a href="" data-target="#tab1" data-toggle="pill">Today</a></li>
+                                <li><a href="" data-target="#tab2" data-toggle="pill">Last 7 days</a></li>
+                                <li><a href="" data-target="#tabCustom" data-toggle="pill">Custom duration</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tab1">
-                                    <div id="graph"></div>
+                                    <div id="graphToday"></div>
                                 </div>
-                                <div class="tab-pane active" id="tab2">
-                                    blbl
+                                <div class="tab-pane" id="tab2">
+                                    <div id="graph7Days"></div>
                                 </div>
-                                <div class="tab-pane active" id="tabMonth1">
-                                    tm1
+                                <div class="tab-pane" id="tabCustom">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-1" for="month">Month</label>
+                                        <div class="col-md-4">
+                                            <select id="month" class="form-control" onchange="refreshValue()">
+                                                <option></option>
+                                                <option>January</option>
+                                                <option>February</option>
+                                                <option>March</option>
+                                                <option>April</option>
+                                                <option>May</option>
+                                                <option>June</option>
+                                                <option>July</option>
+                                                <option>August</option>
+                                                <option>September</option>
+                                                <option>October</option>
+                                                <option>November</option>
+                                                <option>December</option>                                           
+                                            </select>
+                                        </div>
+
+                                        <label class="control-label col-md-1" for="year">Year</label>
+                                        <div class="col-md-4">
+                                            <select id="year" class="form-control" onchange="refreshValue()">
+                                                <option>2016</option>
+                                                <option>2015</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <br> <br> <br>
+                                    <span id="refreshedValue"></span>
                                 </div>
-                                <div class="tab-pane active" id="tabMonth2">
-                                    tm2
-                                </div>
-                                <div class="tab-pane active" id="tabMonth3">
-                                    tm3
-                                </div>
-                                <div class="tab-pane active" id="tabMonth4">
-                                    tm4
-                                </div>
-                                <div class="tab-pane active" id="tabMonth5">
-                                    tm5
-                                </div>
-                                <div class="tab-pane active" id="tabMonth6">
-                                    tm6
-                                </div>
-                                <div class="tab-pane active" id="tabMonth7">
-                                    tm7
-                                </div>
-                                <div class="tab-pane active" id="tabMonth8">
-                                    tm8
-                                </div>
-                                <div class="tab-pane active" id="tabMonth9">
-                                    tm9
-                                </div>
-                                <div class="tab-pane active" id="tabMonth10">
-                                    tm10
-                                </div>
-                                <div class="tab-pane active" id="tabMonth11">
-                                    tm11
-                                </div>
-                                <div class="tab-pane active" id="tabMonth12">
-                                    tm12
-                                </div>
-                                <div class="tab-pane active" id="tab2">
-                                    year
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -125,7 +91,7 @@
         <header id="main">
             <div class="container">
                 <span class="title">Weather observation app.</span><br>
-                <span class="subtittle">not even alpha version aka. "blackie", 'cause design ain't my thing</span>
+                <span class="subtittle">still not even alpha version aka. "blackie". No, it really is, stop asking.</span>
             </div>
         </header>
 
@@ -300,9 +266,13 @@
     <script type="text/javascript">
         /*onclick button graph temperature*/
         $('#buttonTemp').on('click', function() {
-            var p1 = @chartDatas.get(0);
-            var p2 = "@chartDatas.get(1)".replace(/&quot;/g, '"');
-            plotGraphLineTemp(p1, p2); 
+            var arrayMongoTempDataRaw = []
+            @for(d <- 0 until mongoDataTempRaw.size()) {
+                var append = "arrayMongoTempDataRaw@mongoDataTempRaw.get(d)".replace(/&quot;/g, '\"')
+                eval(append)
+            }
+            plotGraphLineTempRaw7Days(arrayMongoTempDataRaw);
+            plotGraphLineTempRaw1Day(arrayMongoTempDataRaw);
         });
 
         $('#buttonHum').on('click', function() {
@@ -312,8 +282,19 @@
         });
         /*Empties the modal when it is closed ( so that it can be updated if needed)*/
         $(document).on("hidden.bs.modal", function (e) {
-            $(e.target).removeData("bs.modal").find("#graph").empty();
+            $(e.target).removeData("bs.modal").find("#graphToday").empty();
+            $(e.target).removeData("bs.modal").find("#graph7Days").empty();
         });
+
+        function refreshValue() {
+            var monthValue = document.getElementById("month").value;
+            var yearValue = document.getElementById("year").value;
+            if (yearValue == "") {
+                document.getElementById("refreshedValue").innerHTML = yearValue;
+            } else {
+                document.getElementById("refreshedValue").innerHTML = monthValue + " " + yearValue;
+            }
+        };
     </script>   
 </html>
 

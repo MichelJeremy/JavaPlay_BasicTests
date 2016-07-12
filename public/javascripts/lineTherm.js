@@ -28,6 +28,8 @@ function plotGraphLineTherm(param0, param1) {
     var maxX = d3.max(chartData1, function(d) { return parseDate(d.date);});
     var minX = d3.min(chartData1, function(d) { return parseDate(d.date);});
 
+    console.log(maxX)
+
     // x-position encoding
     var x = d3.time.scale()
         .range([0, width])
@@ -66,7 +68,6 @@ function plotGraphLineTherm(param0, param1) {
     chartData1.forEach(function(d) {
         d.date = parseDate(d.date);
     })
-
     //uncomment this to add chartData2 too
 /*    chartData2.forEach(function(d) {
         d.date = parseDate(d.date);

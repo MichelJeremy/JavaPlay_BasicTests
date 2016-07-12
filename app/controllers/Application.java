@@ -99,10 +99,7 @@ public class Application extends Controller {
         mongoDataRainAgr = tools.jsonToDataFormat(mongoData, 9);
         mongoDataAirRaw = tools.jsonToDataFormat(mongoData, 10);
         mongoDataAirAgr = tools.jsonToDataFormat(mongoData, 11);
-/*        
-        for(i = 0; i<mongoData.get(0).size(); i++){
-            Logger.debug(""+mongoData.get(0).get(i));
-        }*/
+        
 
         ArrayList<Object> allDayTemp = new ArrayList<Object>();
         ArrayList<Object> allDayRain = new ArrayList<Object>();
@@ -117,6 +114,12 @@ public class Application extends Controller {
         allDayWindD = tools.getAllDayValues(mongoData, 6);
         allDayRain = tools.getAllDayValues(mongoData, 8);
         allDayAir = tools.getAllDayValues(mongoData, 10);
+
+
+        //for testing
+        for(i = 0; i<mongoDataTempRaw.size(); i++){
+            Logger.debug(""+mongoDataTempRaw.get(i));
+        }
 
         return ok(testpage.render(
             chartDatas,
