@@ -275,13 +275,13 @@ public class Tools {
                 if (i%5 == 3) average = jsonDataList.get(index).get(i);
                 if (i%5 == 4) {
                     unit = jsonDataList.get(index).get(i);
-                    sb.append(".push({timestamp: \"")
+                    sb.append(".push({timestamp: ")
                     .append(timestamp)
-                    .append("\", min: ")
+                    .append(", min: ")
                     .append(min)
-                    .append("\", max: ")
+                    .append(", max: ")
                     .append(max)
-                    .append("\", average: ")
+                    .append(", average: ")
                     .append(average)
                     .append("});");
                     jsonPushList.add(sb.toString());

@@ -117,8 +117,8 @@ public class Application extends Controller {
 
 
         //for testing
-        for(i = 0; i<mongoDataTempRaw.size(); i++){
-            Logger.debug(""+mongoDataTempRaw.get(i));
+        for(i = 0; i<mongoDataTempAgr.size(); i++){
+            Logger.debug(""+mongoDataTempAgr.get(i));
         }
 
         return ok(testpage.render(
