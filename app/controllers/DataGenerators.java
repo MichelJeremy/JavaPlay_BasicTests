@@ -271,7 +271,7 @@ public class DataGenerators {
     		}
 		} catch (Exception e) {
 			//error processing, not much to do there atm
-			Logger.error("AN ERROR OCCURED");
+			Logger.error("AN ERROR OCCURED WHILE PROCESSING TEMPERATURE");
 		} finally {
     		cursor.close(); // close the cursor to free the memory
     		Logger.info(documentCount + " aggregation documents have been created");
@@ -349,7 +349,8 @@ public class DataGenerators {
     		}
 		} catch (Exception e) {
 			//error processing, not much to do there atm
-			Logger.error("AN ERROR OCCURED");
+    		cursor.close(); // close the cursor to free the memory
+			Logger.error("AN ERROR OCCURED WHILE PROCESSING HUMIDITY");
 		} finally {
     		cursor.close(); // close the cursor to free the memory
     		Logger.info(documentCount + " aggregation documents have been created");
@@ -426,7 +427,7 @@ public class DataGenerators {
     		}
 		} catch (Exception e) {
 			//error processing, not much to do there atm
-			Logger.error("AN ERROR OCCURED");
+			Logger.error("AN ERROR OCCURED WHILE PROCESSING RAIN");
 		} finally {
     		cursor.close(); // close the cursor to free the memory
     		Logger.info(documentCount + " aggregation documents have been created");
@@ -505,7 +506,7 @@ public class DataGenerators {
     		}
 		} catch (Exception e) {
 			//error processing, not much to do there atm
-			Logger.error("AN ERROR OCCURED");
+			Logger.error("AN ERROR OCCURED WHILE PROCESSING AIR");
 		} finally {
     		cursor.close(); // close the cursor to free the memory
     		Logger.info(documentCount + " aggregation documents have been created");
@@ -583,7 +584,7 @@ public class DataGenerators {
     		}
 		} catch (Exception e) {
 			//error processing, not much to do there atm
-			Logger.error("AN ERROR OCCURED WHILE FETCHING FROM DATABASE");
+			Logger.error("AN ERROR OCCURED WHILE PROCESSING WIND SPEED");
 		} finally {
     		cursor.close(); // close the cursor to free the memory
     		Logger.info(documentCount + " aggregation documents have been created");
@@ -661,7 +662,7 @@ public class DataGenerators {
     		}
 		} catch (Exception e) {
 			//error processing, not much to do there atm
-			Logger.error("AN ERROR OCCURED WHILE FETCHING FROM DATABASE");
+			Logger.error("AN ERROR OCCURED WHILE PROCESSING WIND DIRECTION");
 		} finally {
     		cursor.close(); // close the cursor to free the memory
     		Logger.info(documentCount + " aggregation documents have been created");
@@ -683,7 +684,7 @@ public class DataGenerators {
 			}	
 		} catch (Exception e) {
 			//error processing, not much to do there atm
-			Logger.debug("AN ERROR OCCURED");
+			Logger.debug("AN ERROR OCCURED WHILE PROCESSING TEMP REMOVAL");
 		} finally {
     		cursorRemoval.close(); // close the cursor to free the memory
     		Logger.info(removalCounter + " documents have been removed");
@@ -704,7 +705,7 @@ public class DataGenerators {
 			}	
 		} catch (Exception e) {
 			//error processing, not much to do there atm
-			Logger.debug("AN ERROR OCCURED");
+			Logger.debug("AN ERROR OCCURED WHILE PROCESSING HUMI REMOVAL");
 		} finally {
     		cursorRemoval.close(); // close the cursor to free the memory
     		Logger.info(removalCounter + " documents have been removed");
@@ -724,7 +725,7 @@ public class DataGenerators {
 			}	
 		} catch (Exception e) {
 			//error processing, not much to do there atm
-			Logger.debug("AN ERROR OCCURED");
+			Logger.debug("AN ERROR OCCURED WHILE PROCESSING RAIN REMOVAL");
 		} finally {
     		cursorRemoval.close(); // close the cursor to free the memory
     		Logger.info(removalCounter + " documents have been removed");
@@ -744,7 +745,7 @@ public class DataGenerators {
 			}	
 		} catch (Exception e) {
 			//error processing, not much to do there atm
-			Logger.debug("AN ERROR OCCURED");
+			Logger.debug("AN ERROR OCCURED WHILE PROCESSING AIR REMOVAL");
 		} finally {
     		cursorRemoval.close(); // close the cursor to free the memory
     		Logger.info(removalCounter + " documents have been removed");
@@ -764,7 +765,7 @@ public class DataGenerators {
 			}	
 		} catch (Exception e) {
 			//error processing, not much to do there atm
-			Logger.debug("AN ERROR OCCURED");
+			Logger.debug("AN ERROR OCCURED WHILE PROCESSING WIND SPEED REMOVAL");
 		} finally {
     		cursorRemoval.close(); // close the cursor to free the memory
     		Logger.info(removalCounter + " documents have been removed");
@@ -785,7 +786,7 @@ public class DataGenerators {
 			}	
 		} catch (Exception e) {
 			//error processing, not much to do there atm
-			Logger.debug("AN ERROR OCCURED");
+			Logger.debug("AN ERROR OCCURED WHILE PROCESSING WIND DIRECTION REMOVAL");
 		} finally {
     		cursorRemoval.close(); // close the cursor to free the memory
     		Logger.info(removalCounter + " documents have been removed");

@@ -236,12 +236,14 @@ public class Tools {
             1 = temperature_agr
             2 = humidity_raw
             3 = humidity_agr
-            4 = wind_raw
-            5 = wind_agr
-            6 = rain_raw
-            7 = rain_agr
-            8 = air_raw
-            9 = air_agr*/
+            4 = windS_raw
+            5 = windS_agr
+            6 = windD_raw
+            7 = windD_agr
+            8 = rain_raw
+            9 = rain_agr
+            10 = air_raw
+            11 = air_agr*/
     public ArrayList<String> jsonToDataFormat(List<List<String>> jsonDataList, int index) {
         ArrayList<String> jsonPushList = new ArrayList<String>();
         StringBuilder sb = new StringBuilder();
@@ -267,7 +269,7 @@ public class Tools {
         }
 
         //agr collections
-        if (index%2 == 1 && index != 5) {
+        if (index%2 == 1) {
             for (int i=0; i<jsonDataList.get(index).size(); i++) {
                 if (i%5 == 0) timestamp = jsonDataList.get(index).get(i);
                 if (i%5 == 1) min = jsonDataList.get(index).get(i);

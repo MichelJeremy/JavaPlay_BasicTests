@@ -1,15 +1,12 @@
 // plots graphs for last 7 days
 
-function plotGraphLineTempRaw7Days(mongoData) {
+function plotGraphHumiRaw7Days(mongoData) {
         // size configuration of the chart
     var margin = {top: 20, right: 30, bottom: 100, left: 20},
         margin2 = {top: 430, right: 30, bottom: 40, left: 20},
         width = 900 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom,
         height2 = 500 - margin2.top - margin2.bottom;
-
-    var color = "#4682b4"
-
 
     // date format
     var parseDate = d3.time.format("%d-%m-%Y %H:%M");
@@ -20,7 +17,7 @@ function plotGraphLineTempRaw7Days(mongoData) {
         y = d3.scale.linear().range([height, 0]),
         y2 = d3.scale.linear().range([height2, 0]); // y scale differs because height of the brush area is not the same
 
-    // x and y axis definition
+    // x and y axis definition, along with grid and tick fornat defined
     var format = d3.time.format("%d-%m %H:%M");
     var xAxis = d3.svg.axis().scale(x).orient("bottom").tickFormat(format).innerTickSize(-width).outerTickSize(0).tickPadding(10); //main x-axis (focus area)
     var xAxis2 = d3.svg.axis().scale(x2).orient("bottom"); // x-axis of the bottom rectangle (context area)
@@ -43,8 +40,6 @@ function plotGraphLineTempRaw7Days(mongoData) {
         .interpolate("monotone")
         .x(function(d) { return x2(d.timestamp);})
         .y(function(d) { return y2(d.value);});
-
-
 
     // svg canvas definition
     var svg = d3.select("#graph7Days")
@@ -92,7 +87,7 @@ function plotGraphLineTempRaw7Days(mongoData) {
     focus.append("path")
         .datum(mongoData)
         .attr("class", "line")
-        .attr("stroke", color)
+        .attr("stroke", "#4682b4")
         .attr("d", line);
 
     // draws xAxis
@@ -105,7 +100,7 @@ function plotGraphLineTempRaw7Days(mongoData) {
             .attr("dy", ".25em")
             .attr("x", 660)
             .attr("dx", ".25em")
-            .text("Temperature evolution over time");
+            .text("Humidity evolution over time");
 
     // draws yAxis
     focus.append("g")
@@ -116,7 +111,7 @@ function plotGraphLineTempRaw7Days(mongoData) {
             .attr("y", 6)
             .attr("dy", ".71em")
             .style("text-anchor", "end")
-            .text("Temperature(°C)");
+            .text("Humidity(%)");
 
 
 /*    ====================================================================
@@ -127,7 +122,7 @@ function plotGraphLineTempRaw7Days(mongoData) {
     context.append("path")
         .datum(mongoData)
         .attr("class", "line")
-        .attr("stroke", color)
+        .attr("stroke", "#4682b4")
         .attr("d", line2);
 
     //draws xAxis
@@ -158,15 +153,13 @@ function plotGraphLineTempRaw7Days(mongoData) {
 /* sources: http://jsfiddle.net/n7joxbn6/4/
             http://bl.ocks.org/DStruths/9c042e3a6b66048b5bd4
             */
-function plotGraphLineTempRaw1Day(mongoData) {
+function plotGraphHumiRaw1Day(mongoData) {
     // size configuration of the chart
     var margin = {top: 10, right: 130, bottom: 100, left: 20},
         margin2 = {top: 430, right: 130, bottom: 40, left: 20},
         width = 1000 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom,
         height2 = 500 - margin2.top - margin2.bottom;
-
-    var color = "#4682b4"
 
     var newMongoData = []; // will host the new array with only the values of the actual day
 
@@ -269,7 +262,7 @@ function plotGraphLineTempRaw1Day(mongoData) {
     focus.append("path")
         .datum(newMongoData)
         .attr("class", "line")
-        .attr("stroke", color)
+        .attr("stroke", "#4682b4")
         .attr("d", line);
 
 
@@ -282,7 +275,7 @@ function plotGraphLineTempRaw1Day(mongoData) {
             .attr("dy", ".25em")
             .attr("x", 660)
             .attr("dx", ".25em")
-            .text("Temperature evolution over time");
+            .text("Humidity evolution over time");
 
     focus.append("g")
             .attr("class", "y axis")
@@ -292,7 +285,7 @@ function plotGraphLineTempRaw1Day(mongoData) {
             .attr("y", 6)
             .attr("dy", ".71em")
             .style("text-anchor", "end")
-            .text("Temperature(°C)");
+            .text("Humidity(%)");
 
 
 /*    ====================================================================
@@ -302,7 +295,7 @@ function plotGraphLineTempRaw1Day(mongoData) {
     context.append("path")
         .datum(newMongoData)
         .attr("class", "line")
-        .attr("stroke", color)
+        .attr("stroke", "#4682b4")
         .attr("d", line2);
 
     context.append("g")
@@ -332,7 +325,7 @@ function plotGraphLineTempRaw1Day(mongoData) {
 }
 
 
-function plotGraphLineTempCustom(mongoData, periodType, month, year) {
+function plotGraphHumiCustom(mongoData, periodType, month, year) {
 /*    mongoData is a JS Object containing the fields timestamp (Number), min (Number), max (Number) and average (Number)
     PeriodType is a String and can be either "month", "Month", "year" or "Year". Any other value will lead to an error and the graph not working.
     month is a Number corresponding to the month's number (js style, january is 0, december is 11)

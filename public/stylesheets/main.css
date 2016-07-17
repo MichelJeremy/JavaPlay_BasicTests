@@ -54,8 +54,8 @@ header#main span.subtittle {
 
 /*MODAL*/
 .modal-dialog {
-    width: 960px!important;
-    margin: 30px auto;
+    width: 1060px!important;
+/*    margin: 30px auto;*/
 }
 
 
@@ -106,9 +106,15 @@ header#main span.subtittle {
 .timeValue {
     font-size: 12px;
     font-style: italic;
-    text-align: center;
     position: relative;
     bottom: 4ex; 
+    font-size: 80%;
+}
+
+.timeValueHumi {
+    font-style: italic;
+    position: relative;
+    bottom: 1ex; 
     font-size: 80%;
 }
 
@@ -177,37 +183,12 @@ svg {
   shape-rendering: crispEdges;
 }
 
-/* Statistic lines */
-
-.meanline {
-  stroke: blue;
-  fill: none;
-  stroke-width: 2;
-  clip-path: url(#clip);
+.tick line{
+  opacity: 0.2;
 }
 
-.meanline-label {
-  fill: blue;
-  stroke-width: 1;
-  font-size: 14px;
-}
-
-.sdline {
-  stroke: red;
-  fill: none;
-  stroke-width: 2;
-  stroke-dasharray: 10,10;
-  clip-path: url(#clip);
-}
-
-.sdline-label {
-  fill: red;
-  stroke-width: 1;
-  font-size: 14px;
-}
-
-.label {
-  fill: black;
-  stroke-width: 1;
-  font-size: 14px;
+.legend rect {
+  fill:white;
+  stroke:black;
+  opacity:0.8;
 }

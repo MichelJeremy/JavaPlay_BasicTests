@@ -1,9 +1,11 @@
-function drawGaugeChart(param1) {    
+function drawGaugeChart(dataList) {    
+    //datalist contains allDayData, with the sixth field being the value equal to the current (latest) data
+    currentData = dataList[5]
     var chart = c3.generate({
         bindto: '#humidity-gauge',
         data: {
             columns: [
-                ['data', param1]
+                ['data', currentData] // data
             ],
             type: 'gauge'
         },

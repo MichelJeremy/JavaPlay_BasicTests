@@ -1,4 +1,4 @@
-@(chartDatas: List[String], dayDatas: List[String], chartDatasHumidity: List[String], mongoDataTempRaw: List[String], mongoDataTempAgr: List[String], mongoDataHumiRaw: List[String], mongoDataHumiAgr: List[String], mongoDataWindSRaw: List[String], mongoDataWindSAgr: List[String], mongoDataWindDRaw: List[String], mongoDataWindDAgr: List[String], mongoDataRainRaw: List[String], mongoDataRainAgr: List[String], mongoDataAirRaw: List[String], mongoDataAirAgr: List[String], allDayTemp: List[Object], allDayHumi: List[Object], allDayWindS: List[Object], allDayWindD: List[Object], allDayRain: List[Object], allDayAir: List[Object])
+@(dayDatas: List[String], chartDatasHumidity: List[String], mongoDataTempRaw: List[String], mongoDataTempAgr: List[String], mongoDataHumiRaw: List[String], mongoDataHumiAgr: List[String], mongoDataWindSRaw: List[String], mongoDataWindSAgr: List[String], mongoDataWindDRaw: List[String], mongoDataWindDAgr: List[String], mongoDataRainRaw: List[String], mongoDataRainAgr: List[String], mongoDataAirRaw: List[String], mongoDataAirAgr: List[String], allDayTemp: List[Object], allDayHumi: List[Object], allDayWindS: List[Object], allDayWindD: List[Object], allDayRain: List[Object], allDayAir: List[Object])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,6 +8,7 @@
         <!-- load d3.min.js and c3.min.js/css-->
         <script src="@routes.Assets.versioned("javascripts/lib/d3.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/lib/c3.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/d3.legend.js")" type="text/javascript"></script>
         <link href="@routes.Assets.versioned("stylesheets/lib/c3.min.css")" rel="stylesheet" media="screen">
 
         <!-- load jquery before bootstrap-->
@@ -24,6 +25,7 @@
         <script src="@routes.Assets.versioned("javascripts/lineTherm.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/gaugeChart.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/compass.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/humidityGraphs.js")" type="text/javascript"></script>
         <link href="@routes.Assets.versioned("stylesheets/main.css")" rel="stylesheet" media="screen">
 
     </head>
@@ -115,22 +117,6 @@
                                         <span id="dataHeader">Max today</span><br><span class="dataValue" id="tempDataValueMax"></span><span class="timeValue" id="tempDataTimeMax"></span><br>
                                         <span id="dataHeader">Min today</span><br><span class="dataValue" id="tempDataValueMin"></span><span class="timeValue" id="tempDataTimeMin"></span><br>
                                         <span id="dataHeader">Avg today</span><br><span class="dataValue" id="tempDataValueAvg"></span><span class="timeValue" id="tempDataTimeAvg"></span>
-                                        <script type="text/javascript">
-                                            var arrayTempDataRaw = []
-                                            @for(d <- 0 until allDayTemp.size()) {
-                                                arrayTempDataRaw.push(@allDayTemp.get(d))
-                                            }
-
-                                            displayTempData(arrayTempDataRaw)
-                                            var arrayTempTherm = []
-                                            @for(d <- 0 until mongoDataTempRaw.size()) {
-                                                var append = "arrayTempTherm@mongoDataTempRaw.get(d)".replace(/&quot;/g, '\"')
-                                                eval(append)
-                                            }
-
-                                            plotThermometer(arrayTempDataRaw);
-                                            
-                                        </script>
                                         <button class="btn btn-primary btn-lg" id="buttonTemp" data-toggle="modal" data-target="#myModal">Graph</button>
                                     </td> <!-- close right column -->
                                 </tr>
@@ -146,29 +132,16 @@
                         </div> <!-- close panel humidity header -->
                         <div class="body-panel-content">
                             <div id="humidity-gauge"></div>
-                            <script type="text/javascript">
-
-                                var arrayGaugeHumidity = [];
-                                @for(d <- 0 until dayDatas.size()) {
-                                    var tmp = "@dayDatas.get(d)".split("|");
-                                    arrayGaugeHumidity.push([parseInt(tmp[0]),tmp[1].slice(0,-3 ).replace(":", "H")]);
-                                    drawGaugeChart(20);
-                                }
-                            </script>
                             <hr>
                             <table>
                                 <tr>
-                                    <td class="col-md-2">
-                                        <span id="dataHeader">Information 1:</span><span id="humDataValue"> value 1</span><br>
-                                        <span id="dataHeader">Information 2:</span><span id="humDataValue"> value 2</span><br>
-                                        <div id="dots">
-                                            .<br>
-                                            .<br>
-                                            .<br>
-                                        </div>
-                                        <span id="dataHeader">Information n:</span><span id="humDataValue"> value n</span><br>
+                                    <td class="col-md-8">
+                                        <span id="dataHeader">Latest value:</span> <span id="humiDataValueCur"></span>%<span id="humiDataTimeCur" class="timeValueHumi"></span><br>
+                                        <span id="dataHeader">Min today:</span> <span id="humiDataValueMin"></span>%<span id="humiDataTimeMin" class="timeValueHumi"></span><br>
+                                        <span id="dataHeader">Max today:</span> <span id="humiDataValueMax"></span>%<span id="humiDataTimeMax" class="timeValueHumi"></span><br>
+                                        <span id="dataHeader">Avg today:</span><span id="humiDataValueAvg"></span>%<br>
                                     </td>
-                                    <td class="col-md-2" id="humRightColumn">
+                                    <td class="col-md-4" id="humRightColumn">
                                         <button class="btn btn-primary btn-lg" id="buttonHum" data-toggle="modal" data-target="#myModal">Graph</button>
                                     </td>
                                 </tr>
@@ -265,34 +238,120 @@
 
     <!-- button onclick events -->
     <script type="text/javascript">
+
+        //TEMPERATURE PANEL
+        /*data for day display (average/min/max/current)*/
+        var arrayTempAllDay = []
+        @for(d <- 0 until allDayTemp.size()) {
+            arrayTempAllDay.push(@allDayTemp.get(d))
+        }
+        displayTempData(arrayTempAllDay);
+        plotThermometer(arrayTempAllDay);
+                                            
+        /*raw data for graph 1 day and 7 days*/
         var arrayMongoTempDataRaw = []
-            @for(d <- 0 until mongoDataTempRaw.size()) {
-                var appendTR = "arrayMongoTempDataRaw@mongoDataTempRaw.get(d)".replace(/&quot;/g, '\"')
-                eval(appendTR)
-            }
+        @for(d <- 0 until mongoDataTempRaw.size()) {
+            var appendTR = "arrayMongoTempDataRaw@mongoDataTempRaw.get(d)".replace(/&quot;/g, '\"')
+            eval(appendTR)
+        }
 
-        var arrayMongoDataTempAgr = []
-            @for(d <- 0 until mongoDataTempAgr.size()) {
-                var appendTA = "arrayMongoDataTempAgr@mongoDataTempAgr.get(d)".replace(/&quot;/g, '\"')
-                eval(appendTA)
-            }
-    
+        /*agreggated data for graph custom period*/
+        var arrayMongoTempDataAgr = []
+        @for(d <- 0 until mongoDataTempAgr.size()) {
+            var appendTA = "arrayMongoTempDataAgr@mongoDataTempAgr.get(d)".replace(/&quot;/g, '\"')
+            eval(appendTA)
+        }
 
-        /*onclick button graph temperature*/
+
+        /*onclick button graph temperature, plot graphs when pushed*/
         $('#buttonTemp').on('click', function() {
-            plotGraphLineTempRaw7Days(arrayMongoTempDataRaw);
             plotGraphLineTempRaw1Day(arrayMongoTempDataRaw);
+            plotGraphLineTempRaw7Days(arrayMongoTempDataRaw);
+            // depending which button is pressed (here it is buttonTemp, so temperature panel's graph button), 
+            // redefine refreshValue which is triggered by change on modal's custom tab
+            // refreshValue is global so that other click() jquery methods can access the variable
+            // if it was not global, refreshValue would be defined on click()'s local scope and thus not usable in the modal or
+            // "redefinable" from elsewhere
+            // refreshValue here takes temperature data into account
+            window.refreshValue = function () {
+                var monthValue = monthValue = document.getElementById("month").value;
+                var yearValue = yearValue = document.getElementById("year").value;
+                if ((yearValue == "") || ((yearValue == "") && (monthValue == ""))) {
+                    document.getElementById("graphCustom").innerHTML = "Please select either a year alone or a month + year";
+                } else if (monthValue == "") {
+                    document.getElementById("graphCustom").innerHTML = "";
+                    var type = "year";
+                    var dateY = yearValue;
+                    var dateM = "";
+                    plotGraphLineTempCustom(arrayMongoTempDataAgr, type, dateM, dateY);
+                } else {
+                    document.getElementById("graphCustom").innerHTML = "";
+                    var type = "month";
+                    var dateY = yearValue;
+                    var dateM = toJSMonth(monthValue);
+                    plotGraphLineTempCustom(arrayMongoTempDataAgr, type, dateM, dateY);
+                }
+            };
         });
 
+
+        //HUMIDITY PANEL
+
+        /*data for day display (average/min/max/current) and widget (latest data is needed)*/
+        var arrayHumAllDay = []
+        @for(d <- 0 until allDayHumi.size()) {
+            arrayHumAllDay.push(@allDayHumi.get(d))
+        }
+        displayHumiData(arrayHumAllDay);
+        drawGaugeChart(arrayHumAllDay);
+
+        /*raw data for graph 1 day and 7 days*/
+        var arrayMongoHumiRaw = []
+        @for(d <- 0 until mongoDataHumiRaw.size()) {
+            var appendHR = "arrayMongoHumiRaw@mongoDataHumiRaw.get(d)".replace(/&quot;/g, '\"')
+            eval(appendHR)
+        }
+
+        /*agreggated data for graph custom period*/
+        var arrayMongoHumiAgr = []
+        @for(d <- 0 until mongoDataHumiAgr.size()) {
+            var appendHA = "arrayMongoHumiAgr@mongoDataHumiAgr.get(d)".replace(/&quot;/g, '\"')
+            eval(appendHA)
+        }
+
+        /*onclick button graph humidity, plot graphs when pushed*/
         $('#buttonHum').on('click', function() {
-            var p1 = @chartDatasHumidity.get(0);
-            var p2 = "@chartDatasHumidity.get(1)".replace(/&quot;/g, '"');
-            plotGraphLineTherm(p1, p2);
+            plotGraphHumiRaw1Day(arrayMongoHumiRaw);
+            plotGraphHumiRaw7Days(arrayMongoHumiRaw);
+            // same as before, refreshValue is "redefined" (to be correct, refreshValue simply gets a new value)
+            // function is modified so that it takes humidity data in account
+            window.refreshValue = function () {
+                var monthValue = monthValue = document.getElementById("month").value;
+                var yearValue = yearValue = document.getElementById("year").value;
+                if ((yearValue == "") || ((yearValue == "") && (monthValue == ""))) {
+                    document.getElementById("graphCustom").innerHTML = "Please select either a year alone or a month + year";
+                } else if (monthValue == "") {
+                    document.getElementById("graphCustom").innerHTML = "";
+                    var type = "year";
+                    var dateY = yearValue;
+                    var dateM = "";
+                    plotGraphLineTempCustom(arrayMongoHumiAgr, type, dateM, dateY);
+                } else {
+                    document.getElementById("graphCustom").innerHTML = "";
+                    var type = "month";
+                    var dateY = yearValue;
+                    var dateM = toJSMonth(monthValue);
+                    plotGraphLineTempCustom(arrayMongoHumiAgr, type, dateM, dateY);
+                }
+            };
         });
+
+
         /*Empties the modal when it is closed ( so that it can be updated if needed)*/
         $(document).on("hidden.bs.modal", function (e) {
             $(e.target).removeData("bs.modal").find("#graphToday").empty();
             $(e.target).removeData("bs.modal").find("#graph7Days").empty();
+            $(e.target).removeData("bs.modal").find("#graphCustom").empty();
         });
 
         function toJSMonth(monthAlpha) {
@@ -325,26 +384,6 @@
                     console.log("Error in month selection");
             }
         }
-
-        function refreshValue() {
-            var monthValue = monthValue = document.getElementById("month").value;
-            var yearValue = yearValue = document.getElementById("year").value;
-            if ((yearValue == "") || ((yearValue == "") && (monthValue == ""))) {
-                document.getElementById("graphCustom").innerHTML = "Please select either a year alone or a month + year";
-            } else if (monthValue == "") {
-                document.getElementById("graphCustom").innerHTML = "";
-                var type = "year";
-                var dateY = yearValue;
-                var dateM = "";
-                plotGraphLineTempCustom(arrayMongoDataTempAgr, type, dateM, dateY);
-            } else {
-                document.getElementById("graphCustom").innerHTML = "";
-                var type = "month";
-                var dateY = yearValue;
-                var dateM = toJSMonth(monthValue);
-                plotGraphLineTempCustom(arrayMongoDataTempAgr, type, dateM, dateY);
-            }
-        };
     </script>   
 </html>
 

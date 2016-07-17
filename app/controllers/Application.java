@@ -122,7 +122,6 @@ public class Application extends Controller {
         }
 
         return ok(testpage.render(
-            chartDatas,
             dayDatas,
             chartDatasHumidity,
             mongoDataTempRaw,
