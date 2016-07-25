@@ -436,7 +436,7 @@ function plotGraphLineTempCustom(mongoData, periodType, month, year) {
         console.log(newMongoDataMa)
 
         var format = d3.time.format("%d-%m %H:%M");
-        var xAxis = d3.svg.axis().scale(x).orient("bottom").tickFormat(format).innerTickSize(-height).outerTickSize(0).tickPadding(10);
+        var xAxis = d3.svg.axis().scale(x).orient("bottom").tickFormat(format).innerTickSize(-height).outerTickSize(0).tickPadding(10).ticks(6);
         var xAxis2 = d3.svg.axis().scale(x2).orient("bottom");
         var yAxis = d3.svg.axis().scale(y).orient("left").innerTickSize(-width).outerTickSize(0).tickPadding(10);
 

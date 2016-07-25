@@ -36,7 +36,7 @@ header#main span.title {
     font-family: fantasy;
 }
 
-header#main span.subtittle {
+header#main span.subtitle {
 	color: #FFFFFF;
 	font-size: 0.9em;
 	text-align: center;
@@ -67,8 +67,8 @@ header#main span.subtittle {
 }
 
 #buttonHum {
-    position: relative;
-    margin-top: 85%;
+    position: absolute;
+    margin: 0 0 0 0;
     float: right;
 }
 
@@ -136,11 +136,6 @@ header#main span.subtittle {
     color: #FF0000;
 }
 
-#dots { /*should be removed*/
-    text-align: center;
-    font-size: 25px;
-    font-weight: bold;
-}
 
 #windDataValue {
     font-size: 15px;

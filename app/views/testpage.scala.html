@@ -22,10 +22,12 @@
         <script src="@routes.Assets.versioned("javascripts/therm.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/displayData.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/lineTemp.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/lineTherm.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/gaugeChart.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/compass.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/humidityGraphs.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/rainGraphs.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/liquidGauge.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/airGraphs.js")" type="text/javascript"></script>
         <link href="@routes.Assets.versioned("stylesheets/main.css")" rel="stylesheet" media="screen">
 
     </head>
@@ -94,7 +96,7 @@
         <header id="main">
             <div class="container">
                 <span class="title">Weather observation app.</span><br>
-                <span class="subtittle">still not even alpha version aka. "blackie". No, it really is, stop asking.</span>
+                <span class="subtitle">still not even alpha version aka. "blackie". No, it really is, stop asking.</span>
             </div>
         </header>
 
@@ -167,22 +169,6 @@
                             <span id="dataHeader">Today's min:</span> <span id="windDataValueWDMin"></span> || <span id="windDataTimeWDMin"></span><br>
                             <span id="dataHeader">Today's max:</span> <span id="windDataValueWDMax"></span> || <span id="windDataTimeWDMax"></span><br>
                             <span id="dataHeader">Today's average:</span> <span id="windDataValueWDAvg"></span><br>
-
-                            <script type="text/javascript">
-                                //wind speed
-                                var arrayWindSDataRaw = [];
-                                @for(d <- 0 until allDayWindS.size()) {
-                                    arrayWindSDataRaw.push(@allDayWindS.get(d))
-                                }
-                                displayWindSData(arrayWindSDataRaw);
-
-                                //wind direction
-                                var arrayWindDDataRaw = [];
-                                @for(d <- 0 until allDayWindD.size()) {
-                                    arrayWindDDataRaw.push(@allDayWindD.get(d))
-                                }
-                                displayWindDData(arrayWindDDataRaw);
-                            </script>
                         </div>
                     </div> <!-- close panel wind-->
                 </div> <!-- close col md 4 for panel wind-->
@@ -195,18 +181,21 @@
                             <h1 id="header-rowcol">Rain</h1>
                         </div> <!-- close header panel rain -->
                         <div class="body-panel-content"> <!-- open body panel rain -->
-                            <span id="dataHeader">Latest value:</span> <span id="rainDataValueCur"></span> || <span id="rainDataTimeCur"></span><br>
-                            <span id="dataHeader">Today's min:</span> <span id="rainDataValueMin"></span> || <span id="rainDataTimeMin"></span><br>
-                            <span id="dataHeader">Today's max:</span> <span id="rainDataValueMax"></span> || <span id="rainDataTimeMax"></span><br>
-                            <span id="dataHeader">Today's average:</span> <span id="rainDataValueAvg"></span><br>
-                            <script type="text/javascript">
-                                var arrayRainDataRaw = []
-                                @for(d <- 0 until allDayRain.size()) {
-                                    arrayRainDataRaw.push(@allDayRain.get(d))
-                                }
+                            <svg id="rainGauge" width="97%" height="200" style="margin-top: 10px;"></svg>
+                            <table>
+                                <tr>
+                                    <td class="col-md-8">
+                                    <span id="dataHeader">Latest value:</span> <span id="rainDataValueCur"></span> || <span id="rainDataTimeCur"></span><br>
+                                    <span id="dataHeader">Today's min:</span> <span id="rainDataValueMin"></span> || <span id="rainDataTimeMin"></span><br>
+                                    <span id="dataHeader">Today's max:</span> <span id="rainDataValueMax"></span> || <span id="rainDataTimeMax"></span><br>
+                                    <span id="dataHeader">Today's average:</span> <span id="rainDataValueAvg"></span><br>
+                                    </td>
+                                    <td class="col-md-4" id="rainRightColumn">
+                                        <button class="btn btn-primary btn-lg" id="buttonRain" data-toggle="modal" data-target="#myModal">Graph</button>
+                                    </td>
+                                </tr>
+                            </table>
 
-                                displayRainData(arrayRainDataRaw)
-                            </script>
                         </div> <!-- close body panel rain -->
                     </div> <!-- close panel rain-->
                 </div> <!-- close col md 4 for panel rain -->
@@ -214,21 +203,22 @@
                 <div class="col-md-4"> <!-- open col panel air quality -->
                     <div class="panel panel-default" id="panel5"> <!-- open panel air quality -->
                         <div class="panel-heading" id="panel-header-box"> <!-- open header panel air quality -->
-                            <h1 id="header-rowcol">Air quality</h1>
+                            <h1 id="header-rowcol">CO2</h1>
                         </div> <!-- close header panel air quality -->
                         <div class="panel-body-content"> <!-- open body panel air quality -->
-                            <span id="dataHeader">Latest value:</span> <span id="airDataValueCur"></span> || <span id="airDataTimeCur"></span><br>
-                            <span id="dataHeader">Today's min:</span> <span id="airDataValueMin"></span> || <span id="airDataTimeMin"></span><br>
-                            <span id="dataHeader">Today's max:</span> <span id="airDataValueMax"></span> || <span id="airDataTimeMax"></span><br>
-                            <span id="dataHeader">Today's average:</span> <span id="airDataValueAvg"></span><br>
-                            <script type="text/javascript">
-                                var arrayAirDataRaw = []
-                                @for(d <- 0 until allDayAir.size()) {
-                                    arrayAirDataRaw.push(@allDayAir.get(d))
-                                }
-
-                                displayAirData(arrayAirDataRaw)
-                            </script>
+                            <table>
+                                <tr>
+                                    <td class="col-md-8">
+                                        <span id="dataHeader">Latest value:</span> <span id="airDataValueCur"></span> || <span id="airDataTimeCur"></span><br>
+                                        <span id="dataHeader">Today's min:</span> <span id="airDataValueMin"></span> || <span id="airDataTimeMin"></span><br>
+                                        <span id="dataHeader">Today's max:</span> <span id="airDataValueMax"></span> || <span id="airDataTimeMax"></span><br>
+                                        <span id="dataHeader">Today's average:</span> <span id="airDataValueAvg"></span><br>         
+                                    </td>
+                                    <td class="col-md-4">
+                                        <button class="btn btn-primary btn-lg" id="buttonAir" data-toggle="modal" data-target="#myModal">Graph</button>
+                                    </td>
+                                </tr>
+                            </table>
                         </div> <!-- close body panel air quality -->
                     </div> <!-- close panel air quality-->
                 </div> <!-- close col md 4 for air quality -->
@@ -335,19 +325,143 @@
                     var type = "year";
                     var dateY = yearValue;
                     var dateM = "";
-                    plotGraphLineTempCustom(arrayMongoHumiAgr, type, dateM, dateY);
+                    plotGraphHumiCustom(arrayMongoHumiAgr, type, dateM, dateY);
                 } else {
                     document.getElementById("graphCustom").innerHTML = "";
                     var type = "month";
                     var dateY = yearValue;
                     var dateM = toJSMonth(monthValue);
-                    plotGraphLineTempCustom(arrayMongoHumiAgr, type, dateM, dateY);
+                    plotGraphHumiCustom(arrayMongoHumiAgr, type, dateM, dateY);
                 }
             };
         });
 
+        //WIND PANEL
+        var arrayWindSDataRaw = [];
+        @for(d <- 0 until allDayWindS.size()) {
+            arrayWindSDataRaw.push(@allDayWindS.get(d))
+        }
+        displayWindSData(arrayWindSDataRaw);
 
-        /*Empties the modal when it is closed ( so that it can be updated if needed)*/
+        //wind direction
+        var arrayWindDDataRaw = [];
+        @for(d <- 0 until allDayWindD.size()) {
+            arrayWindDDataRaw.push(@allDayWindD.get(d))
+        }
+        displayWindDData(arrayWindDDataRaw);
+
+
+
+        //RAIN PANEL
+        var arrayRainAllDay = []
+        @for(d <- 0 until allDayRain.size()) {
+            arrayRainAllDay.push(@allDayRain.get(d))
+        }
+
+        displayRainData(arrayRainAllDay)
+        //gauge configuration
+        var liquidGauge = loadLiquidFillGauge("rainGauge", arrayRainAllDay[5], config);
+        var config = liquidFillGaugeDefaultSettings();
+        config.textVertPosition = 0.8;
+        config.waveAnimateTime = 5000;
+        config.waveHeight = 0.15;
+        config.waveOffset = 0.25;
+        config.valueCountUp = false;
+        config.waveAnimate = false;
+        waveRise = false;
+
+        /*raw data for graph 1 day and 7 days*/
+        var arrayMongoRainRaw = []
+        @for(d <- 0 until mongoDataRainRaw.size()) {
+            var appendRR = "arrayMongoRainRaw@mongoDataRainRaw.get(d)".replace(/&quot;/g, '\"')
+            eval(appendRR)
+        }
+
+        /*agreggated data for graph custom period*/
+        var arrayMongoRainAgr = []
+        @for(d <- 0 until mongoDataRainAgr.size()) {
+            var appendRA = "arrayMongoRainAgr@mongoDataRainAgr.get(d)".replace(/&quot;/g, '\"')
+            eval(appendRA)
+        }       
+
+        /*onclick button graph humidity, plot graphs when pushed*/
+        $('#buttonRain').on('click', function() {
+            plotGraphRainRaw1Day(arrayMongoRainRaw);
+            plotGraphRainRaw7Days(arrayMongoRainRaw);
+            // same as before, refreshValue is "redefined" (to be correct, refreshValue simply gets a new value)
+            // function is modified so that it takes humidity data in account
+            window.refreshValue = function () {
+                var monthValue = monthValue = document.getElementById("month").value;
+                var yearValue = yearValue = document.getElementById("year").value;
+                if ((yearValue == "") || ((yearValue == "") && (monthValue == ""))) {
+                    document.getElementById("graphCustom").innerHTML = "Please select either a year alone or a month + year";
+                } else if (monthValue == "") {
+                    document.getElementById("graphCustom").innerHTML = "";
+                    var type = "year";
+                    var dateY = yearValue;
+                    var dateM = "";
+                    plotGraphLineTempCustom(arrayMongoRainAgr, type, dateM, dateY);
+                } else {
+                    document.getElementById("graphCustom").innerHTML = "";
+                    var type = "month";
+                    var dateY = yearValue;
+                    var dateM = toJSMonth(monthValue);
+                    plotGraphLineTempCustom(arrayMongoRainAgr, type, dateM, dateY);
+                }
+            };
+        });
+
+        //AIR PANEL
+
+        var arrayAirDataRaw = []
+        @for(d <- 0 until allDayAir.size()) {
+            arrayAirDataRaw.push(@allDayAir.get(d))
+        }
+
+        displayAirData(arrayAirDataRaw)
+
+        /*raw data for graph 1 day and 7 days*/
+        var arrayMongoAirRaw = []
+        @for(d <- 0 until mongoDataAirRaw.size()) {
+            var appendAR = "arrayMongoAirRaw@mongoDataAirRaw.get(d)".replace(/&quot;/g, '\"')
+            eval(appendAR)
+        }
+
+        /*agreggated data for graph custom period*/
+        var arrayMongoAirAgr = []
+        @for(d <- 0 until mongoDataAirAgr.size()) {
+            var appendAA = "arrayMongoAirAgr@mongoDataAirAgr.get(d)".replace(/&quot;/g, '\"')
+            eval(appendAA)
+        }       
+
+        /*onclick button graph humidity, plot graphs when pushed*/
+        $('#buttonAir').on('click', function() {
+            plotGraphAirRaw1Day(arrayMongoAirRaw);
+            plotGraphAirRaw7Days(arrayMongoAirRaw);
+            // same as before, refreshValue is "redefined" (to be correct, refreshValue simply gets a new value)
+            // function is modified so that it takes humidity data in account
+            window.refreshValue = function () {
+                var monthValue = monthValue = document.getElementById("month").value;
+                var yearValue = yearValue = document.getElementById("year").value;
+                if ((yearValue == "") || ((yearValue == "") && (monthValue == ""))) {
+                    document.getElementById("graphCustom").innerHTML = "Please select either a year alone or a month + year";
+                } else if (monthValue == "") {
+                    document.getElementById("graphCustom").innerHTML = "";
+                    var type = "year";
+                    var dateY = yearValue;
+                    var dateM = "";
+                    plotGraphAirCustom(arrayMongoAirAgr, type, dateM, dateY);
+                } else {
+                    document.getElementById("graphCustom").innerHTML = "";
+                    var type = "month";
+                    var dateY = yearValue;
+                    var dateM = toJSMonth(monthValue);
+                    plotGraphAirCustom(arrayMongoAirAgr, type, dateM, dateY);
+                }
+            };
+        });
+
+        /*Empties the modal when it is closed (so that it can be updated when opening a new graph modal)*/
         $(document).on("hidden.bs.modal", function (e) {
             $(e.target).removeData("bs.modal").find("#graphToday").empty();
             $(e.target).removeData("bs.modal").find("#graph7Days").empty();
