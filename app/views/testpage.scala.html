@@ -8,7 +8,6 @@
         <!-- load d3.min.js and c3.min.js/css-->
         <script src="@routes.Assets.versioned("javascripts/lib/d3.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("javascripts/lib/c3.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/d3.legend.js")" type="text/javascript"></script>
         <link href="@routes.Assets.versioned("stylesheets/lib/c3.min.css")" rel="stylesheet" media="screen">
 
         <!-- load jquery before bootstrap-->
@@ -18,17 +17,29 @@
         <script src="@routes.Assets.versioned("javascripts/lib/bootstrap.min.js")" type="text/javascript"></script>
         <link href="@routes.Assets.versioned("stylesheets/lib/bootstrap.min.css")" rel="stylesheet" media="screen">
 
+        <!-- load other libraries -->
+        <link href="@routes.Assets.versioned("javascripts/lib/moment.min.js")" type="text/javascript"> <!-- moment js -->
+        <link href="@routes.Assets.versioned("javascripts/lib/d3.legend.js")" type="text/javascript"></script> <!-- d3.legend -->
+
+
         <!-- load custom assets in public/javascripts for js files and public/stylesheets for css files -->
-        <script src="@routes.Assets.versioned("javascripts/therm.js")" type="text/javascript"></script>
+        <!-- load graph js -->
+        <script src="@routes.Assets.versioned("javascripts/graphs/tempGraphs.js")" type="text/javascript"></script>        
+        <script src="@routes.Assets.versioned("javascripts/graphs/humidityGraphs.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/graphs/rainGraphs.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/graphs/airGraphs.js")" type="text/javascript"></script>
+
+        <!-- load widget js -->
+        <script src="@routes.Assets.versioned("javascripts/widgets/therm.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/widgets/humiGauge.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/widgets/compass.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/widgets/liquidGauge.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/widgets/CO2Gauge.js")" type="text/javascript"></script>
+        
+        <!-- other js -->
         <script src="@routes.Assets.versioned("javascripts/displayData.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/lineTemp.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/gaugeChart.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/compass.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/humidityGraphs.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/rainGraphs.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/liquidGauge.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.versioned("javascripts/airGraphs.js")" type="text/javascript"></script>
         <link href="@routes.Assets.versioned("stylesheets/main.css")" rel="stylesheet" media="screen">
+
 
     </head>
 
@@ -206,6 +217,8 @@
                             <h1 id="header-rowcol">CO2</h1>
                         </div> <!-- close header panel air quality -->
                         <div class="panel-body-content"> <!-- open body panel air quality -->
+                            <div id="CO2Gauge"></div>
+                            <hr>
                             <table>
                                 <tr>
                                     <td class="col-md-8">
@@ -293,7 +306,7 @@
             arrayHumAllDay.push(@allDayHumi.get(d))
         }
         displayHumiData(arrayHumAllDay);
-        drawGaugeChart(arrayHumAllDay);
+        drawHumidityGaugeChart(arrayHumAllDay);
 
         /*raw data for graph 1 day and 7 days*/
         var arrayMongoHumiRaw = []
@@ -419,6 +432,7 @@
         }
 
         displayAirData(arrayAirDataRaw)
+        drawCO2GaugeChart(arrayAirDataRaw)
 
         /*raw data for graph 1 day and 7 days*/
         var arrayMongoAirRaw = []

@@ -1,11 +1,11 @@
-function drawGaugeChart(dataList) {    
+function drawCO2GaugeChart(dataList) {    
     //datalist contains allDayData, with the sixth field being the value equal to the current (latest) data
     currentData = dataList[5]
     var chart = c3.generate({
-        bindto: '#humidity-gauge',
+        bindto: '#CO2Gauge',
         data: {
             columns: [
-                ['data', currentData] // data
+                ['CO2 (%)', currentData] // data
             ],
             type: 'gauge'
         },
