@@ -111,7 +111,7 @@ public class Tools {
 
 
     //this method is going to return the data stored in a list
-    public List<List<String>> jsonToDataList(String dbHost, int port, String dbName) {
+    public static List<List<String>> jsonToDataList(String dbHost, int port, String dbName) {
 /*      List[0][x] = temp
         List[1][x] = tempAgr
         List[2][x] = humidity
@@ -244,7 +244,7 @@ public class Tools {
             9 = rain_agr
             10 = air_raw
             11 = air_agr*/
-    public ArrayList<String> jsonToDataFormat(List<List<String>> jsonDataList, int index) {
+    public static ArrayList<String> jsonToDataFormat(List<List<String>> jsonDataList, int index) {
         ArrayList<String> jsonPushList = new ArrayList<String>();
         StringBuilder sb = new StringBuilder();
         String timestamp= "", value = "", unit = "", value2 = "", unit2 = "", min = "", max = "", min2 = "", max2 = "", average = "", average2 = "";
@@ -299,7 +299,7 @@ public class Tools {
 
 
     // give the function the day and the sensorId and it will return every values associated with this day
-    public ArrayList<String> getAllDayValues(String date, int sensorID, ArrayList<String> list, ArrayList<String> output) {
+    public static ArrayList<String> getAllDayValues(String date, int sensorID, ArrayList<String> list, ArrayList<String> output) {
         /*list:
             - first column: sensorId
             - second column: date
@@ -327,7 +327,7 @@ public class Tools {
             4 = wind_raw
             6 = rain_raw
             8 = air_raw*/
-    public ArrayList<Object> getAllDayValues(List<List<String>> mongoData, int collectionIndex) {
+    public static ArrayList<Object> getAllDayValues(List<List<String>> mongoData, int collectionIndex) {
         ArrayList<Object> stats = new ArrayList<Object>();
         long lastTimestamp = 0,
             dayLimitTimestamp = 0,

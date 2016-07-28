@@ -25,54 +25,54 @@ import play.libs.F.*;
 import play.mvc.WebSocket;
 import play.mvc.LegacyWebSocket;
 
+import play.data.FormFactory;
+
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+
 
 /**
  * This controller contains an action to handle HTTP requests
  * to the application's home page.
  */
 public class Application extends Controller {
+
+    @Inject FormFactory formFactory;
     
-
-    //redirection of "localhost:9000/" to "localhost:9000/formHello
-    public Result index() {
-        Logger.debug("Redirection from home to project...");
-        return redirect("/testpage");
-    }
-    
-
-    public Result bootstrapSandstone() {
-        int i = 0;
-        ArrayList<String> list = new ArrayList<String>();
-        ArrayList<String> dayDatas = new ArrayList<String>(); // used for thermometer
-        ArrayList<String> chartDatas = new ArrayList<String>(); // used for temperature
-        ArrayList<String> chartDatasHumidity = new ArrayList<String>(); // used for humidity
-        List<List<String>> mongoData = new ArrayList<List<String>>(); // contains every datas stored
-
-        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
-        Date dateobj = new Date();
-        /*String date = df.format(dateobj);*/
-        String date = "2015-25-05"; // keep it static for dev purposes for now
-        Tools tools = new Tools();
-        list = tools.readCsv2("/home/jeremy/dev/java/JavaPlay_BasicTests/public/sources/data2.csv", ";", list);
-        dayDatas = tools.getAllDayValues(date, 1, list, dayDatas);
-        chartDatas = tools.csvToChartDataLine(list, chartDatas);
-
-        list = new ArrayList<String>(); // re-instanciate it so it is empty. Clear could be used but perf gain is negligible.
-        list = tools.readCsv2("/home/jeremy/dev/java/JavaPlay_BasicTests/public/sources/data2-humidity.csv", ";", list);
-        chartDatasHumidity = tools.csvToChartDataLine(list, chartDatasHumidity);
-        mongoData = tools.jsonToDataList("localhost", 27017, "myDB");
-
+    public Result landingPage() {
+        Form<Switcher> switchForm = formFactory.form(Switcher.class);
+        Switcher switcher = switchForm.bindFromRequest().get();
+        String stationName = switcher.getStationName();
+        List<List<String>> mongoData = new ArrayList<List<String>>(); // will contain every datas over diff dimensions (Tools.jsonToDataList)
+        //get correct data.
+        if (stationName == null) mongoData = Tools.jsonToDataList("localhost", 27017, "myDB");
+        else { // case where stationName is not null
+            // should be modified, done like this because lack of time, see documentation on Switcher class
+            Boolean exists = false;
+            MongoClient mongoClient = new MongoClient("localhost" , 27017); //opens connection with mongodb server
+            MongoCursor<String> mongoCursor = mongoClient.listDatabaseNames().iterator(); // create cursor with database names
+            while(mongoCursor.hasNext()) {
+                if (mongoCursor.next().equals(stationName)) exists = true; // look if database name exist
+            }
+            mongoClient.close(); // close client
+            if (exists) mongoData = Tools.jsonToDataList("localhost", 27017, stationName); // databse exist, use its data
+            else mongoData = Tools.jsonToDataList("localhost", 27017, "myDB"); // else, use default db
+            
+        }
         /*    INDEX:  
             0 = temperature_raw
             1 = temperature_agr
             2 = humidity_raw
             3 = humidity_agr
-            4 = wind_raw
-            5 = wind_agr
-            6 = rain_raw
-            7 = rain_agr
-            8 = air_raw
-            9 = air_agr*/
+            4 = windSpeed_raw
+            5 = windSpeed_raw
+            6 = windDirection_raw
+            7 = windDirection_agr
+            8 = rain_raw
+            9 = rain_agr
+            10 = air_raw
+            11 = air_agr*/
 
         ArrayList<String> mongoDataTempRaw = new ArrayList<String>();
         ArrayList<String> mongoDataTempAgr = new ArrayList<String>();
@@ -87,18 +87,18 @@ public class Application extends Controller {
         ArrayList<String> mongoDataAirRaw = new ArrayList<String>();
         ArrayList<String> mongoDataAirAgr = new ArrayList<String>();
 
-        mongoDataTempRaw = tools.jsonToDataFormat(mongoData, 0);
-        mongoDataTempAgr = tools.jsonToDataFormat(mongoData, 1);
-        mongoDataHumiRaw = tools.jsonToDataFormat(mongoData, 2);
-        mongoDataHumiAgr = tools.jsonToDataFormat(mongoData, 3);
-        mongoDataWindSRaw = tools.jsonToDataFormat(mongoData, 4);
-        mongoDataWindSAgr = tools.jsonToDataFormat(mongoData, 5);
-        mongoDataWindDRaw = tools.jsonToDataFormat(mongoData, 6);
-        mongoDataWindDAgr = tools.jsonToDataFormat(mongoData, 7);
-        mongoDataRainRaw = tools.jsonToDataFormat(mongoData, 8);
-        mongoDataRainAgr = tools.jsonToDataFormat(mongoData, 9);
-        mongoDataAirRaw = tools.jsonToDataFormat(mongoData, 10);
-        mongoDataAirAgr = tools.jsonToDataFormat(mongoData, 11);
+        mongoDataTempRaw = Tools.jsonToDataFormat(mongoData, 0);
+        mongoDataTempAgr = Tools.jsonToDataFormat(mongoData, 1);
+        mongoDataHumiRaw = Tools.jsonToDataFormat(mongoData, 2);
+        mongoDataHumiAgr = Tools.jsonToDataFormat(mongoData, 3);
+        mongoDataWindSRaw = Tools.jsonToDataFormat(mongoData, 4);
+        mongoDataWindSAgr = Tools.jsonToDataFormat(mongoData, 5);
+        mongoDataWindDRaw = Tools.jsonToDataFormat(mongoData, 6);
+        mongoDataWindDAgr = Tools.jsonToDataFormat(mongoData, 7);
+        mongoDataRainRaw = Tools.jsonToDataFormat(mongoData, 8);
+        mongoDataRainAgr = Tools.jsonToDataFormat(mongoData, 9);
+        mongoDataAirRaw = Tools.jsonToDataFormat(mongoData, 10);
+        mongoDataAirAgr = Tools.jsonToDataFormat(mongoData, 11);
         
 
         ArrayList<Object> allDayTemp = new ArrayList<Object>();
@@ -108,22 +108,20 @@ public class Application extends Controller {
         ArrayList<Object> allDayWindS = new ArrayList<Object>();
         ArrayList<Object> allDayWindD = new ArrayList<Object>();
 
-        allDayTemp = tools.getAllDayValues(mongoData, 0);
-        allDayHumi = tools.getAllDayValues(mongoData, 2);
-        allDayWindS = tools.getAllDayValues(mongoData, 4);
-        allDayWindD = tools.getAllDayValues(mongoData, 6);
-        allDayRain = tools.getAllDayValues(mongoData, 8);
-        allDayAir = tools.getAllDayValues(mongoData, 10);
-
+        allDayTemp = Tools.getAllDayValues(mongoData, 0);
+        allDayHumi = Tools.getAllDayValues(mongoData, 2);
+        allDayWindS = Tools.getAllDayValues(mongoData, 4);
+        allDayWindD = Tools.getAllDayValues(mongoData, 6);
+        allDayRain = Tools.getAllDayValues(mongoData, 8);
+        allDayAir = Tools.getAllDayValues(mongoData, 10);
 
         //for testing
-        for(i = 0; i<mongoDataTempAgr.size(); i++){
+        for(int i = 0; i<mongoDataTempAgr.size(); i++){
             Logger.debug(""+mongoDataTempAgr.get(i));
         }
 
-        return ok(testpage.render(
-            dayDatas,
-            chartDatasHumidity,
+
+        return ok(landing.render(
             mongoDataTempRaw,
             mongoDataTempAgr,
             mongoDataHumiRaw,
@@ -141,12 +139,13 @@ public class Application extends Controller {
             allDayWindS,
             allDayWindD,
             allDayRain,
-            allDayAir));
+            allDayAir,
+            switchForm));
         }
 
     public Result generator() {
         DataGenerators dg = new DataGenerators();
-        dg.fullGeneratorMongoDB("myDB", 500, 24, 7);
+        dg.fullGeneratorMongoDB("myDB2", 500, 24, 7);
 
         return ok(generator.render());
     }

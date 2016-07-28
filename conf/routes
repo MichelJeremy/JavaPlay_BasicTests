@@ -2,12 +2,10 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Display Home page
-GET     /                            controllers.Application.index
 
 # main display
-GET		/testpage					controllers.Application.bootstrapSandstone
-GET		/testpage/generator			controllers.Application.generator
+GET		/landing					controllers.Application.landingPage()
+GET		/landing/generator			controllers.Application.generator
 
 
 # Map static resources from the /public folder to the /assets URL path
