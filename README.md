@@ -1,6 +1,4 @@
-#First version of a weather station project. 
-
-##REQUIRED
+#First iteration of a weather station project.
 
 ###Mandatory
  	- JDK 8: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
