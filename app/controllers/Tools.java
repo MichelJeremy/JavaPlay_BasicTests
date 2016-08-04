@@ -23,92 +23,6 @@ import play.Logger;
 
 // gives some functionnalities
 public class Tools {
-    
-    // act reader, takes \n into account
-    public ArrayList<String> readCsv2(String csvPath, String delimiter, ArrayList<String> list) {
-        int i = 0;
-        try {
-            Scanner scanner = new Scanner(new File(csvPath));
-
-            scanner.useDelimiter(String.format("%s|\\n",delimiter));
-            while(scanner.hasNext()) {
-                i++;
-                list.add(scanner.next());
-            }
-            scanner.close();
-            return list;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public ArrayList<String> csvToChartDataLine(ArrayList<String> list, ArrayList<String> chartData) {
-        // First, we grab the number of sensors, that we store in the first field of the arraylist
-        // Then we store the push arrays
-        int i, j;
-        boolean alreadyExists = false;
-
-        ArrayList<Integer> ids = new ArrayList<Integer>();
-        int id;
-        int value;
-        String dateMinus;
-        String newDate;
-        String newDateSplit;
-        String time;
-
-        StringBuilder sb = new StringBuilder();
-
-        // var initialisation
-        i = 0;
-        j = 0;
-        id = 0;
-        value = 0;
-        newDate = "";
-        dateMinus = "";
-        chartData.add("0");
-        // goes through every members of the data arraylist
-        for (i=0; i<list.size(); i++) {
-            // checks every 4 members, except the very first (0) which is the column header  (= every Ids)
-            if (i%4 == 0 && i != 0) {
-                // checks every members of sensor ids
-                for (j=0; j<ids.size(); j++) {
-                    // if the list members exists in listofsensorsId, check next value
-                    if(Integer.parseInt(list.get(i)) == ids.get(j)) {
-                        alreadyExists = true;
-                    }
-                }
-                // if the data list member didn't exist in the sensor list, add it in and then update 
-                if (alreadyExists == false) {
-                    ids.add(Integer.parseInt(list.get(i)));
-                    chartData.set(0, (""+(Integer.parseInt(chartData.get(0))+1)));
-                } else {
-                    // Finally, we reset already exist to test the next value
-                    alreadyExists = false;
-                }
-                // if we are at the second qudruplet iteration of the for loop, there is data to push to charData array
-                if (i >= 8 && i%4 == 0) {
-                    // construct the push
-                    sb.append("chartData").append(""+id).append(".push({date: \"").append(newDate).append("\", tonsOfBananas: ").append(""+value).append("});");
-                }
-                // now that we are not going to erase previous data, write new ones
-                    id = Integer.parseInt(list.get(i));
-            }
-            if (i%4 == 1 && i != 1) {
-                dateMinus = list.get(i);
-            } else if (i%4 == 2 && i != 2) {
-                time = list.get(i).substring(0, 5);
-                newDate = dateMinus + " " + time;
-            } else if (i%4 == 3&& i != 3) {
-                value = Integer.parseInt(list.get(i));
-            }
-
-        }
-        chartData.add(sb.toString());
-        return chartData;
-    }
-
-
 
     //this method is going to return the data stored in a list
     public static List<List<String>> jsonToDataList(String dbHost, int port, String dbName) {
@@ -146,79 +60,35 @@ public class Tools {
         MongoClient mongoClient = new MongoClient(dbHost , port);
         MongoDatabase database = mongoClient.getDatabase(dbName);
 
-        MongoCollection<Document> tempRawCollection = database.getCollection(COLLECTIONS[0]);
-        MongoCollection<Document> humiRawCollection = database.getCollection(COLLECTIONS[2]);
-        MongoCollection<Document> windSRawCollection = database.getCollection(COLLECTIONS[4]);
-        MongoCollection<Document> windDRawCollection = database.getCollection(COLLECTIONS[6]);
-        MongoCollection<Document> rainRawCollection = database.getCollection(COLLECTIONS[8]);
-        MongoCollection<Document> airRawCollection = database.getCollection(COLLECTIONS[10]);
-        
-        MongoCollection<Document> tempAggregatedCollection = database.getCollection(COLLECTIONS[1]);
-        MongoCollection<Document> humiAggregatedCollection = database.getCollection(COLLECTIONS[3]);
-        MongoCollection<Document> windSAggregatedCollection = database.getCollection(COLLECTIONS[5]);
-        MongoCollection<Document> windDAggregatedCollection = database.getCollection(COLLECTIONS[7]);
-        MongoCollection<Document> rainAggregatedCollection = database.getCollection(COLLECTIONS[9]);
-        MongoCollection<Document> airAggregatedCollection = database.getCollection(COLLECTIONS[11]);
-
         int i;
 
         // get database values
-        for (i = 0; i < COLLECTIONS.length; i++) {
-            List<String> list = new ArrayList<String>();
+        for (i = 0; i < COLLECTIONS.length; i++) { // cycle through every collection
+            List<String> list = new ArrayList<String>(); // instanciate a list to write in the second dimension
             dataList.add(list);
+
+            // create a cursor that cycle through the documents
             MongoCursor<Document> cursor = database
-                .getCollection(COLLECTIONS[i])
-                .find()
-                .projection(excludeId())
-                .sort(descending("timestamp"))
-                .iterator();
+                .getCollection(COLLECTIONS[i]) // gets the collection (case sensitive)
+                .find() // return everything is to above collection
+                .projection(excludeId()) //exclude the id field in the response
+                .sort(descending("timestamp")) // latest data will be at the top
+                .iterator(); // give the possibility to the cursor to iterate through the result
 
             try {
-                while (cursor.hasNext()) {
-                    Document cursorNext = cursor.next();
-                    switch (i) {
-                        //raw temperature
-                        case 0: dataList.get(i).add(cursorNext.get("timestamp").toString());
-                                dataList.get(i).add(cursorNext.get("temperature").toString());
-                                dataList.get(i).add(cursorNext.get("unit").toString());
-                                break;
-
-                        //raw humidity
-                        case 2: dataList.get(i).add(cursorNext.get("timestamp").toString());
-                                dataList.get(i).add(cursorNext.get("humidity").toString());
-                                dataList.get(i).add(cursorNext.get("unit").toString());
-                                break;
-
-                        //raw wind speed
-                        case 4: dataList.get(i).add(cursorNext.get("timestamp").toString());
-                                dataList.get(i).add(cursorNext.get("windspeed").toString());
-                                dataList.get(i).add(cursorNext.get("unit").toString());
-                                break;
-
-                        case 6: dataList.get(i).add(cursorNext.get("timestamp").toString());
-                                dataList.get(i).add(cursorNext.get("winddirection").toString());
-                                dataList.get(i).add(cursorNext.get("unit").toString());
-                                break;                               
-
-                        //raw rain
-                        case 8: dataList.get(i).add(cursorNext.get("timestamp").toString());
-                                dataList.get(i).add(cursorNext.get("rain").toString());
-                                dataList.get(i).add(cursorNext.get("unit").toString());
-                                break;
-
-                        //raw air
-                        case 10: dataList.get(i).add(cursorNext.get("timestamp").toString());
-                                dataList.get(i).add(cursorNext.get("airquality").toString());
-                                dataList.get(i).add(cursorNext.get("unit").toString());
-                                break;
-
-                        //every cases left are the agregations
-                        default: dataList.get(i).add(cursorNext.get("timestamp").toString());
-                                dataList.get(i).add(cursorNext.get("min").toString());
-                                dataList.get(i).add(cursorNext.get("max").toString());
-                                dataList.get(i).add(cursorNext.get("average").toString());
-                                dataList.get(i).add(cursorNext.get("unit").toString());
-                                break;
+                while (cursor.hasNext()) { // loop while there are still documents in the cursor
+                    Document cursorNext = cursor.next(); // go to the next document
+                    // pair i means raw data
+                    if(i%2 == 0) {
+                        dataList.get(i).add(cursorNext.get("timestamp").toString());
+                        dataList.get(i).add(cursorNext.get("value").toString());
+                        dataList.get(i).add(cursorNext.get("unit").toString());
+                    } else { //impair i means aggregated data
+                        dataList.get(i).add(cursorNext.get("timestamp").toString());
+                        dataList.get(i).add(cursorNext.get("min").toString());
+                        dataList.get(i).add(cursorNext.get("max").toString());
+                        dataList.get(i).add(cursorNext.get("average").toString());
+                        dataList.get(i).add(cursorNext.get("unit").toString());
                     }
                 }
             } catch (Exception e) {
@@ -244,17 +114,17 @@ public class Tools {
             9 = rain_agr
             10 = air_raw
             11 = air_agr*/
-    public static ArrayList<String> jsonToDataFormat(List<List<String>> jsonDataList, int index) {
+    public static ArrayList<String> jsonToDataFormat(List<List<String>> mongoData, int collectionIndex) {
         ArrayList<String> jsonPushList = new ArrayList<String>();
         StringBuilder sb = new StringBuilder();
         String timestamp= "", value = "", unit = "", value2 = "", unit2 = "", min = "", max = "", min2 = "", max2 = "", average = "", average2 = "";
         //raw collections
-        if (index%2 == 0) {
-            for (int i=0; i<jsonDataList.get(index).size(); i++) {
-                if (i%3 == 0) timestamp = jsonDataList.get(index).get(i);
-                if (i%3 == 1) value = jsonDataList.get(index).get(i);
+        if (collectionIndex%2 == 0) {
+            for (int i=0; i<mongoData.get(collectionIndex).size(); i++) {
+                if (i%3 == 0) timestamp = mongoData.get(collectionIndex).get(i);
+                if (i%3 == 1) value = mongoData.get(collectionIndex).get(i);
                 if (i%3 == 2) {
-                    unit = jsonDataList.get(index).get(i);
+                    unit = mongoData.get(collectionIndex).get(i);
                     sb.append(".push({timestamp: ")
                     .append(timestamp)
                     .append(", value: ")
@@ -269,14 +139,14 @@ public class Tools {
         }
 
         //agr collections
-        if (index%2 == 1) {
-            for (int i=0; i<jsonDataList.get(index).size(); i++) {
-                if (i%5 == 0) timestamp = jsonDataList.get(index).get(i);
-                if (i%5 == 1) min = jsonDataList.get(index).get(i);
-                if (i%5 == 2) max = jsonDataList.get(index).get(i);
-                if (i%5 == 3) average = jsonDataList.get(index).get(i);
+        if (collectionIndex%2 == 1) {
+            for (int i=0; i<mongoData.get(collectionIndex).size(); i++) {
+                if (i%5 == 0) timestamp = mongoData.get(collectionIndex).get(i);
+                if (i%5 == 1) min = mongoData.get(collectionIndex).get(i);
+                if (i%5 == 2) max = mongoData.get(collectionIndex).get(i);
+                if (i%5 == 3) average = mongoData.get(collectionIndex).get(i);
                 if (i%5 == 4) {
-                    unit = jsonDataList.get(index).get(i);
+                    unit = mongoData.get(collectionIndex).get(i);
                     sb.append(".push({timestamp: ")
                     .append(timestamp)
                     .append(", min: ")
@@ -298,29 +168,6 @@ public class Tools {
 
 
 
-    // give the function the day and the sensorId and it will return every values associated with this day
-    public static ArrayList<String> getAllDayValues(String date, int sensorID, ArrayList<String> list, ArrayList<String> output) {
-        /*list:
-            - first column: sensorId
-            - second column: date
-            - third column: time
-            - fourth column: value*/
-        for(int i = 4; i < list.size(); i++) {
-            // check sensor ID
-            if ((i%4 == 0) && (Integer.parseInt(list.get(i)) == sensorID)) {
-                // if sensor id is the same, jump to date column
-                i++;
-                if (list.get(i).equals(date)) {
-                    i+=2;
-                    // if date is also the same, jump to value column and add it to the array
-                    output.add(list.get(i) + "|" + list.get(i-1));
-                }
-            }
-        }
-        return output;
-    }
-
-    //overrides the previous method to work with json
     //takes the list of list<String> generated with jsonToDataList, and the index of the collection wished
 /*  INDEX:  0 = temperature_raw
             2 = humidity_raw
@@ -359,15 +206,15 @@ public class Tools {
 
         lastTimestamp = Long.parseLong(mongoData.get(collectionIndex).get(0));
         Calendar dayLimit = Calendar.getInstance();
-        dayLimit.setTimeInMillis(lastTimestamp);
-        dayLimit.set(
+        dayLimit.setTimeInMillis(lastTimestamp); // set time to the latest timestamp
+        dayLimit.set( // set time at the beginning of the same day
             dayLimit.get(Calendar.YEAR),
             dayLimit.get(Calendar.MONTH),
             dayLimit.get(Calendar.DAY_OF_MONTH),
-            0,
-            0,
-            0
-        ); // get time at the beginning of the day
+            0, //sets hours to 0
+            0, //set minutes to 0
+            0 // sets seconds to 0
+        ); 
 
         if (collectionIndex%2 == 0) { //raws
             current = Integer.parseInt(mongoData.get(collectionIndex).get(1));

@@ -18,8 +18,8 @@
         <link href="@routes.Assets.versioned("stylesheets/lib/bootstrap.min.css")" rel="stylesheet" media="screen">
 
         <!-- load other libraries -->
-        <link href="@routes.Assets.versioned("javascripts/lib/moment.min.js")" type="text/javascript"> <!-- moment js -->
-        <script src="@routes.Assets.versioned("javascripts/lib/d3.legend.js")" type="text/javascript"></script>   <!-- d3.legend -->
+        <script src="@routes.Assets.versioned("javascripts/lib/moment.min.js")" type="text/javascript"></script>  <!-- moment js -->
+        <script src="@routes.Assets.versioned("javascripts/lib/d3.legend.js")" type="text/javascript"></script>  <!-- d3.legend -->
 
 
         <!-- load custom assets in public/javascripts for js files and public/stylesheets for css files -->
@@ -178,17 +178,31 @@
                             <h1 id="header-rowcol">Wind</h1>
                         </div> <!-- close panel wind header -->
                        <div class="body-panel-content">
-                            <div style="text-align: center;">WIND SPEED</div>
-                            <span id="dataHeader">Latest value:</span> <span id="windDataValueWSCur"></span> || <span id="windDataTimeWSCur"></span><br>
-                            <span id="dataHeader">Today's min:</span> <span id="windDataValueWSMin"></span> || <span id="windDataTimeWSMin"></span><br>
-                            <span id="dataHeader">Today's max:</span> <span id="windDataValueWSMax"></span> || <span id="windDataTimeWSMax"></span><br>
-                            <span id="dataHeader">Today's average:</span> <span id="windDataValueWSAvg"></span><br>
+                            <div id="compass"></div>
+                            <hr>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div style="text-align: center;">WIND SPEED</div>
+                                        <span id="dataHeader">Latest value:</span> <span id="windDataValueWSCur"></span> || <span id="windDataTimeWSCur"></span><br>
+                                        <span id="dataHeader">Today's min:</span> <span id="windDataValueWSMin"></span> || <span id="windDataTimeWSMin"></span><br>
+                                        <span id="dataHeader">Today's max:</span> <span id="windDataValueWSMax"></span> || <span id="windDataTimeWSMax"></span><br>
+                                        <span id="dataHeader">Today's average:</span> <span id="windDataValueWSAvg"></span><br>
+                                    </td>   
+                                    <td>
+                                        <div style="text-align: center;">WIND DIRECTION</div>
+                                        <span id="dataHeader">Latest value:</span> <span id="windDataValueWDCur"></span> || <span id="windDataTimeWDCur"></span><br>
+                                        <span id="dataHeader">Today's min:</span> <span id="windDataValueWDMin"></span> || <span id="windDataTimeWDMin"></span><br>
+                                        <span id="dataHeader">Today's max:</span> <span id="windDataValueWDMax"></span> || <span id="windDataTimeWDMax"></span><br>
+                                        <span id="dataHeader">Today's average:</span> <span id="windDataValueWDAvg"></span><br>
+                                    </td>
+                                </tr>
+                            </table>
+                            
 
-                            <div style="text-align: center;">WIND DIRECTION</div>
-                            <span id="dataHeader">Latest value:</span> <span id="windDataValueWDCur"></span> || <span id="windDataTimeWDCur"></span><br>
-                            <span id="dataHeader">Today's min:</span> <span id="windDataValueWDMin"></span> || <span id="windDataTimeWDMin"></span><br>
-                            <span id="dataHeader">Today's max:</span> <span id="windDataValueWDMax"></span> || <span id="windDataTimeWDMax"></span><br>
-                            <span id="dataHeader">Today's average:</span> <span id="windDataValueWDAvg"></span><br>
+
+                            
+                            
                         </div>
                     </div> <!-- close panel wind-->
                 </div> <!-- close col md 4 for panel wind-->
@@ -278,8 +292,8 @@
 
         /*onclick button graph temperature, plot graphs when pushed*/
         $('#buttonTemp').on('click', function() {
-            plotGraphLineTempRaw1Day(arrayMongoTempDataRaw);
-            plotGraphLineTempRaw7Days(arrayMongoTempDataRaw);
+            plotGraphTempRaw1Day(arrayMongoTempDataRaw);
+            plotGraphTempRaw7Days(arrayMongoTempDataRaw);
             // depending which button is pressed (here it is buttonTemp, so temperature panel's graph button), 
             // redefine refreshValue which is triggered by change on modal's custom tab
             // refreshValue is global so that other click() jquery methods can access the variable
@@ -296,13 +310,13 @@
                     var type = "year";
                     var dateY = yearValue;
                     var dateM = "";
-                    plotGraphLineTempCustom(arrayMongoTempDataAgr, type, dateM, dateY);
+                    plotGraphTempCustom(arrayMongoTempDataAgr, type, dateM, dateY);
                 } else {
                     document.getElementById("graphCustom").innerHTML = "";
                     var type = "month";
                     var dateY = yearValue;
                     var dateM = toJSMonth(monthValue);
-                    plotGraphLineTempCustom(arrayMongoTempDataAgr, type, dateM, dateY);
+                    plotGraphTempCustom(arrayMongoTempDataAgr, type, dateM, dateY);
                 }
             };
         });
@@ -360,6 +374,7 @@
         });
 
         //WIND PANEL
+        //wind speed
         var arrayWindSDataRaw = [];
         @for(d <- 0 until allDayWindS.size()) {
             arrayWindSDataRaw.push(@allDayWindS.get(d))
@@ -372,6 +387,10 @@
             arrayWindDDataRaw.push(@allDayWindD.get(d))
         }
         displayWindDData(arrayWindDDataRaw);
+
+        //compass
+        drawCompass("@{routes.Assets.versioned("images/svg/compass-rose-needleless.svg")}", "@{routes.Assets.versioned("images/svg/needle.svg")}", arrayWindDDataRaw);
+        rotateNeedle();
 
 
 

@@ -123,8 +123,8 @@ public class DataGenerators {
 		for (long i = 0 ; i < numberOfInsert ; i++) {
 			long finalTimestamp = nextDayTimestamp + i * deltaMillis; // every var in this operation MUST be long because java use var type to store result when 
 			Document document = new Document("timestamp", finalTimestamp) // prioritizing. ( i * deltaMillis can exceed 32 bits easily on long periods of time)
-				.append("temperature", random.nextInt(MAXTEMP - MINTEMP) + MINTEMP)
-				.append("unit", "C");
+				.append("value", random.nextInt(MAXTEMP - MINTEMP) + MINTEMP)
+				.append("unit", "Degrees Celsius");
 
 			tempRawCollection.insertOne(document);
 		}
@@ -133,8 +133,8 @@ public class DataGenerators {
 		for (long i = 0 ; i < numberOfInsert ; i++) {
 			long finalTimestamp = nextDayTimestamp + i * deltaMillis; // every var in this operation MUST be long because java use var type to store result when 
 			Document document = new Document("timestamp", finalTimestamp) // prioritizing. ( i * deltaMillis can exceed 32 bits easily on long periods of time)
-				.append("humidity", random.nextInt(MAXHUMI - MINHUMI) + MINHUMI)
-				.append("unit", "%");
+				.append("value", random.nextInt(MAXHUMI - MINHUMI) + MINHUMI)
+				.append("unit", "Percent");
 
 			humiRawCollection.insertOne(document);
 		}
@@ -143,8 +143,8 @@ public class DataGenerators {
 		for (long i = 0 ; i < numberOfInsert ; i++) {
 			long finalTimestamp = nextDayTimestamp + i * deltaMillis; // every var in this operation MUST be long because java use var type to store result when 
 			Document document = new Document("timestamp", finalTimestamp) // prioritizing. ( i * deltaMillis can exceed 32 bits easily on long periods of time)
-				.append("windspeed", random.nextInt(MAXWINDSPEED - MINWINDSPEED) + MINWINDSPEED)
-				.append("unit", "kn");
+				.append("value", random.nextInt(MAXWINDSPEED - MINWINDSPEED) + MINWINDSPEED)
+				.append("unit", "Knots");
 
 			windSRawCollection.insertOne(document);
 		}
@@ -153,8 +153,8 @@ public class DataGenerators {
 		for (long i = 0 ; i < numberOfInsert ; i++) {
 			long finalTimestamp = nextDayTimestamp + i * deltaMillis; // every var in this operation MUST be long because java use var type to store result when 
 			Document document = new Document("timestamp", finalTimestamp) // prioritizing. ( i * deltaMillis can exceed 32 bits easily on long periods of time)
-				.append("winddirection", random.nextInt(MAXWINDIR - MINWINDDIR) + MINWINDDIR)
-				.append("unit", "°");
+				.append("value", random.nextInt(MAXWINDIR - MINWINDDIR) + MINWINDDIR)
+				.append("unit", "Degrees");
 
 			windDRawCollection.insertOne(document);
 		}		
@@ -163,8 +163,8 @@ public class DataGenerators {
 		for (long i = 0 ; i < numberOfInsert ; i++) {
 			long finalTimestamp = nextDayTimestamp + i * deltaMillis; // every var in this operation MUST be long because java use var type to store result when 
 			Document document = new Document("timestamp", finalTimestamp) // prioritizing. ( i * deltaMillis can exceed 32 bits easily on long periods of time)
-				.append("rain", random.nextInt(MAXRAIN - MINRAIN) + MINRAIN)
-				.append("unit", "mm");
+				.append("value", random.nextInt(MAXRAIN - MINRAIN) + MINRAIN)
+				.append("unit", "Millimeter");
 
 			rainRawCollection.insertOne(document);
 		}
@@ -173,8 +173,8 @@ public class DataGenerators {
 		for (long i = 0 ; i < numberOfInsert ; i++) {
 			long finalTimestamp = nextDayTimestamp + i * deltaMillis; // every var in this operation MUST be long because java use var type to store result when 
 			Document document = new Document("timestamp", finalTimestamp) // prioritizing. ( i * deltaMillis can exceed 32 bits easily on long periods of time)
-				.append("airquality", random.nextInt(MAXAIR - MINAIR) + MINAIR)
-				.append("unit", "%");
+				.append("value", random.nextInt(MAXAIR - MINAIR) + MINAIR)
+				.append("unit", "Percent");
 
 			airRawCollection.insertOne(document);
 		}
@@ -238,16 +238,16 @@ public class DataGenerators {
 						//we are in a new day
 						if (cursorDayIterator == 0) {
 							//if it is the first cursor of the new day, init
-							minDay = (int) cursorNext.get("temperature");
-							maxDay = (int) cursorNext.get("temperature");
-							averageDay = (int) cursorNext.get("temperature");
+							minDay = (int) cursorNext.get("value");
+							maxDay = (int) cursorNext.get("value");
+							averageDay = (int) cursorNext.get("value");
 							cursorNext = cursor.next(); //get the next cursor
 							cursorDayIterator++;
 						} else {
 							//go through the other documents
-							if (((int) cursorNext.get("temperature")) > maxDay) maxDay = ((int) cursorNext.get("temperature"));
-							if (((int) cursorNext.get("temperature")) < minDay) minDay = ((int) cursorNext.get("temperature"));
-							averageDay += (int) cursorNext.get("temperature");
+							if (((int) cursorNext.get("value")) > maxDay) maxDay = ((int) cursorNext.get("value"));
+							if (((int) cursorNext.get("value")) < minDay) minDay = ((int) cursorNext.get("value"));
+							averageDay += (int) cursorNext.get("value");
 							cursorDayIterator++;
 							cursorNext = cursor.next();
 						}
@@ -259,7 +259,7 @@ public class DataGenerators {
 						.append("min", minDay)
 						.append("max", maxDay)
 						.append("average", averageDay/(cursorDayIterator+1))
-						.append("unit", "C");
+						.append("unit", "Degrees Celsius");
 
 					tempAggregatedCollection.insertOne(document);
 					cursorDayIterator = 0;
@@ -316,16 +316,16 @@ public class DataGenerators {
 						//we are in a new day
 						if (cursorDayIterator == 0) {
 							//if it is the first cursor of the new day, init
-							minDay = (int) cursorNext.get("humidity");
-							maxDay = (int) cursorNext.get("humidity");
-							averageDay = (int) cursorNext.get("humidity");
+							minDay = (int) cursorNext.get("value");
+							maxDay = (int) cursorNext.get("value");
+							averageDay = (int) cursorNext.get("value");
 							cursorNext = cursor.next(); //get the next cursor
 							cursorDayIterator++;
 						} else {
 							//go through the other documents
-							if (((int) cursorNext.get("humidity")) > maxDay) maxDay = ((int) cursorNext.get("humidity"));
-							if (((int) cursorNext.get("humidity")) < minDay) minDay = ((int) cursorNext.get("humidity"));
-							averageDay += (int) cursorNext.get("humidity");
+							if (((int) cursorNext.get("value")) > maxDay) maxDay = ((int) cursorNext.get("value"));
+							if (((int) cursorNext.get("value")) < minDay) minDay = ((int) cursorNext.get("value"));
+							averageDay += (int) cursorNext.get("value");
 							cursorDayIterator++;
 							cursorNext = cursor.next();
 						}
@@ -337,7 +337,7 @@ public class DataGenerators {
 						.append("min", minDay)
 						.append("max", maxDay)
 						.append("average", averageDay/(cursorDayIterator+1))
-						.append("unit", "%");
+						.append("unit", "Percent");
 
 					humiAggregatedCollection.insertOne(document);
 					cursorDayIterator = 0;
@@ -394,16 +394,16 @@ public class DataGenerators {
 						//we are in a new day
 						if (cursorDayIterator == 0) {
 							//if it is the first cursor of the new day, init
-							minDay = (int) cursorNext.get("rain");
-							maxDay = (int) cursorNext.get("rain");
-							averageDay = (int) cursorNext.get("rain");
+							minDay = (int) cursorNext.get("value");
+							maxDay = (int) cursorNext.get("value");
+							averageDay = (int) cursorNext.get("value");
 							cursorNext = cursor.next(); //get the next cursor
 							cursorDayIterator++;
 						} else {
 							//go through the other documents
-							if (((int) cursorNext.get("rain")) > maxDay) maxDay = ((int) cursorNext.get("rain"));
-							if (((int) cursorNext.get("rain")) < minDay) minDay = ((int) cursorNext.get("rain"));
-							averageDay += (int) cursorNext.get("rain");
+							if (((int) cursorNext.get("value")) > maxDay) maxDay = ((int) cursorNext.get("value"));
+							if (((int) cursorNext.get("value")) < minDay) minDay = ((int) cursorNext.get("value"));
+							averageDay += (int) cursorNext.get("value");
 							cursorDayIterator++;
 							cursorNext = cursor.next();
 						}
@@ -415,7 +415,7 @@ public class DataGenerators {
 						.append("min", minDay)
 						.append("max", maxDay)
 						.append("average", averageDay/(cursorDayIterator+1))
-						.append("unit", "mm");
+						.append("unit", "Millimeter");
 
 					rainAggregatedCollection.insertOne(document);
 					cursorDayIterator = 0;
@@ -473,16 +473,16 @@ public class DataGenerators {
 						//we are in a new day
 						if (cursorDayIterator == 0) {
 							//if it is the first cursor of the new day, init
-							minDay = (int) cursorNext.get("airquality");
-							maxDay = (int) cursorNext.get("airquality");
-							averageDay = (int) cursorNext.get("airquality");
+							minDay = (int) cursorNext.get("value");
+							maxDay = (int) cursorNext.get("value");
+							averageDay = (int) cursorNext.get("value");
 							cursorNext = cursor.next(); //get the next cursor
 							cursorDayIterator++;
 						} else {
 							//go through the other documents
-							if (((int) cursorNext.get("airquality")) > maxDay) maxDay = ((int) cursorNext.get("airquality"));
-							if (((int) cursorNext.get("airquality")) < minDay) minDay = ((int) cursorNext.get("airquality"));
-							averageDay += (int) cursorNext.get("airquality");
+							if (((int) cursorNext.get("value")) > maxDay) maxDay = ((int) cursorNext.get("value"));
+							if (((int) cursorNext.get("value")) < minDay) minDay = ((int) cursorNext.get("value"));
+							averageDay += (int) cursorNext.get("value");
 							cursorDayIterator++;
 							cursorNext = cursor.next();
 						}
@@ -494,7 +494,7 @@ public class DataGenerators {
 						.append("min", minDay)
 						.append("max", maxDay)
 						.append("average", averageDay/(cursorDayIterator+1))
-						.append("unit", "%");
+						.append("unit", "Percent");
 
 					airAggregatedCollection.insertOne(document);
 					cursorDayIterator = 0;
@@ -551,16 +551,16 @@ public class DataGenerators {
 						//we are in a new day
 						if (cursorDayIterator == 0) {
 							//if it is the first cursor of the new day, init
-							minDay = (int) cursorNext.get("windspeed");
-							maxDay = (int) cursorNext.get("windspeed");
-							averageDay = (int) cursorNext.get("windspeed");
+							minDay = (int) cursorNext.get("value");
+							maxDay = (int) cursorNext.get("value");
+							averageDay = (int) cursorNext.get("value");
 							cursorNext = cursor.next(); //get the next cursor
 							cursorDayIterator++;
 						} else {
 							//go through the other documents
-							if (((int) cursorNext.get("windspeed")) > maxDay) maxDay = ((int) cursorNext.get("windspeed"));
-							if (((int) cursorNext.get("windspeed")) < minDay) minDay = ((int) cursorNext.get("windspeed"));
-							averageDay += (int) cursorNext.get("windspeed");
+							if (((int) cursorNext.get("value")) > maxDay) maxDay = ((int) cursorNext.get("value"));
+							if (((int) cursorNext.get("value")) < minDay) minDay = ((int) cursorNext.get("value"));
+							averageDay += (int) cursorNext.get("value");
 							cursorDayIterator++;
 							cursorNext = cursor.next();
 						}
@@ -572,7 +572,7 @@ public class DataGenerators {
 						.append("min", minDay)
 						.append("max", maxDay)
 						.append("average", averageDay/(cursorDayIterator+1))
-						.append("unit", "kn");
+						.append("unit", "Knots");
 
 					windSAggregatedCollection.insertOne(document);
 					cursorDayIterator = 0;
@@ -629,16 +629,16 @@ public class DataGenerators {
 						//we are in a new day
 						if (cursorDayIterator == 0) {
 							//if it is the first cursor of the new day, init
-							minDay = (int) cursorNext.get("winddirection");
-							maxDay = (int) cursorNext.get("winddirection");
-							averageDay = (int) cursorNext.get("winddirection");
+							minDay = (int) cursorNext.get("value");
+							maxDay = (int) cursorNext.get("value");
+							averageDay = (int) cursorNext.get("value");
 							cursorNext = cursor.next(); //get the next cursor
 							cursorDayIterator++;
 						} else {
 							//go through the other documents
-							if (((int) cursorNext.get("winddirection")) > maxDay) maxDay = ((int) cursorNext.get("winddirection"));
-							if (((int) cursorNext.get("winddirection")) < minDay) minDay = ((int) cursorNext.get("winddirection"));
-							averageDay += (int) cursorNext.get("winddirection");
+							if (((int) cursorNext.get("value")) > maxDay) maxDay = ((int) cursorNext.get("value"));
+							if (((int) cursorNext.get("value")) < minDay) minDay = ((int) cursorNext.get("value"));
+							averageDay += (int) cursorNext.get("value");
 							cursorDayIterator++;
 							cursorNext = cursor.next();
 						}
@@ -650,7 +650,7 @@ public class DataGenerators {
 						.append("min", minDay)
 						.append("max", maxDay)
 						.append("average", averageDay/(cursorDayIterator+1))
-						.append("unit", "°");
+						.append("unit", "Degrees");
 
 					windDAggregatedCollection.insertOne(document);
 					cursorDayIterator = 0;

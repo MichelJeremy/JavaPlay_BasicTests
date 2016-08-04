@@ -145,7 +145,7 @@ public class Application extends Controller {
 
     public Result generator() {
         DataGenerators dg = new DataGenerators();
-        dg.fullGeneratorMongoDB("myDB2", 500, 24, 7);
+        dg.fullGeneratorMongoDB("myDB", 500, 24, 7);
 
         return ok(generator.render());
     }

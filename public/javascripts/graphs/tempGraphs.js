@@ -1,6 +1,6 @@
 // plots graphs for last 7 days
 
-function plotGraphLineTempRaw7Days(mongoData) {
+function plotGraphTempRaw7Days(mongoData) {
         // size configuration of the chart
     var margin = {top: 20, right: 30, bottom: 100, left: 20},
         margin2 = {top: 430, right: 30, bottom: 40, left: 20},
@@ -158,7 +158,7 @@ function plotGraphLineTempRaw7Days(mongoData) {
 /* sources: http://jsfiddle.net/n7joxbn6/4/
             http://bl.ocks.org/DStruths/9c042e3a6b66048b5bd4
             */
-function plotGraphLineTempRaw1Day(mongoData) {
+function plotGraphTempRaw1Day(mongoData) {
     // size configuration of the chart
     var margin = {top: 10, right: 130, bottom: 100, left: 20},
         margin2 = {top: 430, right: 130, bottom: 40, left: 20},
@@ -332,7 +332,7 @@ function plotGraphLineTempRaw1Day(mongoData) {
 }
 
 
-function plotGraphLineTempCustom(mongoData, periodType, month, year) {
+function plotGraphTempCustom(mongoData, periodType, month, year) {
 /*    mongoData is a JS Object containing the fields timestamp (Number), min (Number), max (Number) and average (Number)
     PeriodType is a String and can be either "month", "Month", "year" or "Year". Any other value will lead to an error and the graph not working.
     month is a Number corresponding to the month's number (js style, january is 0, december is 11)
@@ -454,8 +454,8 @@ function plotGraphLineTempCustom(mongoData, periodType, month, year) {
         // line focus area
         var line2 = d3.svg.line()
             .interpolate("monotone")
-            .x(function(d) { return x(d.timestamp);})
-            .y(function(d) { return y(d.value);});
+            .x(function(d) { return x2(d.timestamp);})
+            .y(function(d) { return y2(d.value);});
 
 
         var svg = d3.select("#graphCustom")
@@ -551,25 +551,25 @@ function plotGraphLineTempCustom(mongoData, periodType, month, year) {
           =     CONTEXT PART (= brushing area at the bottom of the graph)    =   
           ====================================================================*/
 
-          //does not display the way I want, so commented for now
-/*        context.append("path")
+        //black area needs to be debugged. Probably caused by the rectangle
+        context.append("path")
             .datum(newMongoDataAv)
-            .attr("class", "line")
-            .attr("stroke", color)
+            .attr("class", "line2")
+            .attr("stroke", "#f48411")
             .attr("d", line2);
 
         context.append("path")
             .datum(newMongoDataMa)
-            .attr("class", "line")
-            .attr("stroke", color)
+            .attr("class", "line2")
+            .attr("stroke", "#db2020")
             .attr("d", line2);
 
         context.append("path")
             .datum(newMongoDataMi)
-            .attr("class", "line")
-            .attr("stroke", color)
+            .attr("class", "line2")
+            .attr("stroke", "#0164ec")
             .attr("d", line2);
-*/
+
         // adds x-axis in context area
         context.append("g")
             .attr("class", "x axis")
@@ -601,7 +601,7 @@ function plotGraphLineTempCustom(mongoData, periodType, month, year) {
           ====================================================================*/
 
 
-        var mouseG = focus.append("g")
+/*        var mouseG = focus.append("g")
            .attr("class", "mouse-over-effects");
 
         mouseG.append("path") // this is the black vertical line to follow mouse
@@ -637,7 +637,7 @@ function plotGraphLineTempCustom(mongoData, periodType, month, year) {
            .style("stroke-width", "1px")
            .style("opacity", "0");
 
-/*        mousePerLine.append("text")
+        mousePerLine.append("text")
            .attr("transform", "translate(10,3)");
 
         mouseG.append('svg:rect') // append a rect to catch mouse movements on canvas
@@ -705,6 +705,7 @@ function plotGraphLineTempCustom(mongoData, periodType, month, year) {
         function brushed() {
             x.domain(brush.empty() ? x2.domain() : brush.extent()); // If brush is empty then reset the x domain to default, if not then make it the brush extent 
             focus.selectAll(".line").attr("d", line);
+            context.selectAll(".line2").attr("d", line2);
             focus.select(".x.axis").call(xAxis);
         };
 

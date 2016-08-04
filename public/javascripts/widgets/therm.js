@@ -1,51 +1,17 @@
 //display thermometer
-/*Parameters :
-      - param1: @list test*/
-function plotThermometer (dataList) {
+function plotThermometer(dataList) {
   var width = 180,
       height = 380,
       maxTemp = 0,
-      maxTime = "",
       minTemp = 0,
-      minTime = "",
-      currentTemp = 0,
-      curTime = "";
-
-  // get the temperature min, max and current for today 
-  // First: get date ( done in java atm)
-  // then: scan whole day for min and max, and signal that scan has been done
-  // then: get latest data (current temp)
-  // end
-
-
-/*  for (var i = 0; i < param1.length; i++) {
-    if ( i == 0) {
-        minTemp = param1[i][0];
-        minTime = param1[i][1];
-        maxTemp = param1[i][0];
-        maxTime = param1[i][1];
-    } else {
-      if (param1[i][0] < minTemp) {
-        minTemp = param1[i][0];
-        minTime = param1[i][1];
-      }
-      if (param1[i][0] > maxTemp) {
-        maxTemp = param1[i][0];
-        maxTime = param1[i][1];
-      }
-    }
-    currentTemp = param1[i][0];
-    curTime = param1[i][1];
-  }
-*/
-  var currentTemp = dataList[5];
+      currentTemp = dataList[5],
 
   var bottomY = height - 5,
       topY = 5,
       bulbRadius = 20,
       tubeWidth = 21.5,
       tubeBorderWidth = 1,
-      mercuryColor = "#FF0000", // go red here
+      mercuryColor = "#FF0000", 
       innerBulbColor = "#FFFFFF"
       tubeBorderColor = "#000000";
 

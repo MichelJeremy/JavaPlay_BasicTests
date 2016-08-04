@@ -31,7 +31,7 @@ function plotGraphRainRaw7Days(mongoData) {
         .x(x2)
         .on("brush", brushed); // brushed function called on brush event
 
-    // element defintion: 
+    // element definition: 
     //line element for context part
     var line = d3.svg.line()
         .interpolate("monotone")

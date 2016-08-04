@@ -17,8 +17,8 @@ public class Global extends GlobalSettings {
     public void onStart(Application application) {
 
         Akka.system().scheduler().schedule(
-            Duration.create(0, TimeUnit.SECONDS),
-            Duration.create(5, TimeUnit.SECONDS),
+            Duration.create(0, TimeUnit.SECONDS), // creation time
+            Duration.create(5, TimeUnit.SECONDS), // period
             new Runnable() {
                 @Override
                 public void run() {

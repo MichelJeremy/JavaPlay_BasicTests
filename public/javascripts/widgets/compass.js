@@ -1,9 +1,10 @@
 var needle, svg, g, width, height;
 
-function drawCompass(compassNeedleless, needle) {
+function drawCompass(compassNeedleless, needle, datalist) {
 
 	width = 200;
 	height = 200;
+	window.angleNeedle = datalist[5];
 
 	svg = d3.select("#compass")
 		.append("svg")
@@ -26,10 +27,8 @@ function drawCompass(compassNeedleless, needle) {
 
 }
 
-function rotateNeedle(valueList, index) {
-	var angle = valueList[index];
-		
+function rotateNeedle() {
+	console.log(window.angleNeedle);
     d3.select("#needle")
-    	.attr("transform", "rotate(180, 102, 98)");
-    	
+    	.attr("transform", "rotate(50, 102, 98)");
 }
