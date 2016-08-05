@@ -4,7 +4,7 @@ function plotThermometer(dataList) {
       height = 380,
       maxTemp = 0,
       minTemp = 0,
-      currentTemp = dataList[5],
+      currentTemp = dataList[5];
 
   var bottomY = height - 5,
       topY = 5,

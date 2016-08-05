@@ -115,10 +115,10 @@ public class Application extends Controller {
         allDayRain = Tools.getAllDayValues(mongoData, 8);
         allDayAir = Tools.getAllDayValues(mongoData, 10);
 
-        //for testing
+/*        //for testing
         for(int i = 0; i<mongoDataTempAgr.size(); i++){
             Logger.debug(""+mongoDataTempAgr.get(i));
-        }
+        }*/
 
 
         return ok(landing.render(
