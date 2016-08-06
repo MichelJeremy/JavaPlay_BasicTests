@@ -18,7 +18,7 @@
 
 1. Clone or unzip this repository
 2. Run MongoDB server
-3. Go to root folder
+3. Go to root folderh
 4. Run the activator ("bin/activator run") with your console
-5. When all assets have been downloaded and the project is compiled, access http://localhost:9000/landing/generator on your web browser (Chrome tested). THis will generate a database called "myDB", which contains random sets of data
-6. access http://localhost:9000/landing when the data had been generated
+5. When all assets have been downloaded and the project is compiled, access http://localhost:9000/landing/generator on your web browser (Chrome works 100%, other browsers not tested). Tis will generate a database called "myDB", which contains random sets of data
+6. Access http://localhost:9000/landing when the data has been generated
